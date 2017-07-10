@@ -1,9 +1,17 @@
+//Settings
+@import 'variables';
+
+//Globals
 @import 'global/type';
 @import 'global/util';
+@import 'global/colors';
 
+//Routes
 @import 'routes/index';
+
+//Partials
+@import 'partials/home-block';
 
 * {
   -webkit-font-smoothing: antialiased;
 }
-

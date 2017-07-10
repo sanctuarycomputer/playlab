@@ -1,10 +1,11 @@
-/* Variables */
-$footer-height: 200px;
-
 .full {
   width: 100%;
 }
 
 .footer-room {
-  margin-bottom: $footer-height;
+  margin-bottom: $footerHeight;
+}
+
+.site-min-height {
+  min-height: calc(100vh - #{$headerHeight});
 }

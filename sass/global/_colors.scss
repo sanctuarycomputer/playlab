@@ -1,0 +1,19 @@
+@function color($color-name) {
+  @return map-get($colors, $color-name);
+}
+
+@each $color-name, $value in $colors  {
+
+  .#{$color-name} {
+    color: $value;
+  }
+  .bg-#{$color-name} {
+    background-color: $value;
+  }
+  .border-#{$color-name} {
+    border-color: $value;
+  }
+  .stroke-#{$color-name} {
+    stroke: $value;
+  }
+}

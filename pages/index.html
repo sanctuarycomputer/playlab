@@ -3,7 +3,7 @@
 
 {% block content %}
 <div id='index' class="z1 relative mb4 footer-room">
-  <div class='clearfix mt4'>
+  <div class='home-block clearfix mt4 site-min-height bg-white'>
     <div class='max-width-4 mx-auto pt3'>
       <div class='col col-12 p2'>
         <p class='mb3'>
@@ -22,7 +22,7 @@ This is an opening statement that can change and stuff and it’s not our bio. L
   </div>
 
   {% for work in cms.work %}
-    <div class='clearfix' style='background-color:{{work.block_color}}'>
+    <div class='home-block clearfix' style='background-color:{{work.block_color}}'>
       <div class='max-width-4 mx-auto'>
         <div class='col col-12'>
           <h1 class='center py2'>{{work.name}}</h1>
