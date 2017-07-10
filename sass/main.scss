@@ -1,3 +1,9 @@
-body {
-  background-color: pink;
+@import 'global/type';
+@import 'global/util';
+
+@import 'routes/index';
+
+* {
+  -webkit-font-smoothing: antialiased;
 }
+

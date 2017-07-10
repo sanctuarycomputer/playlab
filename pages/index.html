@@ -1,41 +1,43 @@
-{# ------------------------------------------------------- #}
-
-{# YOUR HOMEPAGE #}
-
-{# Webhook uses the SWIG.js (like Djagno/Twig) templating system. Their documentation is here: #}
-{# http://paularmstrong.github.io/swig/docs/tags/ #}
-
-{# Learn about calling data into Webhook pages here: #}
-{# http://www.webhook.com/docs/template-rules-and-filters/ #}
-
-{# ------------------------------------------------------- #}
-
-{# Confused what extends and blocks do? Watch a primer: #}
-{# http://www.webhook.com/docs/template-inheritance-blocks/ #}
 {% extends "templates/partials/base.html" %}
-
-{# This sets our page <title>. It will append "- Homepage" to the site title defined in base. #}
 {% block title %}{% parent %} - Homepage{% endblock %}
 
 {% block content %}
+<div id='index'>
+  <div class='clearfix mt3 mb4'>
+    <div class='max-width-4 mx-auto'>
+      <div class='col col-12 p2'>
+        <p class='mb3'>
+This is an opening statement that can change and stuff and it’s not our bio. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris consequat feugiat ex, et hendrerit turpis tincidunt nec. Fusce vulputate viverra mi, efficitur links are underlined interdum at. Fusce et posuere mi. Maecenas ullamcorper maximus quam, in porttitor lacus pulvinar vel. Proin vel laoreet magna. Donec finibus sed metus a bibendum.
+        </p>
+      </div>
+    </div>
+    <div class='max-width-3 mx-auto'>
+      <div class='col col-12 p2'>
+        <img class='full fit' src='http://via.placeholder.com/350x250' />
+        <p>
+        Lorem ipsum dolor sit amet,consectetur adipiscing elit.
+        </p>
+      </div>
+    </div>
+  </div>
 
-  <h1>Hello world!</h1>
+  <div class='clearfix' style='background-color: #1A12FF'>
+    <div class='max-width-4 mx-auto'>
+      <div class='col col-12 p2'>
+        <h1 class='center'>Dame Products</h1>
+        <img src='http://via.placeholder.com/350x250' />
+        <p>
+      This is an opening statement that can change and stuff and it’s not our bio. Lo-rem ipsum dolor sit amet,consectetur adipiscing elit. Mau-ris consequat feugiat ex, et hendr-erit tur-pis tincidunt nec. Fusce vulputate viv-erra mi, efficitur links are underlined inter-efficitur links arente underlined intervsio.
+        </p>
+        <img src='http://via.placeholder.com/350x250' />
+        <p>
+        Lorem ipsum dolor sit amet,consectetur adipiscing elit.
+        </p>
+        <img src='http://via.placeholder.com/350x250' />
+        <p class='center'>See more</p>
+      </div>
+    </div>
+  </div>
 
-  <p>This is your homepage, located at /pages/index.html.</p>
-
-  <p><a href="/cms/">Looking for the CMS?</a></p>
-
-  {# If you have at least content page type, we show a list. #}
-  {% if cms_types|size !== 0 %}
-
-    <h3>Content types you've created in the CMS so far.</h3>
-
-    <ul>
-    {% for type in cms_types %}
-      <li><a href="{{ url(type) }}">{{ type.name }}</a></li>
-    {% endfor %}
-    </ul>
-
-  {% endif %}
-
+</div>
 {% endblock %}
