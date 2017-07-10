@@ -2,9 +2,9 @@
 {% block title %}{% parent %} - Homepage{% endblock %}
 
 {% block content %}
-<div id='index'>
-  <div class='clearfix mt3 mb4'>
-    <div class='max-width-4 mx-auto'>
+<div id='index' class="z1 relative mb4 footer-room">
+  <div class='clearfix mt4'>
+    <div class='max-width-4 mx-auto pt3'>
       <div class='col col-12 p2'>
         <p class='mb3'>
 This is an opening statement that can change and stuff and it’s not our bio. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris consequat feugiat ex, et hendrerit turpis tincidunt nec. Fusce vulputate viverra mi, efficitur links are underlined interdum at. Fusce et posuere mi. Maecenas ullamcorper maximus quam, in porttitor lacus pulvinar vel. Proin vel laoreet magna. Donec finibus sed metus a bibendum.
@@ -21,23 +21,26 @@ This is an opening statement that can change and stuff and it’s not our bio. L
     </div>
   </div>
 
-  <div class='clearfix' style='background-color: #1A12FF'>
-    <div class='max-width-4 mx-auto'>
-      <div class='col col-12 p2'>
-        <h1 class='center'>Dame Products</h1>
-        <img src='http://via.placeholder.com/350x250' />
-        <p>
-      This is an opening statement that can change and stuff and it’s not our bio. Lo-rem ipsum dolor sit amet,consectetur adipiscing elit. Mau-ris consequat feugiat ex, et hendr-erit tur-pis tincidunt nec. Fusce vulputate viv-erra mi, efficitur links are underlined inter-efficitur links arente underlined intervsio.
-        </p>
-        <img src='http://via.placeholder.com/350x250' />
-        <p>
-        Lorem ipsum dolor sit amet,consectetur adipiscing elit.
-        </p>
-        <img src='http://via.placeholder.com/350x250' />
-        <p class='center'>See more</p>
+  {% for work in cms.work %}
+    <div class='clearfix' style='background-color:{{work.block_color}}'>
+      <div class='max-width-4 mx-auto'>
+        <div class='col col-12'>
+          <h1 class='center py2'>{{work.name}}</h1>
+          <img class='col-12 p2' src='{{work.featured_image.url}}' />
+          <p class='p4'>{{work.summary}}</p>
+          <div class='center'>
+            {% for image in work.gallery %}
+              {% if image|first %}
+                <img class='col-10 p2' src='{{image.url}}'/>
+              {% endif %}
+            {% endfor %}
+          </div>
+          <p class='center py2'>See more</p>
+        </div>
       </div>
     </div>
-  </div>
+  {% endfor %}
+
 
 </div>
 {% endblock %}

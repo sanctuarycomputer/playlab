@@ -9,8 +9,13 @@ p {
   line-height: 2.2rem;
 }
 
+/* Variables */
 .full {
   width: 100%;
+}
+
+.footer-room {
+  margin-bottom: 200px;
 }
 
 * {
