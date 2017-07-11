@@ -1,31 +1,28 @@
 //Homepage Scroll interaction
 let $homeBlocks = $('.home-block');
 
+$($homeBlocks[0]).find('.title-bar').addClass('next');
+
 $homeBlocks.each((i, element) => {
   let $homeBlock = $(element);
-
 
   //Peek Next
   $homeBlock.waypoint({
     handler: function(direction) {
-      let first = this.group.first();
-      let next = this.next();
-
-      debugger;
-      if (next !== first) {
-        $(next.element).addClass('next-in-line');
-      }
+      $(this.element).find('.title-bar').removeClass('next');
     },
-    offset: '50%',
-    group: 'home-middle'
+    offset: function() {
+      return $(window).innerHeight() - (125/2);
+    }
   });
 
   //Scroll Next
   $homeBlock.waypoint({
     handler: function(direction) {
-      console.log('waypoint 1')
+      let next = this.next().element;
+      $(next).find('.title-bar').addClass('next');
     },
-    offset: '2%',
+    offset: 25,
     group: 'home-bottom'
   });
 })

@@ -4,30 +4,28 @@
 //Homepage Scroll interaction
 var $homeBlocks = $('.home-block');
 
+$($homeBlocks[0]).find('.title-bar').addClass('next');
+
 $homeBlocks.each(function (i, element) {
   var $homeBlock = $(element);
 
   //Peek Next
   $homeBlock.waypoint({
     handler: function handler(direction) {
-      var first = this.group.first();
-      var next = this.next();
-
-      debugger;
-      if (next !== first) {
-        $(next.element).addClass('next-in-line');
-      }
+      $(this.element).find('.title-bar').removeClass('next');
     },
-    offset: '50%',
-    group: 'home-middle'
+    offset: function offset() {
+      return $(window).innerHeight() - 125 / 2;
+    }
   });
 
   //Scroll Next
   $homeBlock.waypoint({
     handler: function handler(direction) {
-      console.log('waypoint 1');
+      var next = this.next().element;
+      $(next).find('.title-bar').addClass('next');
     },
-    offset: '2%',
+    offset: 25,
     group: 'home-bottom'
   });
 });

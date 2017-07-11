@@ -70,11 +70,21 @@ p {
   stroke: #ECEAEA;
 }
 
-.home-block.next-in-line {
-  position: fixed;
+.home-block {
+  padding-top: 125px;
+  position: relative;
+}
+.home-block .title-bar {
+  height: 125px;
+  position: absolute;
+  top: 0;
   left: 0;
   right: 0;
-  top: 97%;
+}
+.home-block .title-bar.next {
+  position: fixed;
+  bottom: -62.5px;
+  top: auto;
 }
 
 * {

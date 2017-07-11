@@ -3,7 +3,7 @@
 
 {% block content %}
 <div id='index' class="z1 relative mb4 footer-room">
-  <div class='home-block clearfix mt4 site-min-height bg-white'>
+  <div class='clearfix mt4 site-min-height bg-white'>
     <div class='max-width-4 mx-auto pt3'>
       <div class='col col-12 p2'>
         <p class='mb3'>
@@ -23,9 +23,11 @@ This is an opening statement that can change and stuff and it’s not our bio. L
 
   {% for work in cms.work %}
     <div class='home-block clearfix' style='background-color:{{work.block_color}}'>
+      <div class='title-bar' style='background-color:{{work.block_color}}'>
+        <h1 class='center py2'>{{work.name}}</h1>
+      </div>
       <div class='max-width-4 mx-auto'>
         <div class='col col-12'>
-          <h1 class='center py2'>{{work.name}}</h1>
           <img class='col-12 p2' src='{{work.featured_image.url}}' />
           <p class='p4'>{{work.summary}}</p>
           <div class='center'>
@@ -40,7 +42,5 @@ This is an opening statement that can change and stuff and it’s not our bio. L
       </div>
     </div>
   {% endfor %}
-
-
 </div>
 {% endblock %}

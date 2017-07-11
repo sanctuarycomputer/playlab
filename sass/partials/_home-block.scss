@@ -1,8 +1,16 @@
 .home-block {
-  &.next-in-line {
-    position: fixed;
+  padding-top: $titleBarHeight;
+  position: relative;
+  .title-bar {
+    height: $titleBarHeight;
+    position: absolute;
+    top: 0;
     left: 0;
     right: 0;
-    top: 97%;
+    &.next {
+      position: fixed;
+      bottom: -$titleBarHeight/2;
+      top: auto;
+    }
   }
 }
