@@ -1,0 +1,22 @@
+.home-block {
+  padding-top: $titleBarHeight;
+  position: relative;
+  .title-bar {
+    height: $titleBarHeight;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    &.next {
+      position: fixed;
+      bottom: -$titleBarHeight/2;
+      top: auto;
+    }
+  }
+
+  @media #{$medium-up} {
+    &:last-of-type {
+      margin-bottom: $footerHeight;
+    }
+  }
+}
