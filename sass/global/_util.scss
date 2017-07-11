@@ -7,5 +7,9 @@
 }
 
 .site-min-height {
-  min-height: calc(100vh - #{$headerHeight});
+  min-height: 100vh;
+}
+
+.mt-footer-height {
+  margin-top: $footerHeight;
 }

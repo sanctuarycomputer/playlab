@@ -1,3 +1,5 @@
+/* BassCSS Breakpoints */
+/* Globals */
 /* Colors */
 h1, h2, h3, h4, h5, h6, p {
   font-family: 'Helvetica Neue', 'Helvetica', Arial, sans-serif;
@@ -19,7 +21,11 @@ p {
 }
 
 .site-min-height {
-  min-height: calc(100vh - 62px);
+  min-height: 100vh;
+}
+
+.mt-footer-height {
+  margin-top: 200px;
 }
 
 .black {
@@ -85,6 +91,11 @@ p {
   position: fixed;
   bottom: -62.5px;
   top: auto;
+}
+@media (min-width: 52em) {
+  .home-block:last-of-type {
+    margin-bottom: 200px;
+  }
 }
 
 * {

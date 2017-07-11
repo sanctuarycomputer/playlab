@@ -1,3 +1,12 @@
+/* BassCSS Breakpoints */
+$sm: 40em;
+$md: 52em;
+$lg: 64em;
+
+$medium-up: "(min-width:#{$md})";
+$large-up: "(min-width:#{$lg})";
+
+/* Globals */
 $footerHeight: 200px;
 $headerHeight: 62px;
 $titleBarHeight: 125px;
