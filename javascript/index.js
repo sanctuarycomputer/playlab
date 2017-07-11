@@ -14,7 +14,6 @@ if (!isMobile) {
   $($homeBlocks[0]).find('.title-bar').addClass('next');
 
   $homeBlocks.each((i, element) => {
-    console.log(isMobile)
     let $homeBlock = $(element);
 
     //Peek Next
@@ -58,3 +57,36 @@ if (!isMobile) {
     }
   })
 };
+let $stickyProjectWrapper = $('.sticky-project-wrapper');
+let $stickyArchiveWrapper = $('.sticky-archive-wrapper');
+let $stickyWrappers = $('.sticky-wrapper');
+
+$stickyWrappers.each((i, element) => {
+  let $stickyWrapper = $(element);
+
+  $stickyWrapper.waypoint({
+    handler: function() {
+      console.log('hit the top');
+    }
+  });
+
+  $stickyWrapper.waypoint({
+    handler: function() {
+      console.log('hit the bottom');
+    }
+  });
+});
+
+new Waypoint.Sticky({
+  element: $stickyProjectWrapper,
+  handler: function() {
+    console.log(this, ' project wrapper got stuck');
+  }
+});
+
+new Waypoint.Sticky({
+  element: $stickyArchiveWrapper,
+  handler: function() {
+    console.log(this, ' archive wrapper got stuck');
+  }
+});

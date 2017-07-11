@@ -17,7 +17,6 @@ if (!isMobile) {
   $($homeBlocks[0]).find('.title-bar').addClass('next');
 
   $homeBlocks.each(function (i, element) {
-    console.log(isMobile);
     var $homeBlock = $(element);
 
     //Peek Next
@@ -61,5 +60,38 @@ if (!isMobile) {
     }
   });
 };
+var $stickyProjectWrapper = $('.sticky-project-wrapper');
+var $stickyArchiveWrapper = $('.sticky-archive-wrapper');
+var $stickyWrappers = $('.sticky-wrapper');
+
+$stickyWrappers.each(function (i, element) {
+  var $stickyWrapper = $(element);
+
+  $stickyWrapper.waypoint({
+    handler: function handler() {
+      console.log('hit the top');
+    }
+  });
+
+  $stickyWrapper.waypoint({
+    handler: function handler() {
+      console.log('hit the bottom');
+    }
+  });
+});
+
+new Waypoint.Sticky({
+  element: $stickyProjectWrapper,
+  handler: function handler() {
+    console.log(this, ' project wrapper got stuck');
+  }
+});
+
+new Waypoint.Sticky({
+  element: $stickyArchiveWrapper,
+  handler: function handler() {
+    console.log(this, ' archive wrapper got stuck');
+  }
+});
 
 },{}]},{},[1]);
