@@ -57,36 +57,36 @@ if (!isMobile) {
     }
   })
 };
+
+// Work Page
 let $stickyProjectWrapper = $('.sticky-project-wrapper');
 let $stickyArchiveWrapper = $('.sticky-archive-wrapper');
-let $stickyWrappers = $('.sticky-wrapper');
+let $archiveHeader = $('.archive-header');
 
-$stickyWrappers.each((i, element) => {
-  let $stickyWrapper = $(element);
-
-  $stickyWrapper.waypoint({
-    handler: function() {
-      console.log('hit the top');
+$stickyArchiveWrapper.waypoint({
+  handler: function(direction) {
+    if (direction ==='down') {
+      $archiveHeader.removeClass('fixed-bottom');
+      $stickyArchiveWrapper.css({'margin-top': $stickyProjectWrapper.outerHeight() });
+      $stickyProjectWrapper.addClass('projects-stick');
     }
-  });
-
-  $stickyWrapper.waypoint({
-    handler: function() {
-      console.log('hit the bottom');
+    if (direction === 'up') {
+      $archiveHeader.addClass('fixed-bottom');
+      $stickyArchiveWrapper.css({'margin-top': ''});
+      $stickyProjectWrapper.removeClass('projects-stick');
     }
-  });
+  },
+  offset: '97%',
 });
 
-new Waypoint.Sticky({
-  element: $stickyProjectWrapper,
-  handler: function() {
-    console.log(this, ' project wrapper got stuck');
-  }
-});
-
-new Waypoint.Sticky({
-  element: $stickyArchiveWrapper,
-  handler: function() {
-    console.log(this, ' archive wrapper got stuck');
-  }
+$stickyArchiveWrapper.waypoint({
+  handler: function(direction) {
+    if (direction === 'down') {
+      $(this.element).addClass('scrolling');
+    }
+    if (direction === 'up') {
+      $(this.element).removeClass('scrolling');
+    }
+  },
+  offset: 'bottom-in-view'
 });

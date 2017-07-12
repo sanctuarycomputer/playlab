@@ -1,14 +1,32 @@
 #work {
-  .sticky-wrapper {
-    &.stuck {
+  .sticky-project-wrapper {
+    position: relative;
+    &.projects-stick {
+      width: 100%;
       position: fixed;
       left: 0;
       right: 0;
-      top: 0;
       bottom: 0;
-      background-color: red;
-      overflow: scroll;
     }
   }
 
+  .sticky-archive-wrapper {
+    height: 80vh;
+    overflow:hidden;
+    float: left;
+    width: 100%;
+    position: relative;
+    .archive-header {
+      height: $titleBarHeight;
+      &.fixed-bottom {
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: 97%;
+      }
+    }
+    &.scrolling {
+      overflow: scroll;
+    }
+  }
 }

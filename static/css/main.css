@@ -76,13 +76,33 @@ p {
   stroke: #ECEAEA;
 }
 
-#work .sticky-wrapper.stuck {
+#work .sticky-project-wrapper {
+  position: relative;
+}
+#work .sticky-project-wrapper.projects-stick {
+  width: 100%;
   position: fixed;
   left: 0;
   right: 0;
-  top: 0;
   bottom: 0;
-  background-color: red;
+}
+#work .sticky-archive-wrapper {
+  height: 80vh;
+  overflow: hidden;
+  float: left;
+  width: 100%;
+  position: relative;
+}
+#work .sticky-archive-wrapper .archive-header {
+  height: 125px;
+}
+#work .sticky-archive-wrapper .archive-header.fixed-bottom {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 97%;
+}
+#work .sticky-archive-wrapper.scrolling {
   overflow: scroll;
 }
 
