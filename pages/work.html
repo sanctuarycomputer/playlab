@@ -1,0 +1,91 @@
+{# ------------------------------------------------------- #}
+{# ONE OFF VIEW work #}
+{# This page can use any data from http:localhost:2000/cms/#/form/work/ #}
+{# Webhook uses the SWIG.js (like Djagno/Twig) templating system. Their documentation is here: #}
+{# http://paularmstrong.github.io/swig/docs/tags/ #}
+{# Learn about calling data into Webhook pages here: #}
+{# http://www.webhook.com/docs/template-rules-and-filters/ #}
+{# ------------------------------------------------------- #}
+{# Confused what extends and blocks do? Watch a primer: #}
+{# http://www.webhook.com/docs/template-inheritance-blocks/ #}
+{% extends "templates/partials/base.html" %}
+{# This sets our page <title>. It will append this work's name to the site title defined in base.html #}
+{% block title %}{% parent %} - {{ cms.work.name }}{% endblock %}
+{% block content %}
+<div id='work' class="z1 relative site-min-height">
+  <article class="sticky-project-wrapper bg-white center pt4">
+    <h1>PROJECT</h1>
+    <h1>PROJECT</h1>
+    <h1>PROJECT</h1>
+    <h1>PROJECT</h1>
+    <h1>PROJECT</h1>
+    <h1>PROJECT</h1>
+    <h1>PROJECT</h1>
+    <h1>PROJECT</h1>
+    <h1>PROJECT</h1>
+    <h1>PROJECT</h1>
+    <h1>PROJECT</h1>
+    <h1>PROJECT</h1>
+    <h1>PROJECT</h1>
+    <h1>PROJECT</h1>
+    <h1>PROJECT</h1>
+    <h1>PROJECT</h1>
+    <h1>PROJECT</h1>
+    <h1>PROJECT</h1>
+    <h1>PROJECT</h1>
+    <h1>PROJECT</h1>
+    <h1>PROJECT</h1>
+    <h1>PROJECT</h1>
+    <h1>PROJECT</h1>
+    <h1>PROJECT</h1>
+    <h1>PROJECT</h1>
+    <h1>PROJECT</h1>
+    <h1>PROJECT</h1>
+    <h1>PROJECT</h1>
+    <h1>PROJECT</h1>
+    <h1>PROJECT</h1>
+    <h1>PROJECT</h1>
+
+  </article>
+  <article class="sticky-archive-wrapper center bg-black white z2">
+    <div class="archive-header fixed-bottom bg-black">
+      <h1>archives</h1>
+    </div>
+    <h1>ARCHIVE</h1>
+    <h1>ARCHIVE</h1>
+    <h1>ARCHIVE</h1>
+    <h1>ARCHIVE</h1>
+    <h1>ARCHIVE</h1>
+    <h1>ARCHIVE</h1>
+    <h1>ARCHIVE</h1>
+    <h1>ARCHIVE</h1>
+    <h1>ARCHIVE</h1>
+    <h1>ARCHIVE</h1>
+    <h1>ARCHIVE</h1>
+    <h1>ARCHIVE</h1>
+    <h1>ARCHIVE</h1>
+    <h1>ARCHIVE</h1>
+    <h1>ARCHIVE</h1>
+    <h1>ARCHIVE</h1>
+    <h1>ARCHIVE</h1>
+    <h1>ARCHIVE</h1>
+    <h1>ARCHIVE</h1>
+    <h1>ARCHIVE</h1>
+    <h1>ARCHIVE</h1>
+    <h1>ARCHIVE</h1>
+    <h1>ARCHIVE</h1>
+    <h1>ARCHIVE</h1>
+    <h1>ARCHIVE</h1>
+    <h1>ARCHIVE</h1>
+    <h1>ARCHIVE</h1>
+    <h1>ARCHIVE</h1>
+    <h1>ARCHIVE</h1>
+    <h1>ARCHIVE</h1>
+    <h1>ARCHIVE</h1>
+    <h1>ARCHIVE</h1>
+    <h1>ARCHIVE</h1>
+    <h1>ARCHIVE</h1>
+    <h1>ARCHIVE</h1>
+  </article>
+</div>
+{% endblock %}

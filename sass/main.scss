@@ -8,10 +8,10 @@
 
 //Routes
 @import 'routes/index';
+@import 'routes/work';
 
 //Partials
+@import 'partials/header';
 @import 'partials/home-block';
 
-* {
-  -webkit-font-smoothing: antialiased;
-}
+* { -webkit-font-smoothing: antialiased; }

@@ -14,7 +14,6 @@ if (!isMobile) {
   $($homeBlocks[0]).find('.title-bar').addClass('next');
 
   $homeBlocks.each((i, element) => {
-    console.log(isMobile)
     let $homeBlock = $(element);
 
     //Peek Next
@@ -58,3 +57,36 @@ if (!isMobile) {
     }
   })
 };
+
+// Work Page
+let $stickyProjectWrapper = $('.sticky-project-wrapper');
+let $stickyArchiveWrapper = $('.sticky-archive-wrapper');
+let $archiveHeader = $('.archive-header');
+
+$stickyArchiveWrapper.waypoint({
+  handler: function(direction) {
+    if (direction ==='down') {
+      $archiveHeader.removeClass('fixed-bottom');
+      $stickyArchiveWrapper.css({'margin-top': $stickyProjectWrapper.outerHeight() });
+      $stickyProjectWrapper.addClass('projects-stick');
+    }
+    if (direction === 'up') {
+      $archiveHeader.addClass('fixed-bottom');
+      $stickyArchiveWrapper.css({'margin-top': ''});
+      $stickyProjectWrapper.removeClass('projects-stick');
+    }
+  },
+  offset: '97%',
+});
+
+$stickyArchiveWrapper.waypoint({
+  handler: function(direction) {
+    if (direction === 'down') {
+      $(this.element).addClass('scrolling');
+    }
+    if (direction === 'up') {
+      $(this.element).removeClass('scrolling');
+    }
+  },
+  offset: 'bottom-in-view'
+});
