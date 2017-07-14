@@ -100,13 +100,13 @@ p {
   position: relative;
 }
 #work .sticky-archive-wrapper .archive-header {
-  height: 125px;
+  height: 62.5px;
 }
 #work .sticky-archive-wrapper .archive-header.fixed-bottom {
   position: fixed;
   left: 0;
   right: 0;
-  top: 97%;
+  top: 98%;
 }
 #work .sticky-archive-wrapper.scrolling {
   overflow: scroll;
