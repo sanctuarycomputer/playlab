@@ -2,7 +2,7 @@
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<!--[if gt IE 8]><!--> <html class="html no-js"> <!--<![endif]-->
 
   {# Grab the title and description from the CMS general settings. #}
   {% set site_title = getSetting('site_name')%}
@@ -38,6 +38,7 @@
 
       {% block header %}
         {% include "templates/partials/header.html" %}
+        {% include "templates/partials/mobile-header.html" %}
       {% endblock %}
 
       {# By default, your inner pages will load into this block. #}
@@ -47,7 +48,8 @@
         {% include "templates/partials/footer.html" %}
       {% endblock %}
 
-      <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/shortcuts/sticky.min.js"></script>
 

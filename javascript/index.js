@@ -88,5 +88,39 @@ $stickyArchiveWrapper.waypoint({
       $(this.element).removeClass('scrolling');
     }
   },
-  offset: 'bottom-in-view'
+  offset: 'bottom-in-view',
+});
+
+//Headroom
+let navMenu =  document.getElementById('nav-menu');
+let headroomMenu  = new Headroom(navMenu, {
+  tolerance: 5,
+  offset : 205,
+  classes: {
+    initial: "animated",
+    pinned: "slide-down",
+    unpinned: "slide-up"
+  }
+});
+headroomMenu.init();
+
+
+
+//Mobile nav
+let $scrollContainer = $('.html');
+let $mobileNav = $('.mobile-nav-bar');
+let $hamburger = $('.hamburger');
+let $mobileMenu = $('.mobile-menu');
+
+$hamburger.on('click', () => {
+  if ($mobileNav.hasClass('active')) {
+    $scrollContainer.removeClass('overflow-hidden');
+    $mobileNav.removeClass('active');
+    $hamburger.removeClass('active');
+    return $mobileMenu.removeClass('is-showing');
+  }
+  $scrollContainer.addClass('overflow-hidden');
+  $mobileNav.addClass('active');
+  $hamburger.addClass('active');
+  return $mobileMenu.addClass('is-showing');
 });
