@@ -17,6 +17,15 @@
     &.slide-up {
       transform: translateY(-500%);
     }
+
+    .nav-link {
+      &.active:after {
+        content: url('/static/images/bullet.svg');
+        position: absolute;
+        width: 10px;
+        margin-left: 5px;
+      }
+    }
   }
 
   @media #{$medium-up} {

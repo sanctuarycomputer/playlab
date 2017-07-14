@@ -130,6 +130,12 @@ p {
 #header #nav-menu.slide-up {
   transform: translateY(-500%);
 }
+#header #nav-menu .nav-link.active:after {
+  content: url("/static/images/bullet.svg");
+  position: absolute;
+  width: 10px;
+  margin-left: 5px;
+}
 @media (min-width: 52em) {
   #header {
     display: flex;

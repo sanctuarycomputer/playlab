@@ -2,7 +2,6 @@
 'use strict';
 
 var isMobile = /iphone|ipod|ipad|android|blackberry|opera mini|opera mobi|skyfire|maemo|windows phone|palm|iemobile|symbian|symbianos|fennec/i.test(navigator.userAgent.toLowerCase());
-
 /**
 // Only apply waypoints
 // interaction if not mobile
@@ -106,6 +105,18 @@ var headroomMenu = new Headroom(navMenu, {
   }
 });
 headroomMenu.init();
+
+//Nav: Select-state
+$('document').ready(function () {
+  var path = window.location.pathname;
+  var route = path.split('/');
+  var routeName = route.length > 1 ? route[1] : null;
+
+  if (routeName) {
+    var $activeNavLink = $(navMenu).find('[data-route=\'' + routeName + '\']');
+    $activeNavLink.addClass('active');
+  }
+});
 
 //Mobile nav
 var $scrollContainer = $('.html');
