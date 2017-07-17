@@ -12,6 +12,11 @@
 
 //Partials
 @import 'partials/header';
+@import 'partials/mobile-header';
 @import 'partials/home-block';
 
 * { -webkit-font-smoothing: antialiased; }
+a {
+  color: inherit;
+  text-decoration: none;
+}

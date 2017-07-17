@@ -2,11 +2,13 @@
   .sticky-project-wrapper {
     position: relative;
     &.projects-stick {
+      padding-top: 0;
       width: 100%;
       position: fixed;
       left: 0;
       right: 0;
       bottom: 0;
+      top: 0;
     }
   }
 
@@ -17,12 +19,12 @@
     width: 100%;
     position: relative;
     .archive-header {
-      height: $titleBarHeight;
+      height: $titleBarHeight/2;
       &.fixed-bottom {
         position: fixed;
         left: 0;
         right: 0;
-        top: 97%;
+        top: 98%;
       }
     }
     &.scrolling {

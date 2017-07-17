@@ -28,6 +28,10 @@ p {
   margin-top: 200px;
 }
 
+.pointer {
+  cursor: pointer;
+}
+
 .black {
   color: #000;
 }
@@ -80,11 +84,13 @@ p {
   position: relative;
 }
 #work .sticky-project-wrapper.projects-stick {
+  padding-top: 0;
   width: 100%;
   position: fixed;
   left: 0;
   right: 0;
   bottom: 0;
+  top: 0;
 }
 #work .sticky-archive-wrapper {
   height: 80vh;
@@ -94,22 +100,113 @@ p {
   position: relative;
 }
 #work .sticky-archive-wrapper .archive-header {
-  height: 125px;
+  height: 62.5px;
 }
 #work .sticky-archive-wrapper .archive-header.fixed-bottom {
   position: fixed;
   left: 0;
   right: 0;
-  top: 97%;
+  top: 98%;
 }
 #work .sticky-archive-wrapper.scrolling {
   overflow: scroll;
 }
 
+#header {
+  display: none;
+}
 #header .h1 {
   background-color: transparent;
   color: #000;
-  mix-blend-mode: difference;
+}
+#header #nav-menu.animated {
+  will-change: transform;
+  transition: transform 500ms linear;
+}
+#header #nav-menu.slide-down {
+  transform: translateY(0%);
+}
+#header #nav-menu.slide-up {
+  transform: translateY(-500%);
+}
+#header #nav-menu .nav-link.active:after {
+  content: url("/static/images/bullet.svg");
+  position: absolute;
+  width: 10px;
+  margin-left: 5px;
+}
+@media (min-width: 52em) {
+  #header {
+    display: flex;
+  }
+}
+
+#mobile-header {
+  display: flex;
+}
+#mobile-header header {
+  box-sizing: border-box;
+  height: 82px;
+}
+#mobile-header header.active {
+  background: #000;
+  color: #fff;
+}
+#mobile-header .hamburger {
+  postion: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: none;
+  border: none;
+}
+#mobile-header .hamburger span {
+  display: inline-block;
+  width: 35px;
+  height: 3px;
+  margin: 0.25em 0;
+  background: #000;
+}
+#mobile-header .hamburger.active span {
+  background: #fff;
+}
+#mobile-header .hamburger.active .top {
+  position: absolute;
+  transform: rotate(-35deg);
+}
+#mobile-header .hamburger.active .middle {
+  transform: scale(0);
+  opacity: 0;
+}
+#mobile-header .hamburger.active .bottom {
+  position: absolute;
+  transform: rotate(35deg);
+  bottom: 44%;
+}
+#mobile-header .hamburger:focus {
+  outline: 0;
+}
+#mobile-header .mobile-menu {
+  position: fixed;
+  top: 82px;
+  left: 0;
+  right: 0;
+  min-height: 200px;
+  opacity: 0;
+  visibility: hidden;
+}
+#mobile-header .mobile-menu ul {
+  list-style: none;
+  text-align: center;
+}
+#mobile-header .mobile-menu.is-showing {
+  opacity: 1;
+  visibility: visible;
+}
+@media (min-width: 52em) {
+  #mobile-header {
+    display: none;
+  }
 }
 
 .home-block {
@@ -136,6 +233,11 @@ p {
 
 * {
   -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
 }
 
 /*# sourceMappingURL=main.css.map */

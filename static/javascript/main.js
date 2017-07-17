@@ -2,7 +2,6 @@
 'use strict';
 
 var isMobile = /iphone|ipod|ipad|android|blackberry|opera mini|opera mobi|skyfire|maemo|windows phone|palm|iemobile|symbian|symbianos|fennec/i.test(navigator.userAgent.toLowerCase());
-
 /**
 // Only apply waypoints
 // interaction if not mobile
@@ -92,6 +91,50 @@ $stickyArchiveWrapper.waypoint({
     }
   },
   offset: 'bottom-in-view'
+});
+
+//Headroom
+var navMenu = document.getElementById('nav-menu');
+var headroomMenu = new Headroom(navMenu, {
+  tolerance: 5,
+  offset: 205,
+  classes: {
+    initial: "animated",
+    pinned: "slide-down",
+    unpinned: "slide-up"
+  }
+});
+headroomMenu.init();
+
+//Nav: Select-state
+$('document').ready(function () {
+  var path = window.location.pathname;
+  var route = path.split('/');
+  var routeName = route.length > 1 ? route[1] : null;
+
+  if (routeName) {
+    var $activeNavLink = $(navMenu).find('[data-route=\'' + routeName + '\']');
+    $activeNavLink.addClass('active');
+  }
+});
+
+//Mobile nav
+var $scrollContainer = $('.html');
+var $mobileNav = $('.mobile-nav-bar');
+var $hamburger = $('.hamburger');
+var $mobileMenu = $('.mobile-menu');
+
+$hamburger.on('click', function () {
+  if ($mobileNav.hasClass('active')) {
+    $scrollContainer.removeClass('overflow-hidden');
+    $mobileNav.removeClass('active');
+    $hamburger.removeClass('active');
+    return $mobileMenu.removeClass('is-showing');
+  }
+  $scrollContainer.addClass('overflow-hidden');
+  $mobileNav.addClass('active');
+  $hamburger.addClass('active');
+  return $mobileMenu.addClass('is-showing');
 });
 
 },{}]},{},[1]);

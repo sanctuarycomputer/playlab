@@ -1,7 +1,33 @@
 #header {
+  display: none;
   .h1 {
     background-color: transparent;
     color: #000;
-    mix-blend-mode: difference;
+  }
+
+  #nav-menu {
+    &.animated {
+      will-change: transform;
+      transition: transform 500ms linear;
+    }
+    &.slide-down {
+      transform: translateY(0%);
+    }
+    &.slide-up {
+      transform: translateY(-500%);
+    }
+
+    .nav-link {
+      &.active:after {
+        content: url('/static/images/bullet.svg');
+        position: absolute;
+        width: 10px;
+        margin-left: 5px;
+      }
+    }
+  }
+
+  @media #{$medium-up} {
+    display: flex;
   }
 }

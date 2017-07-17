@@ -1,5 +1,4 @@
 const isMobile = /iphone|ipod|ipad|android|blackberry|opera mini|opera mobi|skyfire|maemo|windows phone|palm|iemobile|symbian|symbianos|fennec/i.test(navigator.userAgent.toLowerCase());
-
 /**
 // Only apply waypoints
 // interaction if not mobile
@@ -88,5 +87,49 @@ $stickyArchiveWrapper.waypoint({
       $(this.element).removeClass('scrolling');
     }
   },
-  offset: 'bottom-in-view'
+  offset: 'bottom-in-view',
+});
+
+//Headroom
+let navMenu =  document.getElementById('nav-menu');
+let headroomMenu  = new Headroom(navMenu, {
+  tolerance: 5,
+  offset : 205,
+  classes: {
+    initial: "animated",
+    pinned: "slide-down",
+    unpinned: "slide-up"
+  }
+});
+headroomMenu.init();
+
+//Nav: Select-state
+$('document').ready(function () {
+  let path = window.location.pathname;
+  let route = path.split('/');
+  let routeName = route.length > 1 ? route[1] : null;
+
+  if (routeName) {
+    let $activeNavLink = $(navMenu).find(`[data-route='${routeName}']`)
+    $activeNavLink.addClass('active');
+  }
+});
+
+//Mobile nav
+let $scrollContainer = $('.html');
+let $mobileNav = $('.mobile-nav-bar');
+let $hamburger = $('.hamburger');
+let $mobileMenu = $('.mobile-menu');
+
+$hamburger.on('click', () => {
+  if ($mobileNav.hasClass('active')) {
+    $scrollContainer.removeClass('overflow-hidden');
+    $mobileNav.removeClass('active');
+    $hamburger.removeClass('active');
+    return $mobileMenu.removeClass('is-showing');
+  }
+  $scrollContainer.addClass('overflow-hidden');
+  $mobileNav.addClass('active');
+  $hamburger.addClass('active');
+  return $mobileMenu.addClass('is-showing');
 });
