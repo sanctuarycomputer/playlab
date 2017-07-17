@@ -55,6 +55,37 @@ if (!isMobile) {
       return TITLE_BAR_HEIGHT/2;
     }
   })
+
+  //Shop Page
+  let $productBlocks = $('.product');
+  let $shopViewContext = $('.shop-view-context');
+
+  $productBlocks.each((i, element) => {
+    let $productBlock = $(element);
+    let $productDetails = $('.product-details');
+
+
+    //Scroll down
+    $productBlock.waypoint({
+      handler: function(direction) {
+        if (direction === 'down') {
+          $productBlocks.removeClass('in-view');
+          $(this.element).addClass('in-view');
+        }
+      },
+    });
+
+    //Scroll up
+    $productBlock.waypoint({
+      handler: function(direction) {
+        if (direction === 'up') {
+          $productBlocks.removeClass('in-view');
+          $(this.element).addClass('in-view');
+        }
+      },
+      offset: '-25%',
+    });
+  });
 };
 
 // Work Page
@@ -89,6 +120,7 @@ $stickyArchiveWrapper.waypoint({
   },
   offset: 'bottom-in-view',
 });
+
 
 //Headroom
 let navMenu =  document.getElementById('nav-menu');

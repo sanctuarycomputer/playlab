@@ -9,12 +9,17 @@
 //Routes
 @import 'routes/index';
 @import 'routes/work';
+@import 'routes/shop';
 
 //Partials
 @import 'partials/header';
 @import 'partials/mobile-header';
 @import 'partials/home-block';
 
+html, body {
+  height: 100%;
+  box-sizing: border-box;
+}
 * { -webkit-font-smoothing: antialiased; }
 a {
   color: inherit;

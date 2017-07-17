@@ -58,6 +58,36 @@ if (!isMobile) {
       return TITLE_BAR_HEIGHT / 2;
     }
   });
+
+  //Shop Page
+  var $productBlocks = $('.product');
+  var $shopViewContext = $('.shop-view-context');
+
+  $productBlocks.each(function (i, element) {
+    var $productBlock = $(element);
+    var $productDetails = $('.product-details');
+
+    //Scroll down
+    $productBlock.waypoint({
+      handler: function handler(direction) {
+        if (direction === 'down') {
+          $productBlocks.removeClass('in-view');
+          $(this.element).addClass('in-view');
+        }
+      }
+    });
+
+    //Scroll up
+    $productBlock.waypoint({
+      handler: function handler(direction) {
+        if (direction === 'up') {
+          $productBlocks.removeClass('in-view');
+          $(this.element).addClass('in-view');
+        }
+      },
+      offset: '-25%'
+    });
+  });
 };
 
 // Work Page
