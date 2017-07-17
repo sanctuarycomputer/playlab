@@ -54,7 +54,40 @@ if (!isMobile) {
     offset: function() {
       return TITLE_BAR_HEIGHT/2;
     }
-  })
+  });
+
+  // Work Page
+  let $stickyProjectWrapper = $('.sticky-project-wrapper');
+  let $stickyArchiveWrapper = $('.sticky-archive-wrapper');
+  let $archiveHeader = $('.archive-header');
+
+  $stickyArchiveWrapper.waypoint({
+    handler: function(direction) {
+      if (direction ==='down') {
+        $archiveHeader.removeClass('fixed-bottom');
+        $stickyArchiveWrapper.css({'margin-top': $stickyProjectWrapper.outerHeight() });
+        $stickyProjectWrapper.addClass('projects-stick');
+      }
+      if (direction === 'up') {
+        $archiveHeader.addClass('fixed-bottom');
+        $stickyArchiveWrapper.css({'margin-top': ''});
+        $stickyProjectWrapper.removeClass('projects-stick');
+      }
+    },
+    offset: '97%',
+  });
+
+  $stickyArchiveWrapper.waypoint({
+    handler: function(direction) {
+      if (direction === 'down') {
+        $(this.element).addClass('scrolling');
+      }
+      if (direction === 'up') {
+        $(this.element).removeClass('scrolling');
+      }
+    },
+    offset: 'bottom-in-view',
+  });
 
   //Shop Page
   let $productBlocks = $('.product');
@@ -87,39 +120,6 @@ if (!isMobile) {
     });
   });
 };
-
-// Work Page
-let $stickyProjectWrapper = $('.sticky-project-wrapper');
-let $stickyArchiveWrapper = $('.sticky-archive-wrapper');
-let $archiveHeader = $('.archive-header');
-
-$stickyArchiveWrapper.waypoint({
-  handler: function(direction) {
-    if (direction ==='down') {
-      $archiveHeader.removeClass('fixed-bottom');
-      $stickyArchiveWrapper.css({'margin-top': $stickyProjectWrapper.outerHeight() });
-      $stickyProjectWrapper.addClass('projects-stick');
-    }
-    if (direction === 'up') {
-      $archiveHeader.addClass('fixed-bottom');
-      $stickyArchiveWrapper.css({'margin-top': ''});
-      $stickyProjectWrapper.removeClass('projects-stick');
-    }
-  },
-  offset: '97%',
-});
-
-$stickyArchiveWrapper.waypoint({
-  handler: function(direction) {
-    if (direction === 'down') {
-      $(this.element).addClass('scrolling');
-    }
-    if (direction === 'up') {
-      $(this.element).removeClass('scrolling');
-    }
-  },
-  offset: 'bottom-in-view',
-});
 
 
 //Headroom
