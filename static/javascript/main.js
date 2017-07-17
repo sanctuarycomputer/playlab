@@ -58,40 +58,40 @@ if (!isMobile) {
       return TITLE_BAR_HEIGHT / 2;
     }
   });
+
+  // Work Page
+  var $stickyProjectWrapper = $('.sticky-project-wrapper');
+  var $stickyArchiveWrapper = $('.sticky-archive-wrapper');
+  var $archiveHeader = $('.archive-header');
+
+  $stickyArchiveWrapper.waypoint({
+    handler: function handler(direction) {
+      if (direction === 'down') {
+        $archiveHeader.removeClass('fixed-bottom');
+        $stickyArchiveWrapper.css({ 'margin-top': $stickyProjectWrapper.outerHeight() });
+        $stickyProjectWrapper.addClass('projects-stick');
+      }
+      if (direction === 'up') {
+        $archiveHeader.addClass('fixed-bottom');
+        $stickyArchiveWrapper.css({ 'margin-top': '' });
+        $stickyProjectWrapper.removeClass('projects-stick');
+      }
+    },
+    offset: '97%'
+  });
+
+  $stickyArchiveWrapper.waypoint({
+    handler: function handler(direction) {
+      if (direction === 'down') {
+        $(this.element).addClass('scrolling');
+      }
+      if (direction === 'up') {
+        $(this.element).removeClass('scrolling');
+      }
+    },
+    offset: 'bottom-in-view'
+  });
 };
-
-// Work Page
-var $stickyProjectWrapper = $('.sticky-project-wrapper');
-var $stickyArchiveWrapper = $('.sticky-archive-wrapper');
-var $archiveHeader = $('.archive-header');
-
-$stickyArchiveWrapper.waypoint({
-  handler: function handler(direction) {
-    if (direction === 'down') {
-      $archiveHeader.removeClass('fixed-bottom');
-      $stickyArchiveWrapper.css({ 'margin-top': $stickyProjectWrapper.outerHeight() });
-      $stickyProjectWrapper.addClass('projects-stick');
-    }
-    if (direction === 'up') {
-      $archiveHeader.addClass('fixed-bottom');
-      $stickyArchiveWrapper.css({ 'margin-top': '' });
-      $stickyProjectWrapper.removeClass('projects-stick');
-    }
-  },
-  offset: '97%'
-});
-
-$stickyArchiveWrapper.waypoint({
-  handler: function handler(direction) {
-    if (direction === 'down') {
-      $(this.element).addClass('scrolling');
-    }
-    if (direction === 'up') {
-      $(this.element).removeClass('scrolling');
-    }
-  },
-  offset: 'bottom-in-view'
-});
 
 //Headroom
 var navMenu = document.getElementById('nav-menu');
