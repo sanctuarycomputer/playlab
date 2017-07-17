@@ -15,6 +15,7 @@
   <div id="shop">
     {% for product in cms.products %}
       <div class="product" style="background-image: url({{product.featured_image.url}})">
+        <img class="height-100" src="/static/images/shop-gradient.png"/>
         <div class="product-details col-10 md-col-3">
           <h2 class="title">{{product.name}}</h2>
           <p class="description">{{product.description}}</p>
