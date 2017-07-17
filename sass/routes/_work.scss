@@ -1,34 +1,38 @@
 #work {
   .sticky-project-wrapper {
-    position: relative;
-    &.projects-stick {
-      padding-top: 0;
-      width: 100%;
-      position: fixed;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      top: 0;
+    @media #{$medium-up} {
+      position: relative;
+      &.projects-stick {
+        padding-top: 0;
+        width: 100%;
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        top: 0;
+      }
     }
   }
 
   .sticky-archive-wrapper {
-    height: 80vh;
-    overflow:hidden;
-    float: left;
-    width: 100%;
-    position: relative;
-    .archive-header {
-      height: $titleBarHeight/2;
-      &.fixed-bottom {
-        position: fixed;
-        left: 0;
-        right: 0;
-        top: 98%;
+    @media #{$medium-up} {
+      width: 100%;
+      height: 80vh;
+      overflow:hidden;
+      float: left;
+      position: relative;
+      .archive-header {
+        height: $titleBarHeight/2;
+        &.fixed-bottom {
+          position: fixed;
+          left: 0;
+          right: 0;
+          bottom: -45px;
+        }
       }
-    }
-    &.scrolling {
-      overflow: scroll;
+      &.scrolling {
+        overflow: scroll;
+      }
     }
   }
 }
