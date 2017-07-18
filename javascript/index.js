@@ -54,41 +54,73 @@ if (!isMobile) {
     offset: function() {
       return TITLE_BAR_HEIGHT/2;
     }
-  })
+  });
+
+  // Work Page
+  let $stickyProjectWrapper = $('.sticky-project-wrapper');
+  let $stickyArchiveWrapper = $('.sticky-archive-wrapper');
+  let $archiveHeader = $('.archive-header');
+
+  $stickyArchiveWrapper.waypoint({
+    handler: function(direction) {
+      if (direction ==='down') {
+        $archiveHeader.removeClass('fixed-bottom');
+        $stickyArchiveWrapper.css({'margin-top': $stickyProjectWrapper.outerHeight() });
+        $stickyProjectWrapper.addClass('projects-stick');
+      }
+      if (direction === 'up') {
+        $archiveHeader.addClass('fixed-bottom');
+        $stickyArchiveWrapper.css({'margin-top': ''});
+        $stickyProjectWrapper.removeClass('projects-stick');
+      }
+    },
+    offset: '97%',
+  });
+
+  $stickyArchiveWrapper.waypoint({
+    handler: function(direction) {
+      if (direction === 'down') {
+        $(this.element).addClass('scrolling');
+      }
+      if (direction === 'up') {
+        $(this.element).removeClass('scrolling');
+      }
+    },
+    offset: 'bottom-in-view',
+  });
+
+  //Shop Page
+  let $productBlocks = $('.product');
+  let $shopViewContext = $('.shop-view-context');
+
+  $productBlocks.each((i, element) => {
+    let $productBlock = $(element);
+    let $productDetails = $('.product-details');
+
+
+    //Scroll down
+    $productBlock.waypoint({
+      handler: function(direction) {
+        if (direction === 'down') {
+          $productBlocks.removeClass('in-view');
+          $(this.element).addClass('in-view');
+        }
+      },
+    });
+
+    //Scroll up
+    $productBlock.waypoint({
+      handler: function(direction) {
+        if (direction === 'up') {
+          $productBlocks.removeClass('in-view');
+          $(this.element).addClass('in-view');
+        }
+      },
+      offset: '-25%',
+    });
+  });
 };
 
-// Work Page
-let $stickyProjectWrapper = $('.sticky-project-wrapper');
-let $stickyArchiveWrapper = $('.sticky-archive-wrapper');
-let $archiveHeader = $('.archive-header');
-
-$stickyArchiveWrapper.waypoint({
-  handler: function(direction) {
-    if (direction ==='down') {
-      $archiveHeader.removeClass('fixed-bottom');
-      $stickyArchiveWrapper.css({'margin-top': $stickyProjectWrapper.outerHeight() });
-      $stickyProjectWrapper.addClass('projects-stick');
-    }
-    if (direction === 'up') {
-      $archiveHeader.addClass('fixed-bottom');
-      $stickyArchiveWrapper.css({'margin-top': ''});
-      $stickyProjectWrapper.removeClass('projects-stick');
-    }
-  },
-  offset: '97%',
-});
-
-$stickyArchiveWrapper.waypoint({
-  handler: function(direction) {
-    if (direction === 'down') {
-      $(this.element).addClass('scrolling');
-    }
-    if (direction === 'up') {
-      $(this.element).removeClass('scrolling');
-    }
-  },
-  offset: 'bottom-in-view',
-});
 
 //Headroom
 let navMenu =  document.getElementById('nav-menu');

@@ -12,21 +12,19 @@
 {# This sets our page <title>. It will append this shop's name to the site title defined in base.html #}
 {% block title %}{% parent %} - {{ cms.shop.name }}{% endblock %}
 {% block content %}
-  <h1>{{ cms.shop.name }}</h1>
-  <ul>
-      <li>
-        <strong>Name: </strong>
-        {{ cms.shop.name }}
-      </li>
-      <li>
-        <strong>Create Date: </strong>
-        {# Format the date. You can use PHP's date function to format as needed. http://php.net/manual/en/function.date.php #}
-        {{ cms.shop.create_date|date('F d Y') }}
-      </li>
-      <li>
-        <strong>Last Updated: </strong>
-        {# Format the date. You can use PHP's date function to format as needed. http://php.net/manual/en/function.date.php #}
-        {{ cms.shop.last_updated|date('F d Y') }}
-      </li>
-  </ul>
+  <div id="shop">
+    {% for product in cms.products %}
+      <div class="product col-12" style="background-image: url({{product.featured_image.url}})">
+        <img class="height-100 col-12" src="/static/images/shop-gradient.png"/>
+        <div class="product-details col-10 md-col-3">
+          <h2 class="title">{{product.name}}</h2>
+          <p class="description">{{product.description}}</p>
+        </div>
+        <div class="product-purchase">
+          <p>${{product.price}}</p>
+          <button>Buy</button>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
 {% endblock %}
