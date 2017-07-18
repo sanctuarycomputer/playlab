@@ -1,0 +1,68 @@
+{% extends "templates/partials/base.html" %}
+{# This sets our page <title>. It will append this products's name to the site title defined in base.html #}
+{% block title %}{% parent %} - {{ item.name }}{% endblock %}
+{% block content %}
+  <div id="work-show" class="site-min-height relative col-12 pt4 z1 footer-room" style="color:{{item.text_color}};background-color:{{item.block_color}}">
+    <!-- Work Block Renderer -->
+    {% for block in item.blocks %}
+      {% if block.variant === 'featured-image' %}
+        <img class="col-8 mx-auto block" src={{block.featured_image.image.url}} />
+        {% elseif block.variant === 'image-slider' %}
+          <div class="col-8 mx-auto">
+            {% for slide in block.image_slider %}
+              <img class="block mx-auto" src={{slide.image.url}} />
+              <p class="p4">{{slide.caption}}</p>
+            {% endfor %}
+          </div>
+        {% elseif block.variant === 'paragraph' %}
+          <div class="col-8 mx-auto">
+            <p class="p4">{{block.paragraph}}</p>
+          </div>
+        {% elseif block.variant === 'two-up' %}
+          <div class="col-12 mx-auto clearfix">
+            <div class="col col-12 md-col-6 p4">
+              <img class="col-12" src={{block.image_left.image.url}} />
+              <p class="py2">{{block.image_left.caption}}</p>
+            </div>
+            <div class="col col-12 md-col-6 p4">
+              <img class="col-12" src={{block.image_left.image.url}} />
+              <p class="py2">{{block.image_left.caption}}</p>
+            </div>
+          </div>
+        {% elseif block.variant === 'one-up' %}
+          <div class="col-8 mx-auto center">
+            <img class="col-12" src={{block.featured_image.image.url}} />
+            <p class="py2">{{block.featured_image.caption}}</p>
+          </div>
+        {% elseif block.variant === 'image-copy' %}
+          <div class="col-12 mx-auto clearfix">
+            {% if block.image_right %}
+              <div class="col col-12 md-col-6 p4">
+                <img class="col-12" src={{block.image_left.image.url}} />
+              </div>
+              <div class="col col-12 md-col-6 p4">
+                <p class="py2">{{block.paragraph}}</p>
+              </div>
+            {% else %}
+              <div class="col col-12 md-col-6 p4">
+                <p class="py2">{{block.paragraph}}</p>
+              </div>
+              <div class="col col-12 md-col-6 p4">
+                <img class="col-12" src={{block.image_right.image.url}} />
+              </div>
+            {% endif %}
+          </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+{% endblock %}
+
+<!-- TODO: IMAGE BLOCKS
+           Image blocks need to be smarter
+           showing the correct aspect ratio
+           based on selected variant. Should
+           probably be its own snippet
+
+           SLIDER
+           Implement Slick Slider or the like
+-->
