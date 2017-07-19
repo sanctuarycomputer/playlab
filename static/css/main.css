@@ -93,6 +93,9 @@ p {
   }
 }
 
+#work-show {
+  -webkit-transform: translate3d(0, 0, 0);
+}
 @media (min-width: 52em) {
   #work-show p4-medium-up {
     padding: 4rem;
