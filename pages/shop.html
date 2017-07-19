@@ -12,7 +12,7 @@
 {# This sets our page <title>. It will append this shop's name to the site title defined in base.html #}
 {% block title %}{% parent %} - {{ cms.shop.name }}{% endblock %}
 {% block content %}
-  <div id="shop">
+  <div id="shop" class="relative z1">
     {% for product in cms.products %}
       <div class="product col-12" style="background-image: url({{product.featured_image.url}})">
         <img class="height-100 col-12" src="/static/images/shop-gradient.png"/>
