@@ -1,0 +1,7 @@
+#work-show {
+  p4-medium-up {
+    @media #{$medium-up} {
+      padding: 4rem;
+    }
+  }
+}
