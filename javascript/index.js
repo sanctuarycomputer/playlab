@@ -1,11 +1,12 @@
 const isMobile = /iphone|ipod|ipad|android|blackberry|opera mini|opera mobi|skyfire|maemo|windows phone|palm|iemobile|symbian|symbianos|fennec/i.test(navigator.userAgent.toLowerCase());
+
 /**
-// Only apply waypoints
-// interaction if not mobile
+// Only apply waypoint
+// interactions if not mobile
 **/
 
 if (!isMobile) {
-  //Homepage Scroll interaction
+  //Homepage scroll interaction
   let $homeBlocks = $('.home-block');
   let $introTrigger = $('.intro-trigger');
   const TITLE_BAR_HEIGHT = 125;
@@ -56,33 +57,44 @@ if (!isMobile) {
     }
   });
 
-  // Work Page
-  let $stickyProjectWrapper = $('.sticky-project-wrapper');
-  let $stickyArchiveWrapper = $('.sticky-archive-wrapper');
-  let $archiveHeader = $('.archive-header');
+  // Work/Info page scroll interaction
+  let $stickyTopWrapper = $('.sticky-top-wrapper');
+  let $stickyBottomWrapper = $('.sticky-bottom-wrapper');
+  let $bottomHeader = $('.bottom-header');
+  let $bottomContentWrapper = $('.bottom-content-wrapper');
 
-  $stickyArchiveWrapper.waypoint({
-    handler: function(direction) {
+  $stickyBottomWrapper.waypoint({
+    handler: function (direction) {
       if (direction ==='down') {
-        $archiveHeader.removeClass('fixed-bottom');
-        $stickyArchiveWrapper.css({'margin-top': $stickyProjectWrapper.outerHeight() });
-        $stickyProjectWrapper.addClass('projects-stick');
+        $bottomHeader.removeClass('fixed-bottom');
+        $stickyBottomWrapper.css({'margin-top': $stickyTopWrapper.outerHeight() });
+        $stickyTopWrapper.addClass('top-stick');
       }
       if (direction === 'up') {
-        $archiveHeader.addClass('fixed-bottom');
-        $stickyArchiveWrapper.css({'margin-top': ''});
-        $stickyProjectWrapper.removeClass('projects-stick');
+        $bottomHeader.addClass('fixed-bottom');
+        $stickyBottomWrapper.css({'margin-top': ''});
+        $stickyTopWrapper.removeClass('top-stick');
       }
     },
     offset: '97%',
   });
 
-  $stickyArchiveWrapper.waypoint({
+  $stickyBottomWrapper.waypoint({
     handler: function(direction) {
       if (direction === 'down') {
+        let bottomHeaderTop = $(this.element).offset().top - $(window).scrollTop();
+        $bottomHeader.css({
+          position: 'fixed',
+          left: 0,
+          right: 0,
+          top: bottomHeaderTop,
+        });
+        $bottomContentWrapper.css('padding-top', $bottomHeader.height());
         $(this.element).addClass('scrolling');
       }
       if (direction === 'up') {
+        $bottomHeader.removeAttr('style');
+        $bottomContentWrapper.css('padding-top', '');
         $(this.element).removeClass('scrolling');
       }
     },

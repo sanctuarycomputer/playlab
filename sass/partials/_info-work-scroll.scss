@@ -1,0 +1,34 @@
+.sticky-top-wrapper {
+  @media #{$medium-up} {
+    position: relative;
+    &.top-stick {
+      width: 100%;
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+    }
+  }
+}
+
+.sticky-bottom-wrapper {
+  @media #{$medium-up} {
+    width: 100%;
+    height: 80vh;
+    overflow:hidden;
+    float: left;
+    position: relative;
+    .bottom-header {
+      height: $titleBarHeight/2;
+      &.fixed-bottom {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: -30px;
+      }
+    }
+    &.scrolling {
+      overflow: scroll;
+    }
+  }
+}

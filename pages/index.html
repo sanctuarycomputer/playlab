@@ -21,17 +21,17 @@ This is an opening statement that can change and stuff and it’s not our bio. L
     </div>
   </div>
 
-  {% for work in cms.works %}
-    <article class='home-block clearfix' style='background-color:{{work.block_color}}'>
-      <div class='title-bar' style='background-color:{{work.block_color}}'>
-        <h1 class='center py2'>{{work.name}}</h1>
+  {% for w in cms.work %}
+    <article class='home-block clearfix' style='background-color:{{w.block_color}}'>
+      <div class='title-bar' style='background-color:{{w.block_color}}'>
+        <h1 class='center py2'>{{w.name}}</h1>
       </div>
       <div class='max-width-4 mx-auto'>
         <div class='col col-12'>
-          <img class='col-12' src='{{work.featured_image.url}}' />
-          <p class='p4'>{{work.summary}}</p>
+          <img class='col-12' src='{{w.featured_image.url}}' />
+          <p class='p4'>{{w.summary}}</p>
           <div class='center'>
-            {% for image in work.gallery %}
+            {% for image in w.gallery %}
               {% if image|first %}
                 <img class='col-10 p2' src='{{image.url}}'/>
               {% endif %}

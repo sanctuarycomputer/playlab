@@ -12,21 +12,81 @@
 {# This sets our page <title>. It will append this info's name to the site title defined in base.html #}
 {% block title %}{% parent %} - {{ cms.info.name }}{% endblock %}
 {% block content %}
-  <h1>{{ cms.info.name }}</h1>
-  <ul>
-      <li>
-        <strong>Name: </strong>
-        {{ cms.info.name }}
-      </li>
-      <li>
-        <strong>Create Date: </strong>
-        {# Format the date. You can use PHP's date function to format as needed. http://php.net/manual/en/function.date.php #}
-        {{ cms.info.create_date|date('F d Y') }}
-      </li>
-      <li>
-        <strong>Last Updated: </strong>
-        {# Format the date. You can use PHP's date function to format as needed. http://php.net/manual/en/function.date.php #}
-        {{ cms.info.last_updated|date('F d Y') }}
-      </li>
-  </ul>
+  <div id='info' class="z1 relative site-min-height">
+    <article class="sticky-top-wrapper bg-white center pt4">
+      <h1>INFO</h1>
+      <h1>INFO</h1>
+      <h1>INFO</h1>
+      <h1>INFO</h1>
+      <h1>INFO</h1>
+      <h1>INFO</h1>
+      <h1>INFO</h1>
+      <h1>INFO</h1>
+      <h1>INFO</h1>
+      <h1>INFO</h1>
+      <h1>INFO</h1>
+      <h1>INFO</h1>
+      <h1>INFO</h1>
+      <h1>INFO</h1>
+      <h1>INFO</h1>
+      <h1>INFO</h1>
+      <h1>INFO</h1>
+      <h1>INFO</h1>
+      <h1>INFO</h1>
+      <h1>INFO</h1>
+      <h1>INFO</h1>
+      <h1>INFO</h1>
+      <h1>INFO</h1>
+      <h1>INFO</h1>
+      <h1>INFO</h1>
+      <h1>INFO</h1>
+      <h1>INFO</h1>
+      <h1>INFO</h1>
+      <h1>INFO</h1>
+      <h1>INFO</h1>
+      <h1>INFO</h1>
+      <h1>INFO</h1>
+      <h1>INFO</h1>
+      <h1>INFO</h1>
+    </article>
+    <article class="sticky-bottom-wrapper center bg-black white z2">
+      <div class="bottom-header fixed-bottom bg-black">
+        <h1>This is the more info header</h1>
+      </div>
+      <h1>MORE INFO</h1>
+      <h1>MORE INFO</h1>
+      <h1>MORE INFO</h1>
+      <h1>MORE INFO</h1>
+      <h1>MORE INFO</h1>
+      <h1>MORE INFO</h1>
+      <h1>MORE INFO</h1>
+      <h1>MORE INFO</h1>
+      <h1>MORE INFO</h1>
+      <h1>MORE INFO</h1>
+      <h1>MORE INFO</h1>
+      <h1>MORE INFO</h1>
+      <h1>MORE INFO</h1>
+      <h1>MORE INFO</h1>
+      <h1>MORE INFO</h1>
+      <h1>MORE INFO</h1>
+      <h1>MORE INFO</h1>
+      <h1>MORE INFO</h1>
+      <h1>MORE INFO</h1>
+      <h1>MORE INFO</h1>
+      <h1>MORE INFO</h1>
+      <h1>MORE INFO</h1>
+      <h1>MORE INFO</h1>
+      <h1>MORE INFO</h1>
+      <h1>MORE INFO</h1>
+      <h1>MORE INFO</h1>
+      <h1>MORE INFO</h1>
+      <h1>MORE INFO</h1>
+      <h1>MORE INFO</h1>
+      <h1>MORE INFO</h1>
+      <h1>MORE INFO</h1>
+      <h1>MORE INFO</h1>
+      <h1>MORE INFO</h1>
+      <h1>MORE INFO</h1>
+    </article>
+  </div>
 {% endblock %}

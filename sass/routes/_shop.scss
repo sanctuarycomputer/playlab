@@ -6,7 +6,6 @@
     width: 100%;
     background-size: cover;
     background-repeat: no-repeat;
-    z-index: 2;
 
     .product-details {
       position: absolute;
@@ -23,38 +22,25 @@
 
     @media #{$medium-up} {
       .product-details {
-        opacity: 0;
+        display: none;
         position: fixed;
         z-index: 3;
-        .title, .description {
-          transform: translateY(10px);
-          opacity: 0;
-        }
       }
 
       .product-purchase {
         position: fixed;
         transition: 250ms ease-in-out;
-        opacity: 0;
+        display: none;
+        z-index: 3;
       }
 
       &.in-view {
         .product-details {
-          opacity: 1;
-          .title {
-            transform: translateY(0);
-            transition: 250ms ease-in-out;
-            opacity: 1;
-          }
-          .description {
-            transform: translateY(0);
-            transition: 250ms ease-in-out 200ms;
-            opacity: 1;
-          }
+          display: block;
         }
 
         .product-purchase {
-          opacity: 1;
+          display: block;
         }
       }
     }

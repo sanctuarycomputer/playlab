@@ -1,0 +1,42 @@
+{% extends "templates/partials/base.html" %}
+{# This sets our page <title>. It will append this work's name to the site title defined in base.html #}
+{% block title %}{% parent %} - {{ cms.work.name }}{% endblock %}
+{% block content %}
+{% set currentProjects = cms.work|where('type','Current') %}
+{% set archivedProjects = cms.work|where('type','Archive') %}
+<div id='work-index' class="z1 relative site-min-height">
+  <article class="sticky-top-wrapper bg-white center py4">
+    <div class="col-12 flex flex-wrap justify-around">
+      {% for project in currentProjects %}
+      <div class="col-12 md-col-6">
+        <div class="project-col left-align">
+          <a class="inline-block" href="{{ url(project) }}">
+            <img class="col-12 " src={{project.featured_image.url}} />
+            <p class="mt3">{{project.subtitle}}</p>
+            <p class="caps">{{project.name}}</p>
+          </a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </article>
+  <article class="sticky-bottom-wrapper center bg-black white z2">
+    <div class="bottom-header fixed-bottom bg-black">
+      <h1 class="py1">archives</h1>
+    </div>
+    <div class="bottom-content-wrapper col-12 flex flex-wrap justify-around">
+      {% for project in archivedProjects %}
+        <div class="col-12 md-col-6">
+          <div class="project-col left-align">
+            <a class="inline-block" href="{{ url(project) }}">
+              <img class="col-12 " src={{project.featured_image.url}} />
+              <p class="mt3">{{project.subtitle}}</p>
+              <p class="caps">{{project.name}}</p>
+            </a>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </article>
+</div>
+{% endblock %}
