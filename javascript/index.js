@@ -61,9 +61,10 @@ if (!isMobile) {
   let $stickyTopWrapper = $('.sticky-top-wrapper');
   let $stickyBottomWrapper = $('.sticky-bottom-wrapper');
   let $bottomHeader = $('.bottom-header');
+  let $bottomContentWrapper = $('.bottom-content-wrapper');
 
   $stickyBottomWrapper.waypoint({
-    handler: function(direction) {
+    handler: function (direction) {
       if (direction ==='down') {
         $bottomHeader.removeClass('fixed-bottom');
         $stickyBottomWrapper.css({'margin-top': $stickyTopWrapper.outerHeight() });
@@ -81,9 +82,19 @@ if (!isMobile) {
   $stickyBottomWrapper.waypoint({
     handler: function(direction) {
       if (direction === 'down') {
+        let bottomHeaderTop = $(this.element).offset().top - $(window).scrollTop();
+        $bottomHeader.css({
+          position: 'fixed',
+          left: 0,
+          right: 0,
+          top: bottomHeaderTop,
+        });
+        $bottomContentWrapper.css('padding-top', $bottomHeader.height());
         $(this.element).addClass('scrolling');
       }
       if (direction === 'up') {
+        $bottomHeader.removeAttr('style');
+        $bottomContentWrapper.css('padding-top', '');
         $(this.element).removeClass('scrolling');
       }
     },

@@ -6,16 +6,16 @@
     <!-- Work Block Renderer -->
     {% for block in item.blocks %}
       {% if block.variant === 'featured-image' %}
-        <img class="col-8 mx-auto block" src={{block.featured_image.image.url}} />
+        <img class="col-10 mx-auto block" src={{block.featured_image.image.url}} />
         {% elseif block.variant === 'image-slider' %}
-          <div class="col-8 mx-auto">
+          <div class="col-10 md-col-8 mx-auto">
             {% for slide in block.image_slider %}
-              <img class="block mx-auto" src={{slide.image.url}} />
+              <img class="block mx-auto col-10" src={{slide.image.url}} />
               <p class="p4">{{slide.caption}}</p>
             {% endfor %}
           </div>
         {% elseif block.variant === 'paragraph' %}
-          <div class="col-8 mx-auto">
+          <div class="col-10 md-col-8 mx-auto">
             <p class="p4">{{block.paragraph}}</p>
           </div>
         {% elseif block.variant === 'two-up' %}
@@ -30,7 +30,7 @@
             </div>
           </div>
         {% elseif block.variant === 'one-up' %}
-          <div class="col-8 mx-auto center">
+          <div class="col-10 md-col-8 mx-auto center">
             <img class="col-12" src={{block.featured_image.image.url}} />
             <p class="py2">{{block.featured_image.caption}}</p>
           </div>

@@ -1,3 +1,8 @@
-#work {
-
+#work-index {
+  .project-col {
+    padding: 1rem;
+    @media #{$medium-up} {
+      padding: 4rem;
+    }
+  }
 }

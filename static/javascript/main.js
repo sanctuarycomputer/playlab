@@ -64,6 +64,7 @@ if (!isMobile) {
   var $stickyTopWrapper = $('.sticky-top-wrapper');
   var $stickyBottomWrapper = $('.sticky-bottom-wrapper');
   var $bottomHeader = $('.bottom-header');
+  var $bottomContentWrapper = $('.bottom-content-wrapper');
 
   $stickyBottomWrapper.waypoint({
     handler: function handler(direction) {
@@ -84,9 +85,19 @@ if (!isMobile) {
   $stickyBottomWrapper.waypoint({
     handler: function handler(direction) {
       if (direction === 'down') {
+        var bottomHeaderTop = $(this.element).offset().top - $(window).scrollTop();
+        $bottomHeader.css({
+          position: 'fixed',
+          left: 0,
+          right: 0,
+          top: bottomHeaderTop
+        });
+        $bottomContentWrapper.css('padding-top', $bottomHeader.height());
         $(this.element).addClass('scrolling');
       }
       if (direction === 'up') {
+        $bottomHeader.removeAttr('style');
+        $bottomContentWrapper.css('padding-top', '');
         $(this.element).removeClass('scrolling');
       }
     },

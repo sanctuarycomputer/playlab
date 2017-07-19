@@ -84,6 +84,15 @@ p {
   stroke: #ECEAEA;
 }
 
+#work-index .project-col {
+  padding: 1rem;
+}
+@media (min-width: 52em) {
+  #work-index .project-col {
+    padding: 4rem;
+  }
+}
+
 #shop {
   height: 100%;
 }
@@ -249,13 +258,11 @@ p {
     position: relative;
   }
   .sticky-top-wrapper.top-stick {
-    padding-top: 0;
     width: 100%;
     position: fixed;
     left: 0;
     right: 0;
     bottom: 0;
-    top: 0;
   }
 }
 
@@ -274,7 +281,7 @@ p {
     position: fixed;
     left: 0;
     right: 0;
-    bottom: -45px;
+    bottom: -30px;
   }
   .sticky-bottom-wrapper.scrolling {
     overflow: scroll;
