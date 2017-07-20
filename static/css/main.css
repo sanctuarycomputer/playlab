@@ -36,6 +36,10 @@ p {
   cursor: pointer;
 }
 
+.grow-1 {
+  flex-grow: 1;
+}
+
 @media (min-width: 52em) {
   .p4-medium-up {
     padding: 4rem;
@@ -96,6 +100,10 @@ p {
 @media (min-width: 52em) {
   #work-index .project-col {
     padding: 4rem;
+  }
+  #work-index .project-col .project-container {
+    min-height: 600px;
+    justify-content: space-between;
   }
 }
 
@@ -296,6 +304,60 @@ p {
   .sticky-bottom-wrapper.scrolling {
     overflow: scroll;
   }
+}
+
+.image-block .image {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+}
+.image-block.Landscape {
+  position: relative;
+}
+.image-block.Landscape:before {
+  display: block;
+  content: "";
+  width: 100%;
+  padding-top: 75%;
+}
+.image-block.Landscape > .content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+.image-block.Portrait {
+  position: relative;
+}
+.image-block.Portrait:before {
+  display: block;
+  content: "";
+  width: 100%;
+  padding-top: 133.33333%;
+}
+.image-block.Portrait > .content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+.image-block.Square {
+  position: relative;
+}
+.image-block.Square:before {
+  display: block;
+  content: "";
+  width: 100%;
+  padding-top: 100%;
+}
+.image-block.Square > .content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 
 * {
