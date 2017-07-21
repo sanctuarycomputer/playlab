@@ -21,13 +21,21 @@
         {% elseif block.variant === 'two-up' %}
           <div class="col-12 mx-auto clearfix">
             <div class="col col-12 md-col-6 p4">
-              {% set img = block.image_left %}
-              {% include 'templates/partials/image.html' %}
+              <div class="image-block col-12 {{block.image_left.crop}}">
+                <div class="content image"
+                     style='background-image: url({{block.image_left.image.url}})'>
+
+                </div>
+              </div>
               <p class="py2">{{block.image_left.caption}}</p>
             </div>
             <div class="col col-12 md-col-6 p4">
-              {% set img = block.image_right %}
-              {% include 'templates/partials/image.html' %}
+              <div class="image-block col-12 {{block.image_right.crop}}">
+                <div class="content image"
+                     style='background-image: url({{block.image_right.image.url}})'>
+
+                </div>
+              </div>
               <p class="py2">{{block.image_right.caption}}</p>
             </div>
           </div>
@@ -40,8 +48,12 @@
           <div class="col-12 mx-auto clearfix">
             {% if block.image_right %}
               <div class="col col-12 md-col-6 p4">
-                {% set img = block.image_right %}
-                {% include 'templates/partials/image.html' %}
+                <div class="image-block col-12 {{block.image_right.crop}}">
+                  <div class="content image"
+                       style='background-image: url({{block.image_right.image.url}})'>
+
+                  </div>
+                </div>
               </div>
               <div class="col col-12 md-col-6 p4">
                 <p class="py2">{{block.paragraph}}</p>

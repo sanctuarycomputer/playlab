@@ -16,7 +16,7 @@
               <div class="project-col left-align">
                 <div class="project-container flex flex-column items-center">
                   <div class="col-12 lg-col-8 flex items-center justify-center grow-1">
-                    <div class="image-block col-10 {{project.thumbnail.crop}}">
+                    <div class="image-block col-10 {{project.thumbnail.crop}}"  >
                       <div class="content image"
                            style='background-image: url({{project.thumbnail.image.url}})'>
 
@@ -41,17 +41,34 @@
     <div class="bottom-header fixed-bottom bg-black">
       <h1 class="py1">archives</h1>
     </div>
-    <div class="bottom-content-wrapper col-12 flex flex-wrap justify-around">
+    <div class="col-12 flex flex-wrap justify-around">
       {% for project in archivedProjects %}
-        <div class="col-12 md-col-6">
-          <div class="project-col left-align">
-            <a class="inline-block" href="{{ url(project) }}">
-              <img class="col-12 " src={{project.featured_image.url}} />
-              <p class="mt3">{{project.subtitle}}</p>
-              <p class="caps">{{project.name}}</p>
+        {% if loop.index % 2 === 1 %}
+          <div class="col-12 flex flex-wrap justify-around">
+        {% endif %}
+          <div class="col-12 md-col-6">
+            <a class="block" href="{{ url(project) }}">
+              <div class="project-col left-align">
+                <div class="project-container flex flex-column items-center">
+                  <div class="col-12 lg-col-8 flex items-center justify-center grow-1">
+                    <div class="image-block col-10 {{project.thumbnail.crop}}"  >
+                      <div class="content image"
+                           style='background-image: url({{project.thumbnail.image.url}})'>
+
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <p class="mt3">{{project.subtitle}}</p>
+                    <p class="caps">{{project.name}}</p>
+                  </div>
+                </div>
+              </div>
             </a>
           </div>
-        </div>
+        {% if loop.index % 2 === 0 %}
+          </div>
+        {% endif %}
       {% endfor %}
     </div>
   </article>

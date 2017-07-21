@@ -1,4 +1,5 @@
 {% extends "templates/partials/base.html" %}
+{% set featuredProjects = cms.work|where('type','Current')|slice(0,3) %}
 {% block title %}{% parent %} - Homepage{% endblock %}
 
 {% block content %}
@@ -21,17 +22,17 @@ This is an opening statement that can change and stuff and it’s not our bio. L
     </div>
   </div>
 
-  {% for w in cms.work %}
-    <article class='home-block clearfix' style='background-color:{{w.block_color}}'>
-      <div class='title-bar' style='background-color:{{w.block_color}}'>
-        <h1 class='center py2'>{{w.name}}</h1>
+  {% for project in featuredProjects %}
+    <article class='home-block clearfix' style='background-color:{{project.block_color}}'>
+      <div class='title-bar' style='background-color:{{project.block_color}}'>
+        <h1 class='center py2'>{{project.name}}</h1>
       </div>
       <div class='max-width-4 mx-auto'>
         <div class='col col-12'>
-          <img class='col-12' src='{{w.featured_image.url}}' />
-          <p class='p4'>{{w.summary}}</p>
+          <img class='col-12' src='{{project.featured_image.url}}' />
+          <p class='p4'>{{project.summary}}</p>
           <div class='center'>
-            {% for image in w.gallery %}
+            {% for image in project.gallery %}
               {% if image|first %}
                 <img class='col-10 p2' src='{{image.url}}'/>
               {% endif %}
