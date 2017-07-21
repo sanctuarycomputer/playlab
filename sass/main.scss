@@ -2,6 +2,7 @@
 @import 'variables';
 
 //Globals
+@import 'global/mixins';
 @import 'global/type';
 @import 'global/util';
 @import 'global/colors';
@@ -18,6 +19,7 @@
 @import 'partials/mobile-header';
 @import 'partials/home-block';
 @import 'partials/info-work-scroll';
+@import 'partials/image';
 
 * { -webkit-font-smoothing: antialiased; }
 html, body {

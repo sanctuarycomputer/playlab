@@ -1,0 +1,10 @@
+.image-block {
+  .image {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+  }
+  &.Landscape { @include aspect-ratio(4,3); }
+  &.Portrait {@include aspect-ratio(3,4);  }
+  &.Square { @include aspect-ratio(1,1); }
+}

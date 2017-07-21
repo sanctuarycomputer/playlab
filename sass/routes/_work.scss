@@ -3,6 +3,10 @@
     padding: 1rem;
     @media #{$medium-up} {
       padding: 4rem;
+      .project-container {
+        min-height: 600px;
+        justify-content: space-between;
+      }
     }
   }
 }
