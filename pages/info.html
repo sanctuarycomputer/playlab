@@ -9,7 +9,6 @@
 {# Confused what extends and blocks do? Watch a primer: #}
 {# http://www.webhook.com/docs/template-inheritance-blocks/ #}
 {% extends "templates/partials/base.html" %}
-{% set info = cms.info %}
 {# This sets our page <title>. It will append this info's name to the site title defined in base.html #}
 {% block title %}{% parent %} - {{ cms.info.name }}{% endblock %}
 {% block content %}
