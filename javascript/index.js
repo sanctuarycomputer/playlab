@@ -176,10 +176,6 @@ headroomMenu.init();
 
 //Nav: Select-state
 $('document').ready(function () {
-  let path = window.location.pathname;
-  let route = path.split('/');
-  let routeName = route.length > 1 ? route[1] : null;
-
   if (routeName) {
     let $activeNavLink = $(navMenu).find(`[data-route='${routeName}']`)
     $activeNavLink.addClass('active');
