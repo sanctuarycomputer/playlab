@@ -1,0 +1,16 @@
+#info-subsection {
+  #people,
+  #services,
+  #clients,
+  #talks-and-exhibits,
+  #contact {
+    display: none;
+    opacity: 0;
+    visibility: hidden;
+    &.active-content {
+      display: flex;
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+}

@@ -1,3 +1,11 @@
 #info {
-
+  .info-tab {
+    &.active-tab:after {
+      content: url('/static/images/bullet-white.svg');
+      color: white;
+      position: absolute;
+      width: 10px;
+      margin-left: 5px;
+    }
+  }
 }

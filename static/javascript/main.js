@@ -2,7 +2,9 @@
 'use strict';
 
 var isMobile = /iphone|ipod|ipad|android|blackberry|opera mini|opera mobi|skyfire|maemo|windows phone|palm|iemobile|symbian|symbianos|fennec/i.test(navigator.userAgent.toLowerCase());
-
+var path = window.location.pathname;
+var route = path.split('/');
+var routeName = route.length > 1 ? route[1] : null;
 /**
 // Only apply waypoint
 // interactions if not mobile
@@ -135,6 +137,34 @@ if (!isMobile) {
   });
 };
 
+//Info subsection
+var $infoTabs = $('.info-tab');
+var $infoSubsection = $('#info-subsection');
+var $activeTab = $('.active-tab');
+
+//Initial setup
+if (routeName === 'info') {
+  var $activeSectionName = $activeTab.data().type;
+  var $activeSection = $infoSubsection.find('#' + $activeSectionName);
+  $activeSection.addClass('active-content');
+
+  $infoTabs.on('click', function (e) {
+    var $targetTab = $(e.target);
+    var $activeTab = $('.active-tab');
+    if ($targetTab.hasClass('active-tab')) {
+      return;
+    }
+
+    $activeTab.removeClass('active-tab');
+    $targetTab.addClass('active-tab');
+
+    var $selectedSectionName = $targetTab.data().type;
+    var $selectedSection = $infoSubsection.find('#' + $selectedSectionName);
+    $('.active-content').removeClass('active-content');
+    $selectedSection.addClass('active-content');
+  });
+};
+
 //Headroom
 var navMenu = document.getElementById('nav-menu');
 var headroomMenu = new Headroom(navMenu, {
@@ -150,10 +180,6 @@ headroomMenu.init();
 
 //Nav: Select-state
 $('document').ready(function () {
-  var path = window.location.pathname;
-  var route = path.split('/');
-  var routeName = route.length > 1 ? route[1] : null;
-
   if (routeName) {
     var $activeNavLink = $(navMenu).find('[data-route=\'' + routeName + '\']');
     $activeNavLink.addClass('active');
