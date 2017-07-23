@@ -111,6 +111,14 @@ p {
   -webkit-transform: translate3d(0, 0, 0);
 }
 
+#info .info-tab.active-tab:after {
+  content: url("/static/images/bullet-white.svg");
+  color: white;
+  position: absolute;
+  width: 10px;
+  margin-left: 5px;
+}
+
 #shop {
   height: 100%;
 }
@@ -304,6 +312,25 @@ p {
   .sticky-bottom-wrapper.scrolling {
     overflow: scroll;
   }
+}
+
+#info-subsection #people,
+#info-subsection #services,
+#info-subsection #clients,
+#info-subsection #talks-and-exhibits,
+#info-subsection #contact {
+  display: none;
+  opacity: 0;
+  visibility: hidden;
+}
+#info-subsection #people.active-content,
+#info-subsection #services.active-content,
+#info-subsection #clients.active-content,
+#info-subsection #talks-and-exhibits.active-content,
+#info-subsection #contact.active-content {
+  display: flex;
+  opacity: 1;
+  visibility: visible;
 }
 
 .image-block .image {
