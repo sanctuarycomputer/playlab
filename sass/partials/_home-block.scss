@@ -7,10 +7,16 @@
     top: 0;
     left: 0;
     right: 0;
+    bottom: -$titleBarHeight;
     &.next {
+      cursor: pointer;
+      transition: 250ms ease-in-out;
       position: fixed;
-      bottom: -$titleBarHeight/2;
+      transform: translateY(-40px);
       top: auto;
+      &:hover {
+        transform: translateY(-70px);
+      }
     }
   }
 

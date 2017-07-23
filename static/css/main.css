@@ -267,11 +267,17 @@ p {
   top: 0;
   left: 0;
   right: 0;
+  bottom: -125px;
 }
 .home-block .title-bar.next {
+  cursor: pointer;
+  transition: 250ms ease-in-out;
   position: fixed;
-  bottom: -62.5px;
+  transform: translateY(-40px);
   top: auto;
+}
+.home-block .title-bar.next:hover {
+  transform: translateY(-70px);
 }
 @media (min-width: 52em) {
   .home-block:last-of-type {

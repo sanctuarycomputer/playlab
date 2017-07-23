@@ -62,6 +62,17 @@ if (!isMobile) {
     }
   });
 
+  //Homepage click next
+  var $sectionBar = $('.title-bar');
+  $sectionBar.on('click', function () {
+    var $this = $(this);
+    if ($this.hasClass('next')) {
+      $this.removeClass('next');
+      var sectionTop = $this.offset().top;
+      window.scrollTo(0, sectionTop);
+    }
+  });
+
   // Work/Info page scroll interaction
   var $stickyTopWrapper = $('.sticky-top-wrapper');
   var $stickyBottomWrapper = $('.sticky-bottom-wrapper');
