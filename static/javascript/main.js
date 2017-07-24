@@ -216,4 +216,15 @@ $hamburger.on('click', function () {
   return $mobileMenu.addClass('is-showing');
 });
 
+//Image Gallery
+$('.image-slider').each(function () {
+  var $this = $(this);
+  $this.slick({
+    fade: true,
+    cssEase: 'ease-in-out',
+    prevArrow: '',
+    nextArrow: $this.next()
+  });
+});
+
 },{}]},{},[1]);

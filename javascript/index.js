@@ -212,3 +212,15 @@ $hamburger.on('click', () => {
   $hamburger.addClass('active');
   return $mobileMenu.addClass('is-showing');
 });
+
+
+//Image Gallery
+$('.image-slider').each(function(){
+  let $this = $(this);
+  $this.slick({
+    fade: true,
+    cssEase: 'ease-in-out',
+    prevArrow: '',
+    nextArrow: $this.next(),
+  })
+});

@@ -10,10 +10,28 @@
         <img class="col-10 mx-auto block" src={{block.featured_image.image.url}} />
         {% elseif block.variant === 'image-slider' %}
           <div class="col-10 md-col-8 mx-auto">
-            {% for slide in block.image_slider %}
-              <img class="block mx-auto col-10" src={{slide.image.url}} />
-              <p class="p4-medium-up">{{slide.caption}}</p>
-            {% endfor %}
+            <div class="relative">
+              <div class='image-slider center'>
+                {% for slide in block.image_slider %}
+                  <div>
+                    <img class="image-slider-img mx-auto" src="{{slide.image.url}}" />
+                  </div>
+                {% endfor %}
+              </div>
+              <!-- THIS ORDER IS IMPORTANT -->
+              <button class="next-arrow_modified">
+                <svg xmlns="http://www.w3.org/2000/svg" width="77" height="49" viewBox="0 0 77 49">
+                  <g fill="none">
+                    <g fill={{item.text_color}}>
+                      <g transform="translate(-1156 -5813)translate(1156 5812)">
+                        <polygon points="1 27 71.2 27 71.2 23 1 23"/>
+                        <polygon transform="translate(52.014973 25.079942)rotate(-315)translate(-52.014973 -25.079942)" points="65 12 65 42.2 69 42.2 69 8 35 8 35 12"/>
+                      </g>
+                    </g>
+                  </g>
+                </svg>
+              </button>
+            </div>
           </div>
         {% elseif block.variant === 'paragraph' %}
           <div class="col-10 md-col-8 mx-auto">

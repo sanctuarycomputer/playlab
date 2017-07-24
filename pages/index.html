@@ -23,7 +23,7 @@ This is an opening statement that can change and stuff and it’s not our bio. L
   </div>
 
   {% for project in featuredProjects %}
-    <article class='home-block clearfix' style='background-color:{{project.block_color}}'>
+    <article class='home-block clearfix' style='color: {{project.text_color}}; background-color:{{project.block_color}}'>
       <div class='title-bar' style='background-color:{{project.block_color}}'>
         <h1 class='center py2'>{{project.name}}</h1>
       </div>
@@ -31,12 +31,27 @@ This is an opening statement that can change and stuff and it’s not our bio. L
         <div class='col col-12'>
           <img class='col-12' src='{{project.featured_image.url}}' />
           <p class='p4'>{{project.summary}}</p>
-          <div class='center'>
-            {% for image in project.gallery %}
-              {% if image|first %}
-                <img class='col-10 p2' src='{{image.url}}'/>
-              {% endif %}
-            {% endfor %}
+          <div class="relative">
+            <div class='image-slider center'>
+              {% for image in project.gallery %}
+                <div>
+                  <img class="image-slider-img mx-auto" src="{{image.url}}" />
+                </div>
+              {% endfor %}
+            </div>
+            <!-- THIS ORDER IS IMPORTANT -->
+            <button class="next-arrow_modified">
+              <svg xmlns="http://www.w3.org/2000/svg" width="77" height="49" viewBox="0 0 77 49">
+                <g fill="none">
+                  <g fill={{project.text_color}}>
+                    <g transform="translate(-1156 -5813)translate(1156 5812)">
+                      <polygon points="1 27 71.2 27 71.2 23 1 23"/>
+                      <polygon transform="translate(52.014973 25.079942)rotate(-315)translate(-52.014973 -25.079942)" points="65 12 65 42.2 69 42.2 69 8 35 8 35 12"/>
+                    </g>
+                  </g>
+                </g>
+              </svg>
+            </button>
           </div>
           <p class='center py2'>See more</p>
         </div>
