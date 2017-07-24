@@ -1,0 +1,22 @@
+.image-slider {
+  .slick-track {
+    display: flex;
+    align-items: center;
+    .image-slider-img {
+      width: 100%;
+      @media #{$medium-up} {
+        width: auto;
+      }
+    }
+  }
+}
+
+//Modifies Slick Arrow
+.next-arrow_modified {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 0;
+  background: none;
+  border: none;
+}

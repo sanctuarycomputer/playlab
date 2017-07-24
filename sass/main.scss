@@ -22,6 +22,7 @@
 @import 'partials/info-subsection';
 @import 'partials/image';
 @import 'partials/prev-next-select';
+@import 'partials/image-slider';
 
 * { -webkit-font-smoothing: antialiased; }
 html, body {
@@ -32,3 +33,4 @@ a {
   color: inherit;
   text-decoration: none;
 }
+button:focus {outline:0;}

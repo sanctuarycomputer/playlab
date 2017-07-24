@@ -411,6 +411,28 @@ p {
   opacity: 1;
 }
 
+.image-slider .slick-track {
+  display: flex;
+  align-items: center;
+}
+.image-slider .slick-track .image-slider-img {
+  width: 100%;
+}
+@media (min-width: 52em) {
+  .image-slider .slick-track .image-slider-img {
+    width: auto;
+  }
+}
+
+.next-arrow_modified {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 0;
+  background: none;
+  border: none;
+}
+
 * {
   -webkit-font-smoothing: antialiased;
 }
@@ -423,6 +445,10 @@ html, body {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+button:focus {
+  outline: 0;
 }
 
 /*# sourceMappingURL=main.css.map */
