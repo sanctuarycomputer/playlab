@@ -2,7 +2,7 @@
 {% set next = nextItem(item, 'type', false) %}
 
 <div class="prev-next-select col-12 mx-auto flex justify-between">
-  <div class="col-3 p4 center">
+  <div class="prev-wrapper col-3 center">
     {% if prev %}
       <a class="prev-pj" href={{url(prev)}}>
         <p>Previous</p>
@@ -15,7 +15,7 @@
       </a>
     {% endif %}
   </div>
-  <div class="col-3 p4 center">
+  <div class="next-wrapper col-3 center">
     {% if next %}
       <a class="next-pj" href={{url(next)}}>
         <p>Next</p>

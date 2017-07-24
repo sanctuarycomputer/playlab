@@ -410,6 +410,11 @@ p {
 .prev-next-select .prev-pj:hover .pj-image, .prev-next-select .next-pj:hover .pj-image {
   opacity: 1;
 }
+@media (min-width: 52em) {
+  .prev-next-select .prev-wrapper, .prev-next-select .next-wrapper {
+    padding: 4rem;
+  }
+}
 
 .image-slider .slick-track {
   display: flex;
