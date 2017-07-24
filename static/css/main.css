@@ -134,11 +134,21 @@ p {
   top: 25%;
   left: 50px;
 }
+#shop .product .product-details .title {
+  font-weight: normal;
+  text-transform: uppercase;
+}
 #shop .product .product-purchase {
   position: absolute;
-  padding: 4rem;
+  padding: 6rem 4rem;
   bottom: 0;
   right: 0;
+}
+#shop .product .product-purchase button {
+  margin-top: 2rem;
+  background-color: transparent;
+  padding: 1rem 2rem;
+  border: solid 1px #000;
 }
 @media (min-width: 52em) {
   #shop .product .product-details {
@@ -391,6 +401,14 @@ p {
   left: 0;
   right: 0;
   bottom: 0;
+}
+
+.prev-next-select .pj-image {
+  opacity: 0;
+  transition: 250ms ease-in-out;
+}
+.prev-next-select .prev-pj:hover .pj-image, .prev-next-select .next-pj:hover .pj-image {
+  opacity: 1;
 }
 
 * {

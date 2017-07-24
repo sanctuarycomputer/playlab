@@ -1,0 +1,31 @@
+{% set prev = prevItem(item, 'type', false) %}
+{% set next = nextItem(item, 'type', false) %}
+
+<div class="prev-next-select col-12 mx-auto flex justify-between">
+  <div class="col-3 p4 center">
+    {% if prev %}
+      <a class="prev-pj" href={{url(prev)}}>
+        <p>Previous</p>
+        <div class="pj-image image-block col-12 Landscape">
+          <div class="content image"
+               style='background-image: url({{prev.thumbnail.image.url}})'>
+
+          </div>
+        </div>
+      </a>
+    {% endif %}
+  </div>
+  <div class="col-3 p4 center">
+    {% if next %}
+      <a class="next-pj" href={{url(next)}}>
+        <p>Next</p>
+        <div class="pj-image image-block col-12 Landscape">
+          <div class="content image"
+               style='background-image: url({{next.thumbnail.image.url}})'>
+
+          </div>
+        </div>
+      </a>
+    {% endif %}
+  </div>
+</div>
