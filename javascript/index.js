@@ -59,6 +59,18 @@ if (!isMobile) {
     }
   });
 
+  //Homepage click next
+  let $sectionBar = $('.title-bar');
+  $sectionBar.on('click', function(){
+    let $this = $(this);
+    if ($this.hasClass('next')) {
+      $this.removeClass('next');
+      let sectionTop = $this.offset().top;
+      window.scrollTo(0, sectionTop);
+    }
+  });
+
+
   // Work/Info page scroll interaction
   let $stickyTopWrapper = $('.sticky-top-wrapper');
   let $stickyBottomWrapper = $('.sticky-bottom-wrapper');

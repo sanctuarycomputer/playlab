@@ -1,6 +1,7 @@
 {% extends "templates/partials/base.html" %}
 {# This sets our page <title>. It will append this products's name to the site title defined in base.html #}
 {% block title %}{% parent %} - {{ item.name }}{% endblock %}
+{% set projectType = item.type %}
 {% block content %}
   <div id="work-show" class="site-min-height relative col-12 pt4 z1 footer-room" style="color:{{item.text_color}};background-color:{{item.block_color}}">
     <!-- Work Block Renderer -->
@@ -69,6 +70,7 @@
           </div>
       {% endif %}
     {% endfor %}
+    {% include "templates/partials/prev-next-select.html" %}
   </div>
 {% endblock %}
 

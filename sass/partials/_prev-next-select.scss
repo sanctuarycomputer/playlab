@@ -1,0 +1,13 @@
+.prev-next-select {
+  .pj-image {
+    opacity: 0;
+    transition: 250ms ease-in-out;
+  }
+  .prev-pj, .next-pj {
+    &:hover {
+      .pj-image {
+        opacity: 1;
+      }
+    }
+  }
+}
