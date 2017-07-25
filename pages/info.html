@@ -12,8 +12,8 @@
 {# This sets our page <title>. It will append this info's name to the site title defined in base.html #}
 {% block title %}{% parent %} - {{ cms.info.name }}{% endblock %}
 {% block content %}
-  <div id='info' class="z1 relative site-min-height">
-    <article class="sticky-top-wrapper bg-white center py4">
+  <div id='info' class="z1 relative site-min-height route-padding-top">
+    <article class="sticky-top-wrapper bg-white center pb4">
       <div class="col-10 md-col-8 mx-auto left-align">
         <p>{{cms.info.about}}</p>
         <div class="image-block col-8 mx-auto my4 {{cms.info.image_block.crop}}">
@@ -24,11 +24,11 @@
         <p class="center">{{cms.info.updates}}</p>
       </div>
     </article>
-    <article class="sticky-bottom-wrapper center bg-black white z2">
-      <div class="bottom-header fixed-bottom bg-black">
+    <article class="sticky-bottom-wrapper center bg-black white">
+      <div class="bottom-header fixed-bottom bg-black transform-3d">
         <ul class="flex justify-around list-reset">
         {% for section in cms.info.subsection %}
-          <li data-type={{section.title}} class="h2 info-tab pointer {% if loop.first %} active-tab {% endif %}">{{section.name}}</li>
+          <li data-type={{section.title}} class="info-tab pointer {% if loop.first %} active-tab {% endif %}">{{section.name}}</li>
         {% endfor %}
         </ul>
       </div>

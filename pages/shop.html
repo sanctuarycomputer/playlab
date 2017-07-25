@@ -14,15 +14,15 @@
 {% block content %}
   <div id="shop" class="relative z1">
     {% for product in cms.products %}
-      <div class="product col-12" style="background-image: url({{product.featured_image.url}})">
+      <div class="product col-12 {% if loop.last %} footer-room {% endif %}" style="background-image: url({{product.featured_image.url}})">
         <img class="height-100 col-12" src="/static/images/shop-gradient.png"/>
         <div class="product-details col-10 md-col-3 white">
-          <h2 class="title caps">{{product.name}}</h2>
+          <h2 class="title uppercase">{{product.name}}</h2>
           <p class="description">{{product.description}}</p>
         </div>
         <div class="product-purchase white">
           <p>${{product.price}}</p>
-          <button class="caps">Buy</button>
+          <button class="uppercase">Buy</button>
         </div>
       </div>
     {% endfor %}

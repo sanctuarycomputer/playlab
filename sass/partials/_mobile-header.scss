@@ -18,8 +18,8 @@
     border: none;
      span {
        display: inline-block;;
-       width: 35px;
-       height: 3px;
+       width: 30px;
+       height: 2px;
        margin: 0.25em 0;
        background: color('black');
      }
@@ -50,10 +50,10 @@
 
   .mobile-menu {
     position: fixed;
-    top: 80px;
+    top: 70px;
     left: 0;
     right: 0;
-    min-height: 200px;
+    min-height: 170px;
     opacity: 0;
     visibility: hidden;
 

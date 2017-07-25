@@ -1,59 +1,59 @@
 {% if section.title === 'people' %}
-  <div id={{section.title}} class="col-12 md-col-8 mx-auto flex flex-wrap">
-    <div class="col-12 md-col-6">
+  <div id={{section.title}} class="col-12 md-col-9 mx-auto pt4 flex flex-wrap">
+    <div class="col-12 md-col-5">
       <ul class="list-reset left-align">
       {% for item in section.left_column %}
-        <li class="h2">{{item.title}}</li>
+        <li>{{item.title}}</li>
       {% endfor %}
       </ul>
     </div>
-    <div class="col-12 md-col-6">
+    <div class="col-12 md-col-5">
       <ul class="list-reset left-align">
       {% for item in section.right_column %}
-        <li class="h2">{{item.title}}</li>
+        <li>{{item.title}}</li>
       {% endfor %}
       </ul>
     </div>
   </div>
   {% elseif section.title === 'services' %}
-    <div id={{section.title}} class="col-12 md-col-8 mx-auto flex flex-wrap">
-      <div class="col-12 md-col-6">
+    <div id={{section.title}} class="col-12 md-col-9 mx-auto pt4 flex flex-wrap">
+      <div class="col-12 md-col-5">
         <ul class="list-reset left-align">
         {% for item in section.left_column %}
-          <li class="h2">{{item.title}}</li>
+          <li>{{item.title}}</li>
         {% endfor %}
         </ul>
       </div>
-      <div class="col-12 md-col-6">
+      <div class="col-12 md-col-5">
         <ul class="list-reset left-align">
         {% for item in section.right_column %}
-          <li class="h2">{{item.title}}</li>
+          <li>{{item.title}}</li>
         {% endfor %}
         </ul>
       </div>
     </div>
   {% elseif section.title === 'clients' %}
-  <div id={{section.title}} class="col-12 md-col-8 mx-auto flex flex-wrap">
-    <div class="col-12 md-col-6">
+  <div id={{section.title}} class="col-12 md-col-9 mx-auto pt4 flex flex-wrap">
+    <div class="col-12 md-col-5">
       <ul class="list-reset left-align">
       {% for item in section.left_column %}
-        <li class="h2">{{item.title}}</li>
+        <li>{{item.title}}</li>
       {% endfor %}
       </ul>
     </div>
-    <div class="col-12 md-col-6">
+    <div class="col-12 md-col-5">
       <ul class="list-reset left-align">
       {% for item in section.right_column %}
-        <li class="h2">{{item.title}}</li>
+        <li>{{item.title}}</li>
       {% endfor %}
       </ul>
     </div>
   </div>
   {% elseif section.title === 'talks-and-exhibits' %}
-    <div id={{section.title}} class="col-12 md-col-8 mx-auto">
+    <div id={{section.title}} class="col-12 md-col-9 pt4 mx-auto">
       <ul class="list-reset left-align">
       {% for item in section.left_column %}
-        <li class="h2 pb4">
+        <li class="pb4">
           <p>{{item.title}}</p>
           <p>{{item.content}}</p>
         </li>
@@ -61,22 +61,22 @@
       </ul>
     </div>
   {% elseif section.title === 'contact' %}
-    <div id={{section.title}} class="col-12 md-col-8 mx-auto flex flex-wrap">
-      <div class="col-12 md-col-6">
+    <div id={{section.title}} class="col-12 md-col-9 mx-auto pt4 flex flex-wrap">
+      <div class="col-12 md-col-5">
         <ul class="list-reset left-align">
         {% for item in section.left_column %}
-          <li class="h2 pb4">
+          <li class="pb4">
             <p>{{item.title}}</p>
             <p>{{item.content}}</p>
           </li>
         {% endfor %}
         </ul>
       </div>
-      <div class="col-12 md-col-6">
+      <div class="col-12 md-col-5">
         <ul class="list-reset left-align">
         {% for item in section.right_column %}
           {% if item.image.url %}
-          <li class="h2 pb4">
+          <li class="pb4">
             <div class="image-block mx-auto my4 {{cms.info.image_block.crop}}">
               <div class="content image"
                    style='background-image: url({{cms.info.image_block.image.url}})'>
@@ -84,7 +84,7 @@
             </div>
           </li>
           {% endif %}
-          <li class="h2">
+          <li>
             <p>{{item.title}}</p>
             <p>{{item.content}}</p>
           </li>
