@@ -25,15 +25,15 @@
       </div>
     </article>
     <article class="sticky-bottom-wrapper center bg-black white">
-      <div class="bottom-header fixed-bottom bg-black transform-3d">
-        <ul class="flex justify-around list-reset">
+      <div class="bottom-header info-header fixed-bottom bg-black transform-3d">
+        <ul class="flex justify-around list-reset m0 py2 bg-black">
         {% for section in cms.info.subsection %}
           <li data-type={{section.title}} class="info-tab pointer {% if loop.first %} active-tab {% endif %}">{{section.name}}</li>
         {% endfor %}
         </ul>
       </div>
       <div class="bottom-content-wrapper">
-        <div id="info-subsection">
+        <div id="info-subsection" class="p2">
         {% for section in cms.info.subsection %}
           {% include "templates/partials/info-sub-section.html" %}
         {% endfor %}

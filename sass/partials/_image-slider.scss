@@ -15,6 +15,7 @@
 .next-arrow_modified {
   display: none !important;
   @media #{$medium-up} {
+    display: block !important;
     position: absolute;
     top: 50%;
     transform: translateY(-50%);

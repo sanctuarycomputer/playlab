@@ -48,6 +48,14 @@
               {{ row.title }}
             </li>
             <li>
+              <strong>Link Text: </strong>
+              {{ row.link_text }}
+            </li>
+            <li>
+              <strong>Link Url: </strong>
+              {{ row.link_url }}
+            </li>
+            <li>
               <strong>Content: </strong>
               {{ row.content }}
             </li>
@@ -105,6 +113,10 @@
       <li>
         <strong>Slug: </strong>
         {{ item.slug }}
+      </li>
+      <li>
+        <strong>Website: </strong>
+        {{ item.website }}
       </li>
   </ul>
 {% endblock %}

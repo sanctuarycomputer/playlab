@@ -53,9 +53,21 @@
     <div id={{section.title}} class="col-12 md-col-9 pt4 mx-auto">
       <ul class="list-reset left-align">
       {% for item in section.left_column %}
-        <li class="pb4">
+        <li class="pb4 relative">
           <p>{{item.title}}</p>
-          <p>{{item.content}}</p>
+          <p>
+            {% if item.link_text %}
+              {% if item.link_url %}
+                <a class="image-trigger link-style mr1" href={{item.link_url}} target="_blank">{{item.link_text}}</a>
+                {% else %}
+                <span class="image-trigger link-style mr1">{{item.link_text}}</span>
+              {% endif %}
+            {% endif %}
+            {{item.content}}
+          </p>
+          {% if item.image %}
+            <img class="hover-image absolute col-8" src={{item.image.url}} />
+          {% endif %}
         </li>
       {% endfor %}
       </ul>

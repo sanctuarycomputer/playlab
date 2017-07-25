@@ -159,12 +159,20 @@ h1, h2, h3, h4, h5, h6 {
   -webkit-transform: translate3d(0, 0, 0);
 }
 
-#info .info-tab.active-tab:after {
-  content: url("/static/images/bullet-white.svg");
-  color: white;
-  position: absolute;
-  width: 10px;
-  margin-left: 5px;
+#info .info-header {
+  display: none;
+}
+@media (min-width: 52em) {
+  #info .info-header {
+    display: block;
+  }
+  #info .info-header .info-tab.active-tab:after {
+    content: url("/static/images/bullet-white.svg");
+    color: white;
+    position: absolute;
+    width: 10px;
+    margin-left: 5px;
+  }
 }
 
 #shop {
@@ -379,30 +387,41 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-#info-subsection #people,
-#info-subsection #services,
-#info-subsection #clients,
-#info-subsection #talks-and-exhibits,
-#info-subsection #contact {
-  display: none;
+@media (min-width: 52em) {
+  #info-subsection #people,
+  #info-subsection #services,
+  #info-subsection #clients,
+  #info-subsection #talks-and-exhibits,
+  #info-subsection #contact {
+    display: none;
+    opacity: 0;
+    visibility: hidden;
+  }
+  #info-subsection #people.active-content,
+  #info-subsection #services.active-content,
+  #info-subsection #clients.active-content,
+  #info-subsection #talks-and-exhibits.active-content,
+  #info-subsection #contact.active-content {
+    display: flex;
+    opacity: 1;
+    visibility: visible;
+  }
+  #info-subsection #people div:first-of-type,
+  #info-subsection #services div:first-of-type,
+  #info-subsection #clients div:first-of-type,
+  #info-subsection #talks-and-exhibits div:first-of-type,
+  #info-subsection #contact div:first-of-type {
+    margin-right: 16%;
+  }
+}
+#info-subsection .hover-image {
   opacity: 0;
-  visibility: hidden;
+  top: 0;
+  left: 80%;
+  transition: 250ms ease-in-out;
 }
-#info-subsection #people.active-content,
-#info-subsection #services.active-content,
-#info-subsection #clients.active-content,
-#info-subsection #talks-and-exhibits.active-content,
-#info-subsection #contact.active-content {
-  display: flex;
+#info-subsection .hover-image.is-showing {
   opacity: 1;
-  visibility: visible;
-}
-#info-subsection #people div:first-of-type,
-#info-subsection #services div:first-of-type,
-#info-subsection #clients div:first-of-type,
-#info-subsection #talks-and-exhibits div:first-of-type,
-#info-subsection #contact div:first-of-type {
-  margin-right: 16%;
 }
 
 .image-block .image {
@@ -490,6 +509,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 @media (min-width: 52em) {
   .next-arrow_modified {
+    display: block !important;
     position: absolute;
     top: 50%;
     transform: translateY(-50%);

@@ -117,6 +117,34 @@ if (!isMobile) {
     offset: 'bottom-in-view'
   });
 
+  //Info subsection
+  var $infoTabs = $('.info-tab');
+  var $infoSubsection = $('#info-subsection');
+  var $activeTab = $('.active-tab');
+
+  //Initial setup
+  if (routeName === 'info') {
+    var $activeSectionName = $activeTab.data().type;
+    var $activeSection = $infoSubsection.find('#' + $activeSectionName);
+    $activeSection.addClass('active-content');
+
+    $infoTabs.on('click', function (e) {
+      var $targetTab = $(e.target);
+      var $activeTab = $('.active-tab');
+      if ($targetTab.hasClass('active-tab')) {
+        return;
+      }
+
+      $activeTab.removeClass('active-tab');
+      $targetTab.addClass('active-tab');
+
+      var $selectedSectionName = $targetTab.data().type;
+      var $selectedSection = $infoSubsection.find('#' + $selectedSectionName);
+      $('.active-content').removeClass('active-content');
+      $selectedSection.addClass('active-content');
+    });
+  };
+
   //Shop Page
   var $productBlocks = $('.product');
   var $shopViewContext = $('.shop-view-context');
@@ -145,34 +173,6 @@ if (!isMobile) {
       },
       offset: '-25%'
     });
-  });
-};
-
-//Info subsection
-var $infoTabs = $('.info-tab');
-var $infoSubsection = $('#info-subsection');
-var $activeTab = $('.active-tab');
-
-//Initial setup
-if (routeName === 'info') {
-  var $activeSectionName = $activeTab.data().type;
-  var $activeSection = $infoSubsection.find('#' + $activeSectionName);
-  $activeSection.addClass('active-content');
-
-  $infoTabs.on('click', function (e) {
-    var $targetTab = $(e.target);
-    var $activeTab = $('.active-tab');
-    if ($targetTab.hasClass('active-tab')) {
-      return;
-    }
-
-    $activeTab.removeClass('active-tab');
-    $targetTab.addClass('active-tab');
-
-    var $selectedSectionName = $targetTab.data().type;
-    var $selectedSection = $infoSubsection.find('#' + $selectedSectionName);
-    $('.active-content').removeClass('active-content');
-    $selectedSection.addClass('active-content');
   });
 };
 
@@ -224,6 +224,21 @@ $('.image-slider').each(function () {
     cssEase: 'ease-in-out',
     prevArrow: '',
     nextArrow: $this.next()
+  });
+});
+
+//Info Image trigger
+var $imageTrigger = $('.image-trigger');
+
+$('.image-trigger').each(function () {
+  var $this = $(this);
+  $this.mouseenter(function () {
+    var $this = $(this);
+    $this.parent().siblings('.hover-image').addClass('is-showing');
+  });
+  $this.mouseleave(function () {
+    var $this = $(this);
+    $this.parent().siblings('.hover-image').removeClass('is-showing');
   });
 });
 
