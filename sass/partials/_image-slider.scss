@@ -13,10 +13,13 @@
 
 //Modifies Slick Arrow
 .next-arrow_modified {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  right: 0;
-  background: none;
-  border: none;
+  display: none !important;
+  @media #{$medium-up} {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 0;
+    background: none;
+    border: none;
+  }
 }

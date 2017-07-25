@@ -1,15 +1,35 @@
 /* BassCSS Breakpoints */
 /* Globals */
 /* Colors */
-h1, h2, h3, h4, h5, h6, p {
+h1, h2, h3, h4, h5, h6, p, li {
+  font-size: 25px;
   font-family: 'Helvetica Neue', 'Helvetica', Arial, sans-serif;
   margin: 0;
+  font-weight: 400;
+}
+@media (min-width: 64em) {
+  h1, h2, h3, h4, h5, h6, p, li {
+    font-size: 35px;
+  }
 }
 
-p {
-  font-size: 1.5rem;
-  letter-spacing: 1px;
-  line-height: 2.2rem;
+p, li {
+  letter-spacing: 0.077px;
+  line-height: 32px;
+}
+@media (min-width: 64em) {
+  p, li {
+    letter-spacing: 0.77px;
+    line-height: 48px;
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  line-height: 32px;
+}
+
+.uppercase {
+  text-transform: uppercase;
 }
 
 .height-100 {
@@ -28,6 +48,15 @@ p {
   min-height: 100vh;
 }
 
+.route-padding-top {
+  padding-top: 5rem;
+}
+@media (min-width: 52em) {
+  .route-padding-top {
+    padding-top: 6rem;
+  }
+}
+
 .mt-footer-height {
   margin-top: 200px;
 }
@@ -44,6 +73,25 @@ p {
   .p4-medium-up {
     padding: 4rem;
   }
+}
+
+.link-style {
+  border-bottom: solid 1px;
+  padding-bottom: 2px;
+  display: inline-block;
+}
+
+.overflow-auto {
+  overflow: auto;
+}
+
+.footer-spacer {
+  height: 200px;
+  background: transparent;
+}
+
+.transform-3d {
+  -webkit-transform: translate3d(0, 0, 0);
 }
 
 .black {
@@ -99,7 +147,7 @@ p {
 }
 @media (min-width: 52em) {
   #work-index .project-col {
-    padding: 4rem;
+    padding: 2rem 4rem;
   }
   #work-index .project-col .project-container {
     min-height: 600px;
@@ -220,8 +268,8 @@ p {
 }
 #mobile-header .hamburger span {
   display: inline-block;
-  width: 35px;
-  height: 3px;
+  width: 30px;
+  height: 2px;
   margin: 0.25em 0;
   background: #000;
 }
@@ -311,19 +359,20 @@ p {
 @media (min-width: 52em) {
   .sticky-bottom-wrapper {
     width: 100%;
-    height: 80vh;
+    height: 82vh;
     overflow: hidden;
     float: left;
     position: relative;
   }
   .sticky-bottom-wrapper .bottom-header {
+    z-index: 1;
     height: 62.5px;
   }
   .sticky-bottom-wrapper .bottom-header.fixed-bottom {
     position: fixed;
     left: 0;
     right: 0;
-    bottom: -30px;
+    bottom: -20px;
   }
   .sticky-bottom-wrapper.scrolling {
     overflow: scroll;
@@ -347,6 +396,13 @@ p {
   display: flex;
   opacity: 1;
   visibility: visible;
+}
+#info-subsection #people div:first-of-type,
+#info-subsection #services div:first-of-type,
+#info-subsection #clients div:first-of-type,
+#info-subsection #talks-and-exhibits div:first-of-type,
+#info-subsection #contact div:first-of-type {
+  margin-right: 16%;
 }
 
 .image-block .image {
@@ -430,12 +486,17 @@ p {
 }
 
 .next-arrow_modified {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  right: 0;
-  background: none;
-  border: none;
+  display: none !important;
+}
+@media (min-width: 52em) {
+  .next-arrow_modified {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 0;
+    background: none;
+    border: none;
+  }
 }
 
 * {

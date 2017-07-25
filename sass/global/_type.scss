@@ -1,10 +1,28 @@
-h1, h2, h3, h4, h5, h6, p {
+h1, h2, h3, h4, h5, h6, p, li {
+  font-size: 25px;
   font-family: 'Helvetica Neue', 'Helvetica', Arial, sans-serif;
   margin: 0;
+  font-weight: 400;
+  @media #{$large-up} {
+    font-size: 35px;
+  }
 }
 
-p {
-  font-size: 1.5rem;
-  letter-spacing: 1px;
-  line-height: 2.2rem;
+p, li {
+  letter-spacing: 0.077px;
+  line-height: 32px;
+
+  @media #{$large-up} {
+    letter-spacing: 0.77px;
+    line-height: 48px;
+  }
+}
+
+
+h1, h2, h3, h4, h5, h6 {
+  line-height: 32px;
+}
+
+.uppercase {
+  text-transform: uppercase;
 }
