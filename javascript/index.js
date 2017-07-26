@@ -141,6 +141,21 @@ if (!isMobile) {
     });
   };
 
+  //Info Image trigger
+  let $imageTrigger = $('.image-trigger');
+
+  $('.image-trigger').each(function() {
+    let $this = $(this);
+    $this.mouseenter(function() {
+      let $this = $(this);
+      $this.parent().siblings('.hover-image').addClass('is-showing');
+    });
+    $this.mouseleave(function() {
+      let $this = $(this);
+      $this.parent().siblings('.hover-image').removeClass('is-showing');
+    });
+  });
+
 
   //Shop Page
   let $productBlocks = $('.product');
@@ -224,19 +239,4 @@ $('.image-slider').each(function(){
     prevArrow: '',
     nextArrow: $this.next(),
   })
-});
-
-//Info Image trigger
-let $imageTrigger = $('.image-trigger');
-
-$('.image-trigger').each(function() {
-  let $this = $(this);
-  $this.mouseenter(function() {
-    let $this = $(this);
-    $this.parent().siblings('.hover-image').addClass('is-showing');
-  });
-  $this.mouseleave(function() {
-    let $this = $(this);
-    $this.parent().siblings('.hover-image').removeClass('is-showing');
-  });
 });

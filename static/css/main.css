@@ -415,13 +415,19 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 #info-subsection .hover-image {
-  opacity: 0;
-  top: 0;
-  left: 80%;
-  transition: 250ms ease-in-out;
+  display: none;
 }
-#info-subsection .hover-image.is-showing {
-  opacity: 1;
+@media (min-width: 52em) {
+  #info-subsection .hover-image {
+    display: block;
+    opacity: 0;
+    top: 0;
+    left: 80%;
+    transition: 250ms ease-in-out;
+  }
+  #info-subsection .hover-image.is-showing {
+    opacity: 1;
+  }
 }
 
 .image-block .image {
