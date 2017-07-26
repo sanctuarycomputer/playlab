@@ -240,3 +240,28 @@ $('.image-slider').each(function(){
     nextArrow: $this.next(),
   })
 });
+
+(function() {
+  let count = 0,
+      showUsa = false;
+
+  $('.flag-trigger').on('mouseenter tapstart', function() {
+    let $flags  = $('.flag');
+    let $russia = $('.russia'),
+        $brazil = $('.brazil');
+
+    if (showUsa) {
+      showUsa = false;
+      return $flags.removeClass('is-showing')
+    };
+
+    if (count % 2 === 0) {
+      $brazil.addClass('is-showing');
+      count +=1;
+      return showUsa = true;
+    }
+    $russia.addClass('is-showing');
+    count +=1;
+    return showUsa = true;
+  });
+}())

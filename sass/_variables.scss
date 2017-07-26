@@ -3,11 +3,13 @@ $sm: 40em;
 $md: 52em;
 $lg: 64em;
 
+$small-up: "(min-width:#{$sm})";
 $medium-up: "(min-width:#{$md})";
 $large-up: "(min-width:#{$lg})";
 
 /* Globals */
-$footerHeight: 200px;
+$footerHeight: 300px;
+$mobileFooterHeight: 520px;
 $headerHeight: 62px;
 $mobileHeaderHeight: 82px;
 $titleBarHeight: 125px;
