@@ -1,6 +1,7 @@
 {% if section.title === 'people' %}
   <div id={{section.title}} class="col-12 md-col-9 mx-auto pt4 flex flex-wrap">
     <div class="col-12 md-col-5">
+      <h2 class="center md-hide lg-hide capitalize py2">{{section.title}}</h2>
       <ul class="list-reset left-align">
       {% for item in section.left_column %}
         <li>{{item.title}}</li>
@@ -18,6 +19,7 @@
   {% elseif section.title === 'services' %}
     <div id={{section.title}} class="col-12 md-col-9 mx-auto pt4 flex flex-wrap">
       <div class="col-12 md-col-5">
+        <h2 class="center md-hide lg-hide capitalize py2">{{section.title}}</h2>
         <ul class="list-reset left-align">
         {% for item in section.left_column %}
           <li>{{item.title}}</li>
@@ -35,6 +37,7 @@
   {% elseif section.title === 'clients' %}
   <div id={{section.title}} class="col-12 md-col-9 mx-auto pt4 flex flex-wrap">
     <div class="col-12 md-col-5">
+      <h2 class="center md-hide lg-hide capitalize py2">{{section.title}}</h2>
       <ul class="list-reset left-align">
       {% for item in section.left_column %}
         <li>{{item.title}}</li>
@@ -51,11 +54,24 @@
   </div>
   {% elseif section.title === 'talks-and-exhibits' %}
     <div id={{section.title}} class="col-12 md-col-9 pt4 mx-auto">
+      <h2 class="center md-hide lg-hide capitalize py2">{{section.title}}</h2>
       <ul class="list-reset left-align">
       {% for item in section.left_column %}
-        <li class="pb4">
+        <li class="pb4 relative">
           <p>{{item.title}}</p>
-          <p>{{item.content}}</p>
+          <p>
+            {% if item.link_text %}
+              {% if item.link_url %}
+                <a class="image-trigger link-style mr1" href={{item.link_url}} target="_blank">{{item.link_text}}</a>
+                {% else %}
+                <span class="image-trigger link-style mr1">{{item.link_text}}</span>
+              {% endif %}
+            {% endif %}
+            {{item.content}}
+          </p>
+          {% if item.image %}
+            <img class="hover-image absolute col-8" src={{item.image.url}} />
+          {% endif %}
         </li>
       {% endfor %}
       </ul>
@@ -63,6 +79,7 @@
   {% elseif section.title === 'contact' %}
     <div id={{section.title}} class="col-12 md-col-9 mx-auto pt4 flex flex-wrap">
       <div class="col-12 md-col-5">
+        <h2 class="center md-hide lg-hide capitalize py2">{{section.title}}</h2>
         <ul class="list-reset left-align">
         {% for item in section.left_column %}
           <li class="pb4">

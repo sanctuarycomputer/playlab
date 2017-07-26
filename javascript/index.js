@@ -115,6 +115,48 @@ if (!isMobile) {
     offset: 'bottom-in-view',
   });
 
+  //Info subsection
+  let $infoTabs = $('.info-tab');
+  let $infoSubsection = $('#info-subsection');
+  let $activeTab = $('.active-tab');
+
+  //Initial setup
+  if (routeName === 'info') {
+    let $activeSectionName = $activeTab.data().type;
+    let $activeSection = $infoSubsection.find(`#${$activeSectionName}`);
+    $activeSection.addClass('active-content');
+
+    $infoTabs.on('click', (e) => {
+      let $targetTab = $(e.target);
+      let $activeTab = $('.active-tab');
+      if ($targetTab.hasClass('active-tab')) { return; }
+
+      $activeTab.removeClass('active-tab');
+      $targetTab.addClass('active-tab');
+
+      let $selectedSectionName = $targetTab.data().type;
+      let $selectedSection = $infoSubsection.find(`#${$selectedSectionName}`);
+      $('.active-content').removeClass('active-content');
+      $selectedSection.addClass('active-content');
+    });
+  };
+
+  //Info Image trigger
+  let $imageTrigger = $('.image-trigger');
+
+  $('.image-trigger').each(function() {
+    let $this = $(this);
+    $this.mouseenter(function() {
+      let $this = $(this);
+      $this.parent().siblings('.hover-image').addClass('is-showing');
+    });
+    $this.mouseleave(function() {
+      let $this = $(this);
+      $this.parent().siblings('.hover-image').removeClass('is-showing');
+    });
+  });
+
+
   //Shop Page
   let $productBlocks = $('.product');
   let $shopViewContext = $('.shop-view-context');
@@ -144,32 +186,6 @@ if (!isMobile) {
       },
       offset: '-25%',
     });
-  });
-};
-
-//Info subsection
-let $infoTabs = $('.info-tab');
-let $infoSubsection = $('#info-subsection');
-let $activeTab = $('.active-tab');
-
-//Initial setup
-if (routeName === 'info') {
-  let $activeSectionName = $activeTab.data().type;
-  let $activeSection = $infoSubsection.find(`#${$activeSectionName}`);
-  $activeSection.addClass('active-content');
-
-  $infoTabs.on('click', (e) => {
-    let $targetTab = $(e.target);
-    let $activeTab = $('.active-tab');
-    if ($targetTab.hasClass('active-tab')) { return; }
-
-    $activeTab.removeClass('active-tab');
-    $targetTab.addClass('active-tab');
-
-    let $selectedSectionName = $targetTab.data().type;
-    let $selectedSection = $infoSubsection.find(`#${$selectedSectionName}`);
-    $('.active-content').removeClass('active-content');
-    $selectedSection.addClass('active-content');
   });
 };
 
