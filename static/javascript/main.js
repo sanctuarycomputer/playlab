@@ -145,6 +145,21 @@ if (!isMobile) {
     });
   };
 
+  //Info Image trigger
+  var $imageTrigger = $('.image-trigger');
+
+  $('.image-trigger').each(function () {
+    var $this = $(this);
+    $this.mouseenter(function () {
+      var $this = $(this);
+      $this.parent().siblings('.hover-image').addClass('is-showing');
+    });
+    $this.mouseleave(function () {
+      var $this = $(this);
+      $this.parent().siblings('.hover-image').removeClass('is-showing');
+    });
+  });
+
   //Shop Page
   var $productBlocks = $('.product');
   var $shopViewContext = $('.shop-view-context');
@@ -227,19 +242,27 @@ $('.image-slider').each(function () {
   });
 });
 
-//Info Image trigger
-var $imageTrigger = $('.image-trigger');
+var count = 0,
+    showUsa = false;
 
-$('.image-trigger').each(function () {
-  var $this = $(this);
-  $this.mouseenter(function () {
-    var $this = $(this);
-    $this.parent().siblings('.hover-image').addClass('is-showing');
-  });
-  $this.mouseleave(function () {
-    var $this = $(this);
-    $this.parent().siblings('.hover-image').removeClass('is-showing');
-  });
+$('.flag-trigger').on('mouseenter tapstart', function () {
+  var $flags = $('.flag');
+  var $russia = $('.russia'),
+      $brazil = $('.brazil');
+
+  if (showUsa) {
+    showUsa = false;
+    return $flags.removeClass('is-showing');
+  };
+
+  if (count % 2 === 0) {
+    $brazil.addClass('is-showing');
+    count += 1;
+    return showUsa = true;
+  }
+  $russia.addClass('is-showing');
+  count += 1;
+  return showUsa = true;
 });
 
 },{}]},{},[1]);

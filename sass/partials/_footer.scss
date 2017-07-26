@@ -1,0 +1,31 @@
+#footer {
+  padding: 2rem 1rem;
+  .submit-wrapper {
+    display: flex;
+    border: solid 1px color('black');
+    justify-content: space-between;
+    input {
+      border: none;
+      background: none;
+      flex-grow: 1;
+    }
+    input[placeholder] {
+      color: color('black') !important;
+    }
+    button {
+      border: none;
+      background: none;
+    }
+  }
+  .flag {
+    opacity: 0;
+    transition: 250ms ease-in-out;
+    &.is-showing {
+      opacity: 1;
+    }
+  }
+
+  @media #{$medium-up} {
+    padding: 2rem 4rem;
+  }
+}

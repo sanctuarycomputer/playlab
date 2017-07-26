@@ -1,14 +1,14 @@
 /* BassCSS Breakpoints */
 /* Globals */
 /* Colors */
-h1, h2, h3, h4, h5, h6, p, li {
+h1, h2, h3, h4, h5, h6, p, li, input {
   font-size: 25px;
   font-family: 'Helvetica Neue', 'Helvetica', Arial, sans-serif;
   margin: 0;
   font-weight: 400;
 }
 @media (min-width: 64em) {
-  h1, h2, h3, h4, h5, h6, p, li {
+  h1, h2, h3, h4, h5, h6, p, li, input {
     font-size: 35px;
   }
 }
@@ -45,7 +45,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .footer-room {
-  margin-bottom: 200px;
+  margin-bottom: 300px;
 }
 
 .site-min-height {
@@ -62,11 +62,19 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .mt-footer-height {
-  margin-top: 200px;
+  margin-top: 300px;
 }
 
 .pointer {
   cursor: pointer;
+}
+
+.pointer-none {
+  pointer-events: none;
+}
+
+.pointer-auto {
+  pointer-events: auto;
 }
 
 .grow-1 {
@@ -90,8 +98,18 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .footer-spacer {
-  height: 200px;
+  height: 520px;
   background: transparent;
+}
+@media (min-width: 40em) {
+  .footer-spacer {
+    height: 250px;
+  }
+}
+@media (min-width: 52em) {
+  .footer-spacer {
+    height: 300px;
+  }
 }
 
 .transform-3d {
@@ -327,6 +345,39 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+#footer {
+  padding: 2rem 1rem;
+}
+#footer .submit-wrapper {
+  display: flex;
+  border: solid 1px #000;
+  justify-content: space-between;
+}
+#footer .submit-wrapper input {
+  border: none;
+  background: none;
+  flex-grow: 1;
+}
+#footer .submit-wrapper input[placeholder] {
+  color: #000 !important;
+}
+#footer .submit-wrapper button {
+  border: none;
+  background: none;
+}
+#footer .flag {
+  opacity: 0;
+  transition: 250ms ease-in-out;
+}
+#footer .flag.is-showing {
+  opacity: 1;
+}
+@media (min-width: 52em) {
+  #footer {
+    padding: 2rem 4rem;
+  }
+}
+
 .home-block {
   padding-top: 125px;
   position: relative;
@@ -351,7 +402,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 @media (min-width: 52em) {
   .home-block:last-of-type {
-    margin-bottom: 200px;
+    margin-bottom: 300px;
   }
 }
 
@@ -531,11 +582,11 @@ h1, h2, h3, h4, h5, h6 {
 
 * {
   -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
 }
 
 html, body {
   height: 100%;
-  box-sizing: border-box;
 }
 
 a {
@@ -543,8 +594,28 @@ a {
   text-decoration: none;
 }
 
-button:focus {
+input:focus, button:focus {
   outline: 0;
+}
+
+::-webkit-input-placeholder {
+  /* Chrome/Opera/Safari */
+  color: #000;
+}
+
+::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #000;
+}
+
+:-ms-input-placeholder {
+  /* IE 10+ */
+  color: #000;
+}
+
+:-moz-placeholder {
+  /* Firefox 18- */
+  color: #000;
 }
 
 /*# sourceMappingURL=main.css.map */

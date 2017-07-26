@@ -3,7 +3,7 @@
 {% block title %}{% parent %} - Homepage{% endblock %}
 
 {% block content %}
-<div id='index' class="z1 relative mb4 route-padding-top">
+<div id='index' class="z1 relative mb4 route-padding-top pointer-none">
   <div class='clearfix site-min-height bg-white'>
     <div class='max-width-4 clearfix mx-auto'>
       <div class='col col-12 p2'>
@@ -23,7 +23,7 @@ This is an opening statement that can change and stuff and it’s not our bio. L
   </div>
 
   {% for project in featuredProjects %}
-    <article class='home-block clearfix' style='color: {{project.text_color}}; background-color:{{project.block_color}}'>
+    <article class='home-block clearfix pointer-auto' style='color: {{project.text_color}}; background-color:{{project.block_color}}'>
       <div class='title-bar' style='background-color:{{project.block_color}}'>
         <h1 class='center py2'>{{project.name}}</h1>
       </div>

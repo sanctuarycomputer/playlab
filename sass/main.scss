@@ -17,6 +17,7 @@
 //Partials
 @import 'partials/header';
 @import 'partials/mobile-header';
+@import 'partials/footer';
 @import 'partials/home-block';
 @import 'partials/info-work-scroll';
 @import 'partials/info-subsection';
@@ -24,13 +25,27 @@
 @import 'partials/prev-next-select';
 @import 'partials/image-slider';
 
-* { -webkit-font-smoothing: antialiased; }
+* { -webkit-font-smoothing: antialiased; box-sizing: border-box; }
 html, body {
   height: 100%;
-  box-sizing: border-box;
 }
 a {
   color: inherit;
   text-decoration: none;
 }
-button:focus {outline:0;}
+input, button {
+  &:focus { outline:0; }
+}
+
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: color('black');
+}
+::-moz-placeholder { /* Firefox 19+ */
+  color: color('black');
+}
+:-ms-input-placeholder { /* IE 10+ */
+  color: color('black');
+}
+:-moz-placeholder { /* Firefox 18- */
+  color: color('black');
+}
