@@ -192,17 +192,23 @@ if (!isMobile) {
 };
 
 //Headroom
-var navMenu = document.getElementById('nav-menu');
-var headroomMenu = new Headroom(navMenu, {
-  tolerance: 5,
-  offset: 205,
-  classes: {
-    initial: "animated",
-    pinned: "slide-down",
-    unpinned: "slide-up"
-  }
+var navMenus = document.getElementsByClassName('nav-menu');
+var $navMenus = $(navMenus);
+
+$navMenus.each(function () {
+  var that = this;
+  var headroomMenu = new Headroom(that, {
+    tolerance: 5,
+    offset: 205,
+    classes: {
+      initial: "animated",
+      pinned: "slide-down",
+      unpinned: "slide-up"
+    }
+  });
+
+  headroomMenu.init();
 });
-headroomMenu.init();
 
 //Nav: Select-state
 $('document').ready(function () {
@@ -274,7 +280,7 @@ var setLogo = function setLogo() {
 };
 
 $(document).scroll(function () {
-  setLogo();
+  window.requestAnimationFrame(setLogo);
 });
 
 setLogo();

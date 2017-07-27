@@ -1,11 +1,11 @@
-#header {
+.header {
   display: none;
   .h1 {
     background-color: transparent;
     color: #000;
   }
 
-  #nav-menu {
+  .nav-menu {
     &.animated {
       will-change: transform;
       transition: transform 500ms linear;

@@ -248,31 +248,31 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-#header {
+.header {
   display: none;
 }
-#header .h1 {
+.header .h1 {
   background-color: transparent;
   color: #000;
 }
-#header #nav-menu.animated {
+.header .nav-menu.animated {
   will-change: transform;
   transition: transform 500ms linear;
 }
-#header #nav-menu.slide-down {
+.header .nav-menu.slide-down {
   transform: translateY(0%);
 }
-#header #nav-menu.slide-up {
+.header .nav-menu.slide-up {
   transform: translateY(-500%);
 }
-#header #nav-menu .nav-link.active:after {
+.header .nav-menu .nav-link.active:after {
   content: url("/static/images/bullet.svg");
   position: absolute;
   width: 10px;
   margin-left: 5px;
 }
 @media (min-width: 52em) {
-  #header {
+  .header {
     display: flex;
   }
 }

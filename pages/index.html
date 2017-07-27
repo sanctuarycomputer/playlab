@@ -3,7 +3,7 @@
 {% block title %}{% parent %} - Homepage{% endblock %}
 
 {% block content %}
-<div id='index' class="z1 relative mb4 route-padding-top pointer-none">
+<div id='index' class="relative mb4 route-padding-top pointer-none">
   <div class='clearfix site-min-height bg-white'>
     <div class='max-width-4 clearfix mx-auto'>
       <div class='col col-12 p2'>
@@ -24,10 +24,10 @@ This is an opening statement that can change and stuff and it’s not our bio. L
 
   {% for project in featuredProjects %}
     <article class='home-block clearfix pointer-auto' style='color: {{project.text_color}}; background-color:{{project.block_color}}'>
-      <div class="nav-container relative overflow-hidden" style="height:200px; bottom:125px">
-        <header id="header" class='chameleon-nav col-12 z3 py2 absolute top-0 flex items-center'>
+      <div class="nav-container relative overflow-hidden" style="min-height:200px; bottom:125px">
+        <header class='header chameleon-nav col-12 z4 py2 absolute top-0 flex items-center'>
           <a href="/" class="md-col-4 lg-col-3"><h1 class=' pl2 left-align regular'>PLAYLAB, INC.</h1></a>
-          <ul id="nav-menu" class='md-col-4 lg-col-6 h1 m0 flex justify-around list-reset' style="color: {{project.text_color}};">
+          <ul class='nav-menu md-col-4 lg-col-6 h1 m0 flex justify-around list-reset' style="color: {{project.text_color}};">
             <a href="/work"><li data-route="work" class='nav-link'>Work</li></a>
             <a href="/info"><li data-route="info" class='nav-link'>Info</li></a>
             <a href="/shop"><li data-route="shop" class='nav-link'>Shop</li></a>
