@@ -9,7 +9,7 @@
 .footer-room {
   margin-bottom: $mobileFooterHeight;
   @media #{$small-up} {
-    margin-bottom: 250px;
+    margin-bottom: $tabletFooterHeight;
   }
   @media #{$medium-up} {
     margin-bottom: $footerHeight;
@@ -69,7 +69,7 @@
   height: $mobileFooterHeight;
   background: transparent;
   @media #{$small-up} {
-    height: 250px;
+    height: $tabletFooterHeight;
   }
   @media #{$medium-up} {
     height: $footerHeight;
