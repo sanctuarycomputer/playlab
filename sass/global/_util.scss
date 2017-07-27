@@ -7,7 +7,13 @@
 }
 
 .footer-room {
-  margin-bottom: $footerHeight;
+  margin-bottom: $mobileFooterHeight;
+  @media #{$small-up} {
+    margin-bottom: $tabletFooterHeight;
+  }
+  @media #{$medium-up} {
+    margin-bottom: $footerHeight;
+  }
 }
 
 .site-min-height {
@@ -63,7 +69,7 @@
   height: $mobileFooterHeight;
   background: transparent;
   @media #{$small-up} {
-    height: 250px;
+    height: $tabletFooterHeight;
   }
   @media #{$medium-up} {
     height: $footerHeight;
@@ -73,4 +79,11 @@
 //Safari fixed element fix
 .transform-3d {
   -webkit-transform: translate3d(0,0,0);
+}
+
+.image-gradient {
+  background: -moz-linear-gradient(left, rgba(0,0,0,0.8) 0%, rgba(168,168,168,0.4) 50%, rgba(255,255,255,0) 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(left, rgba(0,0,0,0.8) 0%,rgba(168,168,168,0.4) 50%,rgba(255,255,255,0) 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to right, rgba(0,0,0,0.8) 0%,rgba(168,168,168,0.4) 50%,rgba(255,255,255,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cc000000', endColorstr='#00ffffff',GradientType=1 ); /* IE6-9 */
 }
