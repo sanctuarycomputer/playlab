@@ -163,6 +163,8 @@ if (!isMobile) {
   //Shop Page
   var $productBlocks = $('.product');
   var $shopViewContext = $('.shop-view-context');
+  var $productImageContainer = $('.product-image-container');
+  var $gradientOverlay = $('.gradient-overlay');
 
   $productBlocks.each(function (i, element) {
     var $productBlock = $(element);
@@ -172,8 +174,17 @@ if (!isMobile) {
     $productBlock.waypoint({
       handler: function handler(direction) {
         if (direction === 'down') {
+          var $thisEl = $(this.element);
+          var activeUrl = $thisEl.data().image;
+          var showGradient = $thisEl.data().gradient;
+          if (showGradient) {
+            $gradientOverlay.addClass('show');
+          } else {
+            $gradientOverlay.removeClass('show');
+          }
+          $productImageContainer.css('background-image', 'url(' + activeUrl + ')');
           $productBlocks.removeClass('in-view');
-          $(this.element).addClass('in-view');
+          $thisEl.addClass('in-view');
         }
       }
     });
@@ -182,8 +193,17 @@ if (!isMobile) {
     $productBlock.waypoint({
       handler: function handler(direction) {
         if (direction === 'up') {
+          var $thisEl = $(this.element);
+          var activeUrl = $thisEl.data().image;
+          var showGradient = $thisEl.data().gradient;
+          if (showGradient) {
+            $gradientOverlay.addClass('show');
+          } else {
+            $gradientOverlay.removeClass('show');
+          }
+          $productImageContainer.css('background-image', 'url(' + activeUrl + ')');
           $productBlocks.removeClass('in-view');
-          $(this.element).addClass('in-view');
+          $thisEl.addClass('in-view');
         }
       },
       offset: '-25%'
@@ -242,27 +262,29 @@ $('.image-slider').each(function () {
   });
 });
 
-var count = 0,
-    showUsa = false;
+(function () {
+  var count = 0,
+      showUsa = false;
 
-$('.flag-trigger').on('mouseenter tapstart', function () {
-  var $flags = $('.flag');
-  var $russia = $('.russia'),
-      $brazil = $('.brazil');
+  $('.flag-trigger').on('mouseenter tapstart', function () {
+    var $flags = $('.flag');
+    var $russia = $('.russia'),
+        $brazil = $('.brazil');
 
-  if (showUsa) {
-    showUsa = false;
-    return $flags.removeClass('is-showing');
-  };
+    if (showUsa) {
+      showUsa = false;
+      return $flags.removeClass('is-showing');
+    };
 
-  if (count % 2 === 0) {
-    $brazil.addClass('is-showing');
+    if (count % 2 === 0) {
+      $brazil.addClass('is-showing');
+      count += 1;
+      return showUsa = true;
+    }
+    $russia.addClass('is-showing');
     count += 1;
     return showUsa = true;
-  }
-  $russia.addClass('is-showing');
-  count += 1;
-  return showUsa = true;
-});
+  });
+})();
 
 },{}]},{},[1]);

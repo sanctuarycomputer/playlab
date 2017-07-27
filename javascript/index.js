@@ -160,6 +160,8 @@ if (!isMobile) {
   //Shop Page
   let $productBlocks = $('.product');
   let $shopViewContext = $('.shop-view-context');
+  let $productImageContainer = $('.product-image-container');
+  let $gradientOverlay  = $('.gradient-overlay');
 
   $productBlocks.each((i, element) => {
     let $productBlock = $(element);
@@ -170,8 +172,17 @@ if (!isMobile) {
     $productBlock.waypoint({
       handler: function(direction) {
         if (direction === 'down') {
+          let $thisEl = $(this.element);
+          let activeUrl = $thisEl.data().image;
+          let showGradient = $thisEl.data().gradient;
+          if (showGradient) {
+            $gradientOverlay.addClass('show')
+          } else {
+            $gradientOverlay.removeClass('show')
+          }
+          $productImageContainer.css('background-image', `url(${activeUrl})`);
           $productBlocks.removeClass('in-view');
-          $(this.element).addClass('in-view');
+          $thisEl.addClass('in-view');
         }
       },
     });
@@ -180,8 +191,17 @@ if (!isMobile) {
     $productBlock.waypoint({
       handler: function(direction) {
         if (direction === 'up') {
+          let $thisEl = $(this.element);
+          let activeUrl = $thisEl.data().image;
+          let showGradient = $thisEl.data().gradient;
+          if (showGradient) {
+            $gradientOverlay.addClass('show')
+          } else {
+            $gradientOverlay.removeClass('show')
+          }
+          $productImageContainer.css('background-image', `url(${activeUrl})`);
           $productBlocks.removeClass('in-view');
-          $(this.element).addClass('in-view');
+          $thisEl.addClass('in-view');
         }
       },
       offset: '-25%',
