@@ -242,27 +242,41 @@ $('.image-slider').each(function () {
   });
 });
 
-var count = 0,
-    showUsa = false;
+(function () {
+  var count = 0,
+      showUsa = false;
 
-$('.flag-trigger').on('mouseenter tapstart', function () {
-  var $flags = $('.flag');
-  var $russia = $('.russia'),
-      $brazil = $('.brazil');
+  $('.flag-trigger').on('mouseenter tapstart', function () {
+    var $flags = $('.flag');
+    var $russia = $('.russia'),
+        $brazil = $('.brazil');
 
-  if (showUsa) {
-    showUsa = false;
-    return $flags.removeClass('is-showing');
-  };
+    if (showUsa) {
+      showUsa = false;
+      return $flags.removeClass('is-showing');
+    };
 
-  if (count % 2 === 0) {
-    $brazil.addClass('is-showing');
+    if (count % 2 === 0) {
+      $brazil.addClass('is-showing');
+      count += 1;
+      return showUsa = true;
+    }
+    $russia.addClass('is-showing');
     count += 1;
     return showUsa = true;
-  }
-  $russia.addClass('is-showing');
-  count += 1;
-  return showUsa = true;
+  });
+})();
+
+var setLogo = function setLogo() {
+  $('.chameleon-nav').each(function () {
+    $(this).css('top', $('.default-nav').offset().top - $(this).closest('.nav-container').offset().top);
+  });
+};
+
+$(document).scroll(function () {
+  setLogo();
 });
+
+setLogo();
 
 },{}]},{},[1]);

@@ -24,6 +24,18 @@ This is an opening statement that can change and stuff and it’s not our bio. L
 
   {% for project in featuredProjects %}
     <article class='home-block clearfix pointer-auto' style='color: {{project.text_color}}; background-color:{{project.block_color}}'>
+      <div class="nav-container relative overflow-hidden" style="height:200px; bottom:125px">
+        <header id="header" class='chameleon-nav col-12 z3 py2 absolute top-0 flex items-center'>
+          <a href="/" class="md-col-4 lg-col-3"><h1 class=' pl2 left-align regular'>PLAYLAB, INC.</h1></a>
+          <ul id="nav-menu" class='md-col-4 lg-col-6 h1 m0 flex justify-around list-reset' style="color: {{project.text_color}};">
+            <a href="/work"><li data-route="work" class='nav-link'>Work</li></a>
+            <a href="/info"><li data-route="info" class='nav-link'>Info</li></a>
+            <a href="/shop"><li data-route="shop" class='nav-link'>Shop</li></a>
+          </ul>
+          <a href="#" class="md-col-4 lg-col-3"><h3 class='pr2 right-align regular'>917-979-3489<h3></a>
+        </header>
+      </div>
+
       <div class='title-bar' style='background-color:{{project.block_color}}'>
         <h1 class='center py2'>{{project.name}}</h1>
       </div>

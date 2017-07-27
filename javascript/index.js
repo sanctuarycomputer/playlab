@@ -265,3 +265,19 @@ $('.image-slider').each(function(){
     return showUsa = true;
   });
 }())
+
+
+let setLogo = function() {
+  $('.chameleon-nav').each(function() {
+    $(this).css('top',
+      $('.default-nav').offset().top -
+      $(this).closest('.nav-container').offset().top
+    );
+  });
+};
+
+$(document).scroll(function() {
+  setLogo();
+});
+
+setLogo();
