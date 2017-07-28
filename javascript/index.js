@@ -118,7 +118,6 @@ if (!isMobile) {
   });
 
   //Info/Work Bottom header scroll to
-
   $bottomHeader.on('click', function(){
     let $this = $(this);
     if ($this.hasClass('fixed-bottom')) {
@@ -128,7 +127,6 @@ if (!isMobile) {
       }, 600, 'swing');
     }
   });
-
 
   //Info subsection
   let $infoTabs = $('.info-tab');
