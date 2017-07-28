@@ -66,7 +66,9 @@ if (!isMobile) {
     if ($this.hasClass('next')) {
       $this.removeClass('next');
       let sectionTop = $this.offset().top;
-      window.scrollTo(0, sectionTop);
+      $('html,body').animate({
+        scrollTop: sectionTop
+      }, 600, 'swing');
     }
   });
 
@@ -114,6 +116,19 @@ if (!isMobile) {
     },
     offset: 'bottom-in-view',
   });
+
+  //Info/Work Bottom header scroll to
+
+  $bottomHeader.on('click', function(){
+    let $this = $(this);
+    if ($this.hasClass('fixed-bottom')) {
+      let sectionTop = $this.offset().top;
+      $('html,body').animate({
+        scrollTop: sectionTop
+      }, 600, 'swing');
+    }
+  });
+
 
   //Info subsection
   let $infoTabs = $('.info-tab');
@@ -261,11 +276,12 @@ $('.image-slider').each(function(){
   })
 });
 
+//Flag touch/hover
 (function() {
   let count = 0,
       showUsa = false;
 
-  $('.flag-trigger').on('mouseenter tapstart', function() {
+  $('.flag-trigger').on('mouseenter tap', function() {
     let $flags  = $('.flag');
     let $russia = $('.russia'),
         $brazil = $('.brazil');
@@ -284,4 +300,4 @@ $('.image-slider').each(function(){
     count +=1;
     return showUsa = true;
   });
-}())
+}());

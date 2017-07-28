@@ -13,12 +13,24 @@ h1, h2, h3, h4, h5, h6, p, li, input {
   }
 }
 
-p, li {
+.small {
+  font-size: 15px;
+  font-weight: 400;
+  letter-spacing: 0.129px;
+  line-height: 20px;
+}
+@media (min-width: 64em) {
+  .small {
+    font-size: 25px;
+  }
+}
+
+p, li, a {
   letter-spacing: 0.077px;
   line-height: 32px;
 }
 @media (min-width: 64em) {
-  p, li {
+  p, li, a {
     letter-spacing: 0.77px;
     line-height: 48px;
   }
@@ -63,11 +75,17 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .route-padding-top {
-  padding-top: 5rem;
+  padding-top: 4rem;
 }
 @media (min-width: 52em) {
   .route-padding-top {
     padding-top: 6rem;
+  }
+}
+
+@media (min-width: 52em) {
+  .md-center {
+    text-align: center;
   }
 }
 
@@ -95,6 +113,10 @@ h1, h2, h3, h4, h5, h6 {
   .p4-medium-up {
     padding: 4rem;
   }
+}
+
+.pt1-1_2 {
+  padding-top: 1.5rem;
 }
 
 .link-style {
@@ -185,6 +207,22 @@ h1, h2, h3, h4, h5, h6 {
   stroke: #ECEAEA;
 }
 
+.red {
+  color: #D0021B;
+}
+
+.bg-red {
+  background-color: #D0021B;
+}
+
+.border-red {
+  border-color: #D0021B;
+}
+
+.stroke-red {
+  stroke: #D0021B;
+}
+
 #work-index .project-col {
   padding: 1rem;
 }
@@ -193,7 +231,7 @@ h1, h2, h3, h4, h5, h6 {
     padding: 2rem 4rem;
   }
   #work-index .project-col .project-container {
-    min-height: 600px;
+    min-height: 550px;
     justify-content: space-between;
   }
 }
@@ -459,20 +497,30 @@ h1, h2, h3, h4, h5, h6 {
 @media (min-width: 52em) {
   .sticky-bottom-wrapper {
     width: 100%;
-    height: 82vh;
     overflow: hidden;
     float: left;
     position: relative;
   }
+  .sticky-bottom-wrapper.work {
+    height: 94vh;
+  }
+  .sticky-bottom-wrapper.info {
+    height: 82vh;
+  }
   .sticky-bottom-wrapper .bottom-header {
     z-index: 1;
-    height: 62.5px;
+    height: 110px;
   }
   .sticky-bottom-wrapper .bottom-header.fixed-bottom {
+    transition: 250ms ease-in-out;
     position: fixed;
     left: 0;
     right: 0;
-    bottom: -20px;
+    bottom: 0;
+    transform: translateY(72px);
+  }
+  .sticky-bottom-wrapper .bottom-header.fixed-bottom:hover {
+    transform: translateY(45px);
   }
   .sticky-bottom-wrapper.scrolling {
     overflow: scroll;

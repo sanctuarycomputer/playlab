@@ -21,10 +21,16 @@
 }
 
 .route-padding-top {
-  padding-top: 5rem;
+  padding-top: 4rem;
 
   @media #{$medium-up} {
     padding-top: 6rem;
+  }
+}
+
+.md-center {
+  @media #{$medium-up} {
+    text-align: center;
   }
 }
 
@@ -53,6 +59,10 @@
   @media #{$medium-up} {
     padding: 4rem;
   }
+}
+
+.pt1-1_2 {
+  padding-top: 1.5rem;
 }
 
 .link-style {

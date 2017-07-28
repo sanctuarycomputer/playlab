@@ -69,7 +69,9 @@ if (!isMobile) {
     if ($this.hasClass('next')) {
       $this.removeClass('next');
       var sectionTop = $this.offset().top;
-      window.scrollTo(0, sectionTop);
+      $('html,body').animate({
+        scrollTop: sectionTop
+      }, 600, 'swing');
     }
   });
 
@@ -115,6 +117,18 @@ if (!isMobile) {
       }
     },
     offset: 'bottom-in-view'
+  });
+
+  //Info/Work Bottom header scroll to
+
+  $bottomHeader.on('click', function () {
+    var $this = $(this);
+    if ($this.hasClass('fixed-bottom')) {
+      var sectionTop = $this.offset().top;
+      $('html,body').animate({
+        scrollTop: sectionTop
+      }, 600, 'swing');
+    }
   });
 
   //Info subsection
@@ -262,11 +276,12 @@ $('.image-slider').each(function () {
   });
 });
 
+//Flag touch/hover
 (function () {
   var count = 0,
       showUsa = false;
 
-  $('.flag-trigger').on('mouseenter tapstart', function () {
+  $('.flag-trigger').on('mouseenter tap', function () {
     var $flags = $('.flag');
     var $russia = $('.russia'),
         $brazil = $('.brazil');

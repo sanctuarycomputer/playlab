@@ -42,29 +42,29 @@
           </div>
         {% elseif block.variant === 'two-up' %}
           <div class="col-12 mx-auto clearfix">
-            <div class="col col-12 md-col-6 p4">
+            <div class="col col-12 md-col-6 p4 md-center">
               <div class="image-block col-12 {{block.image_left.crop}}">
                 <div class="content image"
                      style='background-image: url({{block.image_left.image.url}})'>
 
                 </div>
               </div>
-              <p class="py2">{{block.image_left.caption}}</p>
+              <p class="py2 small">{{block.image_left.caption}}</p>
             </div>
-            <div class="col col-12 md-col-6 p4">
+            <div class="col col-12 md-col-6 p4 md-center">
               <div class="image-block col-12 {{block.image_right.crop}}">
                 <div class="content image"
                      style='background-image: url({{block.image_right.image.url}})'>
 
                 </div>
               </div>
-              <p class="py2">{{block.image_right.caption}}</p>
+              <p class="py2 small">{{block.image_right.caption}}</p>
             </div>
           </div>
         {% elseif block.variant === 'one-up' %}
-          <div class="col-10 md-col-8 mx-auto center">
+          <div class="col-10 md-col-8 mx-auto md-center">
             <img class="col-12" src={{block.featured_image.image.url}} />
-            <p class="py2">{{block.featured_image.caption}}</p>
+            <p class="py2 small">{{block.featured_image.caption}}</p>
           </div>
         {% elseif block.variant === 'image-copy' %}
           <div class="col-12 mx-auto clearfix">
