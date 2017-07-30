@@ -1,4 +1,5 @@
 const isMobile = /iphone|ipod|ipad|android|blackberry|opera mini|opera mobi|skyfire|maemo|windows phone|palm|iemobile|symbian|symbianos|fennec/i.test(navigator.userAgent.toLowerCase());
+const  SCROLL_DURATION = 600;
 let path = window.location.pathname;
 let route = path.split('/');
 let routeName = route.length > 1 ? route[1] : null;
@@ -66,7 +67,9 @@ if (!isMobile) {
     if ($this.hasClass('next')) {
       $this.removeClass('next');
       let sectionTop = $this.offset().top;
-      window.scrollTo(0, sectionTop);
+      $('html,body').animate({
+        scrollTop: sectionTop
+      }, SCROLL_DURATION, 'swing');
     }
   });
 
@@ -113,6 +116,17 @@ if (!isMobile) {
       }
     },
     offset: 'bottom-in-view',
+  });
+
+  //Info/Work Bottom header scroll to
+  $bottomHeader.on('click', function(){
+    let $this = $(this);
+    if ($this.hasClass('fixed-bottom')) {
+      let sectionTop = $this.offset().top + $this.parent().innerHeight();
+      $('html,body').animate({
+        scrollTop: sectionTop
+      }, SCROLL_DURATION, 'swing');
+    }
   });
 
   //Info subsection
@@ -261,11 +275,12 @@ $('.image-slider').each(function(){
   })
 });
 
+//Flag touch/hover
 (function() {
   let count = 0,
       showUsa = false;
 
-  $('.flag-trigger').on('mouseenter tapstart', function() {
+  $('.flag-trigger').on('mouseenter tap', function() {
     let $flags  = $('.flag');
     let $russia = $('.russia'),
         $brazil = $('.brazil');
@@ -284,4 +299,4 @@ $('.image-slider').each(function(){
     count +=1;
     return showUsa = true;
   });
-}())
+}());
