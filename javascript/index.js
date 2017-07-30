@@ -1,4 +1,5 @@
 const isMobile = /iphone|ipod|ipad|android|blackberry|opera mini|opera mobi|skyfire|maemo|windows phone|palm|iemobile|symbian|symbianos|fennec/i.test(navigator.userAgent.toLowerCase());
+const  SCROLL_DURATION = 600;
 let path = window.location.pathname;
 let route = path.split('/');
 let routeName = route.length > 1 ? route[1] : null;
@@ -68,7 +69,7 @@ if (!isMobile) {
       let sectionTop = $this.offset().top;
       $('html,body').animate({
         scrollTop: sectionTop
-      }, 600, 'swing');
+      }, SCROLL_DURATION, 'swing');
     }
   });
 
@@ -121,10 +122,10 @@ if (!isMobile) {
   $bottomHeader.on('click', function(){
     let $this = $(this);
     if ($this.hasClass('fixed-bottom')) {
-      let sectionTop = $this.offset().top;
+      let sectionTop = $this.offset().top + $this.parent().innerHeight();
       $('html,body').animate({
         scrollTop: sectionTop
-      }, 600, 'swing');
+      }, SCROLL_DURATION, 'swing');
     }
   });
 

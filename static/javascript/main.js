@@ -2,6 +2,7 @@
 'use strict';
 
 var isMobile = /iphone|ipod|ipad|android|blackberry|opera mini|opera mobi|skyfire|maemo|windows phone|palm|iemobile|symbian|symbianos|fennec/i.test(navigator.userAgent.toLowerCase());
+var SCROLL_DURATION = 600;
 var path = window.location.pathname;
 var route = path.split('/');
 var routeName = route.length > 1 ? route[1] : null;
@@ -71,7 +72,7 @@ if (!isMobile) {
       var sectionTop = $this.offset().top;
       $('html,body').animate({
         scrollTop: sectionTop
-      }, 600, 'swing');
+      }, SCROLL_DURATION, 'swing');
     }
   });
 
@@ -120,14 +121,13 @@ if (!isMobile) {
   });
 
   //Info/Work Bottom header scroll to
-
   $bottomHeader.on('click', function () {
     var $this = $(this);
     if ($this.hasClass('fixed-bottom')) {
-      var sectionTop = $this.offset().top;
+      var sectionTop = $this.offset().top + $this.parent().innerHeight();
       $('html,body').animate({
         scrollTop: sectionTop
-      }, 600, 'swing');
+      }, SCROLL_DURATION, 'swing');
     }
   });
 
