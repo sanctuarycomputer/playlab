@@ -225,44 +225,48 @@ if (!isMobile) {
   });
 };
 
-//Headroom
-var navMenu = document.getElementById('nav-menu');
-var headroomMenu = new Headroom(navMenu, {
-  tolerance: 5,
-  offset: 205,
-  classes: {
-    initial: "animated",
-    pinned: "slide-down",
-    unpinned: "slide-up"
-  }
-});
-headroomMenu.init();
+$(window).load(function () {
+  var navMenus = document.getElementsByClassName('nav-menu');
+  var $navMenus = $(navMenus);
+  var $scrollContainer = $('.html');
+  var $mobileNav = $('.mobile-nav-bar');
+  var $hamburger = $('.hamburger');
+  var $mobileMenu = $('.mobile-menu');
 
-//Nav: Select-state
-$('document').ready(function () {
+  //Headroom
+  $navMenus.each(function () {
+    var that = this;
+    var headroomMenu = new Headroom(that, {
+      tolerance: 5,
+      offset: 205,
+      classes: {
+        initial: "animated",
+        pinned: "slide-down",
+        unpinned: "slide-up"
+      }
+    });
+    headroomMenu.init();
+  });
+
+  //Nav Select state
   if (routeName) {
-    var $activeNavLink = $(navMenu).find('[data-route=\'' + routeName + '\']');
-    $activeNavLink.addClass('active');
-  }
-});
+    var navEl = $navMenus.find('[data-route=\'' + routeName + '\']');
+    navEl.find('.select').addClass('active');
+  };
 
-//Mobile nav
-var $scrollContainer = $('.html');
-var $mobileNav = $('.mobile-nav-bar');
-var $hamburger = $('.hamburger');
-var $mobileMenu = $('.mobile-menu');
-
-$hamburger.on('click', function () {
-  if ($mobileNav.hasClass('active')) {
-    $scrollContainer.removeClass('overflow-hidden');
-    $mobileNav.removeClass('active');
-    $hamburger.removeClass('active');
-    return $mobileMenu.removeClass('is-showing');
-  }
-  $scrollContainer.addClass('overflow-hidden');
-  $mobileNav.addClass('active');
-  $hamburger.addClass('active');
-  return $mobileMenu.addClass('is-showing');
+  //Mobile Nav
+  $hamburger.on('click', function () {
+    if ($mobileNav.hasClass('active')) {
+      $scrollContainer.removeClass('overflow-hidden');
+      $mobileNav.removeClass('active');
+      $hamburger.removeClass('active');
+      return $mobileMenu.removeClass('is-showing');
+    }
+    $scrollContainer.addClass('overflow-hidden');
+    $mobileNav.addClass('active');
+    $hamburger.addClass('active');
+    return $mobileMenu.addClass('is-showing');
+  });
 });
 
 //Image Gallery
@@ -301,5 +305,11 @@ $('.image-slider').each(function () {
     return showUsa = true;
   });
 })();
+
+//Midnight Js
+$(document).ready(function () {
+  $('.header').midnight();
+  $('.mobile-nav-bar').midnight();
+});
 
 },{}]},{},[1]);

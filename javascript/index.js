@@ -223,46 +223,49 @@ if (!isMobile) {
   });
 };
 
-//Headroom
-let navMenu =  document.getElementById('nav-menu');
-let headroomMenu  = new Headroom(navMenu, {
-  tolerance: 5,
-  offset : 205,
-  classes: {
-    initial: "animated",
-    pinned: "slide-down",
-    unpinned: "slide-up"
-  }
-});
-headroomMenu.init();
+$(window).load(function() {
+  let navMenus = document.getElementsByClassName('nav-menu');
+  let $navMenus = $(navMenus);
+  let $scrollContainer = $('.html');
+  let $mobileNav = $('.mobile-nav-bar');
+  let $hamburger = $('.hamburger');
+  let $mobileMenu = $('.mobile-menu');
 
-//Nav: Select-state
-$('document').ready(function () {
+  //Headroom
+  $navMenus.each(function(){
+    let that = this;
+    let headroomMenu = new Headroom(that, {
+      tolerance: 5,
+      offset : 205,
+      classes: {
+        initial: "animated",
+        pinned: "slide-down",
+        unpinned: "slide-up"
+      }
+    });
+    headroomMenu.init();
+  });
+
+  //Nav Select state
   if (routeName) {
-    let $activeNavLink = $(navMenu).find(`[data-route='${routeName}']`)
-    $activeNavLink.addClass('active');
-  }
+    let navEl = $navMenus.find(`[data-route='${routeName}']`);
+    navEl.find('.select').addClass('active');
+  };
+
+  //Mobile Nav
+  $hamburger.on('click', () => {
+    if ($mobileNav.hasClass('active')) {
+      $scrollContainer.removeClass('overflow-hidden');
+      $mobileNav.removeClass('active');
+      $hamburger.removeClass('active');
+      return $mobileMenu.removeClass('is-showing');
+    }
+    $scrollContainer.addClass('overflow-hidden');
+    $mobileNav.addClass('active');
+    $hamburger.addClass('active');
+    return $mobileMenu.addClass('is-showing');
+  });
 });
-
-//Mobile nav
-let $scrollContainer = $('.html');
-let $mobileNav = $('.mobile-nav-bar');
-let $hamburger = $('.hamburger');
-let $mobileMenu = $('.mobile-menu');
-
-$hamburger.on('click', () => {
-  if ($mobileNav.hasClass('active')) {
-    $scrollContainer.removeClass('overflow-hidden');
-    $mobileNav.removeClass('active');
-    $hamburger.removeClass('active');
-    return $mobileMenu.removeClass('is-showing');
-  }
-  $scrollContainer.addClass('overflow-hidden');
-  $mobileNav.addClass('active');
-  $hamburger.addClass('active');
-  return $mobileMenu.addClass('is-showing');
-});
-
 
 //Image Gallery
 $('.image-slider').each(function(){
@@ -300,3 +303,9 @@ $('.image-slider').each(function(){
     return showUsa = true;
   });
 }());
+
+//Midnight Js
+$(document).ready(function(){
+  $('.header').midnight();
+  $('.mobile-nav-bar').midnight();
+});

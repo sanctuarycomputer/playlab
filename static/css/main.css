@@ -323,31 +323,39 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-#header {
+.header {
   display: none;
 }
-#header .h1 {
+.header .h1 {
   background-color: transparent;
+}
+.header.midnightHeader.default {
   color: #000;
 }
-#header #nav-menu.animated {
+.header.midnightHeader.white {
+  color: #fff;
+}
+.header .nav-menu.animated {
   will-change: transform;
   transition: transform 500ms linear;
 }
-#header #nav-menu.slide-down {
+.header .nav-menu.slide-down {
   transform: translateY(0%);
 }
-#header #nav-menu.slide-up {
+.header .nav-menu.slide-up {
   transform: translateY(-500%);
 }
-#header #nav-menu .nav-link.active:after {
-  content: url("/static/images/bullet.svg");
-  position: absolute;
-  width: 10px;
+.header .nav-menu .nav-link .select {
+  display: inline-block;
   margin-left: 5px;
+  opacity: 0;
+  transition: 250ms ease-in-out;
+}
+.header .nav-menu .nav-link .select.active {
+  opacity: 1;
 }
 @media (min-width: 52em) {
-  #header {
+  .header {
     display: flex;
   }
 }
@@ -361,7 +369,18 @@ h1, h2, h3, h4, h5, h6 {
 }
 #mobile-header header.active {
   background: #000;
+}
+#mobile-header header.active .midnightHeader {
+  color: #fff !important;
+}
+#mobile-header header .midnightHeader.default {
+  color: #000;
+}
+#mobile-header header .midnightHeader.white {
   color: #fff;
+}
+#mobile-header header .midnightHeader.white span {
+  background: #fff;
 }
 #mobile-header .hamburger {
   postion: relative;
@@ -383,7 +402,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 #mobile-header .hamburger.active .top {
   position: absolute;
-  transform: rotate(-35deg);
+  transform: rotate(-30deg);
+  top: 37%;
 }
 #mobile-header .hamburger.active .middle {
   transform: scale(0);
@@ -391,15 +411,15 @@ h1, h2, h3, h4, h5, h6 {
 }
 #mobile-header .hamburger.active .bottom {
   position: absolute;
-  transform: rotate(35deg);
-  bottom: 44%;
+  transform: rotate(30deg);
+  bottom: 43%;
 }
 #mobile-header .hamburger:focus {
   outline: 0;
 }
 #mobile-header .mobile-menu {
   position: fixed;
-  top: 70px;
+  top: 35px;
   left: 0;
   right: 0;
   min-height: 170px;

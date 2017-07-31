@@ -1,11 +1,18 @@
-#header {
+.header {
   display: none;
   .h1 {
     background-color: transparent;
-    color: #000;
+  }
+  &.midnightHeader {
+    &.default {
+      color: color('black');
+    }
+    &.white {
+      color: color('white');
+    }
   }
 
-  #nav-menu {
+  .nav-menu {
     &.animated {
       will-change: transform;
       transition: transform 500ms linear;
@@ -16,14 +23,17 @@
     &.slide-up {
       transform: translateY(-500%);
     }
-
     .nav-link {
-      &.active:after {
-        content: url('/static/images/bullet.svg');
-        position: absolute;
-        width: 10px;
+      .select {
+        display: inline-block;
         margin-left: 5px;
+        opacity: 0;
+        transition: 250ms ease-in-out;
+        &.active {
+          opacity: 1;
+        }
       }
+
     }
   }
 
