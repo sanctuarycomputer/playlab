@@ -25,10 +25,10 @@ This is an opening statement that can change and stuff and it’s not our bio. L
   {% for project in featuredProjects %}
     <article {% if project.text_color == '#ffffff' %} data-midnight="white" {% endif %} class='home-block clearfix pointer-auto' style='color: {{project.text_color}}; background-color:{{project.block_color}}'>
       <div class='title-bar' style='background-color:{{project.block_color}}'>
-        <h1 class='center py2'>{{project.name}}</h1>
+        <h1 class='center pb2 pt1-1_2'>{{project.name}}</h1>
       </div>
       <div class='max-width-4 mx-auto'>
-        <div class='col col-12 p2'>
+        <div class='col col-12 p2 {% if loop.last %} mb4 {% endif %} '>
           <img class='col-12' src='{{project.featured_image.url}}' />
           <p class='p4-medium-up'>{{project.summary}}</p>
           <div class="relative">
@@ -58,9 +58,15 @@ This is an opening statement that can change and stuff and it’s not our bio. L
           </div>
         </div>
       </div>
+      {% if loop.last %}
+        <div class="absolute bottom-0" style="height: 300px"></div>
+        <div class="absolute bottom-0 center col-12 bg-red py3">
+          <h3><a href="/work" target="_blank" class="link-style">See Everything</a></h3>
+        </div>
+      {% endif %}
     </article>
   {% endfor %}
-  <div class='intro-trigger clearfix site-min-height bg-white'>
+  <div class='xs-hide sm-hide intro-trigger clearfix site-min-height bg-white'>
     <div class='max-width-4 mx-auto pt3'>
       <div class='col col-12 p2'>
         <p class='mb3'>

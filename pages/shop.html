@@ -13,9 +13,14 @@
 {% block title %}{% parent %} - {{ cms.shop.name }}{% endblock %}
 {% block content %}
   <div data-midnight="white" id="shop" class="relative z1">
+    <div class="xs-hide sm-hide product-image-container fixed col-12 height-100 bg-black">
+    </div>
+    <div class="gradient-overlay xs-hide sm-hide image-gradient fixed col-12 height-100"></div>
     {% for product in cms.products %}
-      <div class="product col-12 {% if loop.last %} footer-room {% endif %}" style="background-image: url({{product.featured_image.url}})">
-        <img class="height-100 col-12" src="/static/images/shop-gradient.png"/>
+      <div data-midnight="white" data-image={{product.featured_image.url}} data-gradient={{product.gradient}} class="product col-12 {% if loop.last %} footer-room {% endif %}" style="background-image: url({{product.featured_image.url}})">
+        {% if product.gradient %}
+          <div class="md-hide lg-hide absolute image-gradient col-12 height-100"></div>
+        {% endif %}
         <div class="product-details col-10 md-col-3 white">
           <h2 class="title uppercase">{{product.name}}</h2>
           <p class="description">{{product.description}}</p>

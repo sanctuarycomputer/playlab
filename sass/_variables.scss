@@ -9,6 +9,7 @@ $large-up: "(min-width:#{$lg})";
 
 /* Globals */
 $footerHeight: 300px;
+$tabletFooterHeight: 250px;
 $mobileFooterHeight: 520px;
 $headerHeight: 62px;
 $mobileHeaderHeight: 82px;
@@ -19,4 +20,5 @@ $colors: (
 'black': #000,
 'white': #fff,
 'grey':  #ECEAEA,
+'red':   #D0021B,
 );

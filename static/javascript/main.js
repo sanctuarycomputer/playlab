@@ -2,6 +2,7 @@
 'use strict';
 
 var isMobile = /iphone|ipod|ipad|android|blackberry|opera mini|opera mobi|skyfire|maemo|windows phone|palm|iemobile|symbian|symbianos|fennec/i.test(navigator.userAgent.toLowerCase());
+var SCROLL_DURATION = 600;
 var path = window.location.pathname;
 var route = path.split('/');
 var routeName = route.length > 1 ? route[1] : null;
@@ -69,7 +70,9 @@ if (!isMobile) {
     if ($this.hasClass('next')) {
       $this.removeClass('next');
       var sectionTop = $this.offset().top;
-      window.scrollTo(0, sectionTop);
+      $('html,body').animate({
+        scrollTop: sectionTop
+      }, SCROLL_DURATION, 'swing');
     }
   });
 
@@ -115,6 +118,17 @@ if (!isMobile) {
       }
     },
     offset: 'bottom-in-view'
+  });
+
+  //Info/Work Bottom header scroll to
+  $bottomHeader.on('click', function () {
+    var $this = $(this);
+    if ($this.hasClass('fixed-bottom')) {
+      var sectionTop = $this.offset().top + $this.parent().innerHeight();
+      $('html,body').animate({
+        scrollTop: sectionTop
+      }, SCROLL_DURATION, 'swing');
+    }
   });
 
   //Info subsection
@@ -163,6 +177,8 @@ if (!isMobile) {
   //Shop Page
   var $productBlocks = $('.product');
   var $shopViewContext = $('.shop-view-context');
+  var $productImageContainer = $('.product-image-container');
+  var $gradientOverlay = $('.gradient-overlay');
 
   $productBlocks.each(function (i, element) {
     var $productBlock = $(element);
@@ -172,8 +188,17 @@ if (!isMobile) {
     $productBlock.waypoint({
       handler: function handler(direction) {
         if (direction === 'down') {
+          var $thisEl = $(this.element);
+          var activeUrl = $thisEl.data().image;
+          var showGradient = $thisEl.data().gradient;
+          if (showGradient) {
+            $gradientOverlay.addClass('show');
+          } else {
+            $gradientOverlay.removeClass('show');
+          }
+          $productImageContainer.css('background-image', 'url(' + activeUrl + ')');
           $productBlocks.removeClass('in-view');
-          $(this.element).addClass('in-view');
+          $thisEl.addClass('in-view');
         }
       }
     });
@@ -182,8 +207,17 @@ if (!isMobile) {
     $productBlock.waypoint({
       handler: function handler(direction) {
         if (direction === 'up') {
+          var $thisEl = $(this.element);
+          var activeUrl = $thisEl.data().image;
+          var showGradient = $thisEl.data().gradient;
+          if (showGradient) {
+            $gradientOverlay.addClass('show');
+          } else {
+            $gradientOverlay.removeClass('show');
+          }
+          $productImageContainer.css('background-image', 'url(' + activeUrl + ')');
           $productBlocks.removeClass('in-view');
-          $(this.element).addClass('in-view');
+          $thisEl.addClass('in-view');
         }
       },
       offset: '-25%'
@@ -191,11 +225,15 @@ if (!isMobile) {
   });
 };
 
-// //Headroom
 $(window).load(function () {
   var navMenus = document.getElementsByClassName('nav-menu');
   var $navMenus = $(navMenus);
+  var $scrollContainer = $('.html');
+  var $mobileNav = $('.mobile-nav-bar');
+  var $hamburger = $('.hamburger');
+  var $mobileMenu = $('.mobile-menu');
 
+  //Headroom
   $navMenus.each(function () {
     var that = this;
     var headroomMenu = new Headroom(that, {
@@ -209,37 +247,26 @@ $(window).load(function () {
     });
     headroomMenu.init();
   });
-});
 
-var $navMenus = $('.nav-menu');
-
-//Nav: Select-state
-$('document').ready(function () {
+  //Nav Select state
   if (routeName) {
-    var navMenus = $navMenus.find('[data-route=\'' + routeName + '\']');
-    navMenus.addClass('active');
-  }
-});
+    var navEl = $navMenus.find('[data-route=\'' + routeName + '\']');
+    navEl.find('.select').addClass('active');
+  };
 
-//Mobile nav
-var $scrollContainer = $('.html');
-var $mobileNav = $('.mobile-nav-bar');
-var $hamburger = $('.hamburger');
-var $mobileMenu = $('.mobile-menu');
-debugger;
-
-$hamburger.on('click', function () {
-  if ($mobileNav.hasClass('active')) {
-    debugger;
-    $scrollContainer.removeClass('overflow-hidden');
-    $mobileNav.removeClass('active');
-    $hamburger.removeClass('active');
-    return $mobileMenu.removeClass('is-showing');
-  }
-  $scrollContainer.addClass('overflow-hidden');
-  $mobileNav.addClass('active');
-  $hamburger.addClass('active');
-  return $mobileMenu.addClass('is-showing');
+  //Mobile Nav
+  $hamburger.on('click', function () {
+    if ($mobileNav.hasClass('active')) {
+      $scrollContainer.removeClass('overflow-hidden');
+      $mobileNav.removeClass('active');
+      $hamburger.removeClass('active');
+      return $mobileMenu.removeClass('is-showing');
+    }
+    $scrollContainer.addClass('overflow-hidden');
+    $mobileNav.addClass('active');
+    $hamburger.addClass('active');
+    return $mobileMenu.addClass('is-showing');
+  });
 });
 
 //Image Gallery
@@ -253,11 +280,12 @@ $('.image-slider').each(function () {
   });
 });
 
+//Flag touch/hover
 (function () {
   var count = 0,
       showUsa = false;
 
-  $('.flag-trigger').on('mouseenter tapstart', function () {
+  $('.flag-trigger').on('mouseenter tap', function () {
     var $flags = $('.flag');
     var $russia = $('.russia'),
         $brazil = $('.brazil');
@@ -278,8 +306,8 @@ $('.image-slider').each(function () {
   });
 })();
 
+//Midnight Js
 $(document).ready(function () {
-  // Change this to the correct selector.
   $('.header').midnight();
   $('.mobile-nav-bar').midnight();
 });

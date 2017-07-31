@@ -8,7 +8,17 @@ h1, h2, h3, h4, h5, h6, p, li, input {
   }
 }
 
-p, li {
+.small {
+  font-size: 15px;
+  font-weight: 400;
+  letter-spacing: 0.129px;
+  line-height: 20px;
+  @media #{$large-up} {
+    font-size: 25px;
+  }
+}
+
+p, li, a {
   letter-spacing: 0.077px;
   line-height: 32px;
 
@@ -17,7 +27,6 @@ p, li {
     line-height: 48px;
   }
 }
-
 
 h1, h2, h3, h4, h5, h6 {
   line-height: 32px;

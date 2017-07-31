@@ -1,4 +1,5 @@
 const isMobile = /iphone|ipod|ipad|android|blackberry|opera mini|opera mobi|skyfire|maemo|windows phone|palm|iemobile|symbian|symbianos|fennec/i.test(navigator.userAgent.toLowerCase());
+const  SCROLL_DURATION = 600;
 let path = window.location.pathname;
 let route = path.split('/');
 let routeName = route.length > 1 ? route[1] : null;
@@ -66,7 +67,9 @@ if (!isMobile) {
     if ($this.hasClass('next')) {
       $this.removeClass('next');
       let sectionTop = $this.offset().top;
-      window.scrollTo(0, sectionTop);
+      $('html,body').animate({
+        scrollTop: sectionTop
+      }, SCROLL_DURATION, 'swing');
     }
   });
 
@@ -115,6 +118,17 @@ if (!isMobile) {
     offset: 'bottom-in-view',
   });
 
+  //Info/Work Bottom header scroll to
+  $bottomHeader.on('click', function(){
+    let $this = $(this);
+    if ($this.hasClass('fixed-bottom')) {
+      let sectionTop = $this.offset().top + $this.parent().innerHeight();
+      $('html,body').animate({
+        scrollTop: sectionTop
+      }, SCROLL_DURATION, 'swing');
+    }
+  });
+
   //Info subsection
   let $infoTabs = $('.info-tab');
   let $infoSubsection = $('#info-subsection');
@@ -160,6 +174,8 @@ if (!isMobile) {
   //Shop Page
   let $productBlocks = $('.product');
   let $shopViewContext = $('.shop-view-context');
+  let $productImageContainer = $('.product-image-container');
+  let $gradientOverlay  = $('.gradient-overlay');
 
   $productBlocks.each((i, element) => {
     let $productBlock = $(element);
@@ -170,8 +186,17 @@ if (!isMobile) {
     $productBlock.waypoint({
       handler: function(direction) {
         if (direction === 'down') {
+          let $thisEl = $(this.element);
+          let activeUrl = $thisEl.data().image;
+          let showGradient = $thisEl.data().gradient;
+          if (showGradient) {
+            $gradientOverlay.addClass('show')
+          } else {
+            $gradientOverlay.removeClass('show')
+          }
+          $productImageContainer.css('background-image', `url(${activeUrl})`);
           $productBlocks.removeClass('in-view');
-          $(this.element).addClass('in-view');
+          $thisEl.addClass('in-view');
         }
       },
     });
@@ -180,8 +205,17 @@ if (!isMobile) {
     $productBlock.waypoint({
       handler: function(direction) {
         if (direction === 'up') {
+          let $thisEl = $(this.element);
+          let activeUrl = $thisEl.data().image;
+          let showGradient = $thisEl.data().gradient;
+          if (showGradient) {
+            $gradientOverlay.addClass('show')
+          } else {
+            $gradientOverlay.removeClass('show')
+          }
+          $productImageContainer.css('background-image', `url(${activeUrl})`);
           $productBlocks.removeClass('in-view');
-          $(this.element).addClass('in-view');
+          $thisEl.addClass('in-view');
         }
       },
       offset: '-25%',
@@ -189,11 +223,15 @@ if (!isMobile) {
   });
 };
 
-// //Headroom
 $(window).load(function() {
   let navMenus = document.getElementsByClassName('nav-menu');
   let $navMenus = $(navMenus);
+  let $scrollContainer = $('.html');
+  let $mobileNav = $('.mobile-nav-bar');
+  let $hamburger = $('.hamburger');
+  let $mobileMenu = $('.mobile-menu');
 
+  //Headroom
   $navMenus.each(function(){
     let that = this;
     let headroomMenu = new Headroom(that, {
@@ -207,39 +245,27 @@ $(window).load(function() {
     });
     headroomMenu.init();
   });
-});
 
-let $navMenus = $('.nav-menu');
-
-//Nav: Select-state
-$('document').ready(function () {
+  //Nav Select state
   if (routeName) {
-    let navMenus = $navMenus.find(`[data-route='${routeName}']`);
-    navMenus.addClass('active');
-  }
+    let navEl = $navMenus.find(`[data-route='${routeName}']`);
+    navEl.find('.select').addClass('active');
+  };
+
+  //Mobile Nav
+  $hamburger.on('click', () => {
+    if ($mobileNav.hasClass('active')) {
+      $scrollContainer.removeClass('overflow-hidden');
+      $mobileNav.removeClass('active');
+      $hamburger.removeClass('active');
+      return $mobileMenu.removeClass('is-showing');
+    }
+    $scrollContainer.addClass('overflow-hidden');
+    $mobileNav.addClass('active');
+    $hamburger.addClass('active');
+    return $mobileMenu.addClass('is-showing');
+  });
 });
-
-//Mobile nav
-let $scrollContainer = $('.html');
-let $mobileNav = $('.mobile-nav-bar');
-let $hamburger = $('.hamburger');
-let $mobileMenu = $('.mobile-menu');
-debugger;
-
-$hamburger.on('click', () => {
-  if ($mobileNav.hasClass('active')) {
-    debugger;
-    $scrollContainer.removeClass('overflow-hidden');
-    $mobileNav.removeClass('active');
-    $hamburger.removeClass('active');
-    return $mobileMenu.removeClass('is-showing');
-  }
-  $scrollContainer.addClass('overflow-hidden');
-  $mobileNav.addClass('active');
-  $hamburger.addClass('active');
-  return $mobileMenu.addClass('is-showing');
-});
-
 
 //Image Gallery
 $('.image-slider').each(function(){
@@ -252,11 +278,12 @@ $('.image-slider').each(function(){
   })
 });
 
+//Flag touch/hover
 (function() {
   let count = 0,
       showUsa = false;
 
-  $('.flag-trigger').on('mouseenter tapstart', function() {
+  $('.flag-trigger').on('mouseenter tap', function() {
     let $flags  = $('.flag');
     let $russia = $('.russia'),
         $brazil = $('.brazil');
@@ -277,8 +304,8 @@ $('.image-slider').each(function(){
   });
 }());
 
+//Midnight Js
 $(document).ready(function(){
-  // Change this to the correct selector.
   $('.header').midnight();
   $('.mobile-nav-bar').midnight();
 });
