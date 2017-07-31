@@ -191,30 +191,33 @@ if (!isMobile) {
   });
 };
 
-//Headroom
-var navMenus = document.getElementsByClassName('nav-menu');
-var $navMenus = $(navMenus);
+// //Headroom
+$(window).load(function () {
+  var navMenus = document.getElementsByClassName('nav-menu');
+  var $navMenus = $(navMenus);
 
-$navMenus.each(function () {
-  var that = this;
-  var headroomMenu = new Headroom(that, {
-    tolerance: 5,
-    offset: 205,
-    classes: {
-      initial: "animated",
-      pinned: "slide-down",
-      unpinned: "slide-up"
-    }
+  $navMenus.each(function () {
+    var that = this;
+    var headroomMenu = new Headroom(that, {
+      tolerance: 5,
+      offset: 205,
+      classes: {
+        initial: "animated",
+        pinned: "slide-down",
+        unpinned: "slide-up"
+      }
+    });
+    headroomMenu.init();
   });
-
-  headroomMenu.init();
 });
+
+var $navMenus = $('.nav-menu');
 
 //Nav: Select-state
 $('document').ready(function () {
   if (routeName) {
-    var $activeNavLink = $(navMenu).find('[data-route=\'' + routeName + '\']');
-    $activeNavLink.addClass('active');
+    var navMenus = $navMenus.find('[data-route=\'' + routeName + '\']');
+    navMenus.addClass('active');
   }
 });
 
@@ -223,9 +226,11 @@ var $scrollContainer = $('.html');
 var $mobileNav = $('.mobile-nav-bar');
 var $hamburger = $('.hamburger');
 var $mobileMenu = $('.mobile-menu');
+debugger;
 
 $hamburger.on('click', function () {
   if ($mobileNav.hasClass('active')) {
+    debugger;
     $scrollContainer.removeClass('overflow-hidden');
     $mobileNav.removeClass('active');
     $hamburger.removeClass('active');
@@ -273,16 +278,10 @@ $('.image-slider').each(function () {
   });
 })();
 
-var setLogo = function setLogo() {
-  $('.chameleon-nav').each(function () {
-    $(this).css('top', $('.default-nav').offset().top - $(this).closest('.nav-container').offset().top);
-  });
-};
-
-$(document).scroll(function () {
-  window.requestAnimationFrame(setLogo);
+$(document).ready(function () {
+  // Change this to the correct selector.
+  $('.header').midnight();
+  $('.mobile-nav-bar').midnight();
 });
-
-setLogo();
 
 },{}]},{},[1]);

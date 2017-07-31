@@ -253,7 +253,12 @@ h1, h2, h3, h4, h5, h6 {
 }
 .header .h1 {
   background-color: transparent;
+}
+.header.midnightHeader.default {
   color: #000;
+}
+.header.midnightHeader.white {
+  color: #fff;
 }
 .header .nav-menu.animated {
   will-change: transform;
@@ -287,6 +292,15 @@ h1, h2, h3, h4, h5, h6 {
 #mobile-header header.active {
   background: #000;
   color: #fff;
+}
+#mobile-header header .midnightHeader.default {
+  color: #000;
+}
+#mobile-header header .midnightHeader.white {
+  color: #fff;
+}
+#mobile-header header .midnightHeader.white span {
+  background: #fff;
 }
 #mobile-header .hamburger {
   postion: relative;

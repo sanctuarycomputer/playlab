@@ -7,6 +7,17 @@
       background: color('black');
       color: color('white');
     }
+    .midnightHeader {
+      &.default {
+        color: color('black');
+      }
+      &.white {
+        color: color('white');
+        span {
+          background: color('white');
+        }
+      }
+    }
   }
 
   .hamburger {

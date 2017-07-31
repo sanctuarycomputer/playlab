@@ -189,30 +189,33 @@ if (!isMobile) {
   });
 };
 
-//Headroom
-let navMenus = document.getElementsByClassName('nav-menu');
-let $navMenus = $(navMenus);
+// //Headroom
+$(window).load(function() {
+  let navMenus = document.getElementsByClassName('nav-menu');
+  let $navMenus = $(navMenus);
 
-$navMenus.each(function(){
-  let that = this;
-  let headroomMenu = new Headroom(that, {
-    tolerance: 5,
-    offset : 205,
-    classes: {
-      initial: "animated",
-      pinned: "slide-down",
-      unpinned: "slide-up"
-    }
+  $navMenus.each(function(){
+    let that = this;
+    let headroomMenu = new Headroom(that, {
+      tolerance: 5,
+      offset : 205,
+      classes: {
+        initial: "animated",
+        pinned: "slide-down",
+        unpinned: "slide-up"
+      }
+    });
+    headroomMenu.init();
   });
-
-  headroomMenu.init();
 });
+
+let $navMenus = $('.nav-menu');
 
 //Nav: Select-state
 $('document').ready(function () {
   if (routeName) {
-    let $activeNavLink = $(navMenu).find(`[data-route='${routeName}']`)
-    $activeNavLink.addClass('active');
+    let navMenus = $navMenus.find(`[data-route='${routeName}']`);
+    navMenus.addClass('active');
   }
 });
 
@@ -221,9 +224,11 @@ let $scrollContainer = $('.html');
 let $mobileNav = $('.mobile-nav-bar');
 let $hamburger = $('.hamburger');
 let $mobileMenu = $('.mobile-menu');
+debugger;
 
 $hamburger.on('click', () => {
   if ($mobileNav.hasClass('active')) {
+    debugger;
     $scrollContainer.removeClass('overflow-hidden');
     $mobileNav.removeClass('active');
     $hamburger.removeClass('active');
@@ -270,20 +275,10 @@ $('.image-slider').each(function(){
     count +=1;
     return showUsa = true;
   });
-}())
+}());
 
-
-let setLogo = function() {
-  $('.chameleon-nav').each(function() {
-    $(this).css('top',
-      $('.default-nav').offset().top -
-      $(this).closest('.nav-container').offset().top
-    );
-  });
-};
-
-$(document).scroll(function() {
-  window.requestAnimationFrame(setLogo);
+$(document).ready(function(){
+  // Change this to the correct selector.
+  $('.header').midnight();
+  $('.mobile-nav-bar').midnight();
 });
-
-setLogo();

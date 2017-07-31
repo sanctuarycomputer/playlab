@@ -2,7 +2,14 @@
   display: none;
   .h1 {
     background-color: transparent;
-    color: #000;
+  }
+  &.midnightHeader {
+    &.default {
+      color: color('black');
+    }
+    &.white {
+      color: color('white');
+    }
   }
 
   .nav-menu {
@@ -16,7 +23,6 @@
     &.slide-up {
       transform: translateY(-500%);
     }
-
     .nav-link {
       &.active:after {
         content: url('/static/images/bullet.svg');
