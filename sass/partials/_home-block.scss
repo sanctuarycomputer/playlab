@@ -19,10 +19,4 @@
       }
     }
   }
-
-  @media #{$medium-up} {
-    &:last-of-type {
-      margin-bottom: $footerHeight;
-    }
-  }
 }

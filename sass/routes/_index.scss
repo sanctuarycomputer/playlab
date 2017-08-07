@@ -1,3 +1,14 @@
 #index {
-
+  .footer-spacer {
+    display: none;
+  }
+  #footer { display: none; }
+  @media #{$medium-up} {
+    //Footer override
+    #footer {
+      display: block;
+      background: color('white');
+      position: relative;
+    }
+  }
 }

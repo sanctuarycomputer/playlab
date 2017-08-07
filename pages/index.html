@@ -59,13 +59,13 @@ This is an opening statement that can change and stuff and it’s not our bio. L
         </div>
       </div>
       {% if loop.last %}
-        <div class="absolute bottom-0" style="height: 300px"></div>
         <div class="absolute bottom-0 center col-12 bg-red py3">
           <h3><a href="/work" target="_blank" class="link-style">See Everything</a></h3>
         </div>
       {% endif %}
     </article>
   {% endfor %}
+  {% include "templates/partials/footer.html" %}
   <div class='xs-hide sm-hide intro-trigger clearfix site-min-height bg-white'>
     <div class='max-width-4 mx-auto pt3'>
       <div class='col col-12 p2'>

@@ -223,6 +223,20 @@ h1, h2, h3, h4, h5, h6 {
   stroke: #D0021B;
 }
 
+#index .footer-spacer {
+  display: none;
+}
+#index #footer {
+  display: none;
+}
+@media (min-width: 52em) {
+  #index #footer {
+    display: block;
+    background: #fff;
+    position: relative;
+  }
+}
+
 #work-index .project-col {
   padding: 1rem;
 }
@@ -494,11 +508,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 .home-block .title-bar.next:hover {
   transform: translateY(-70px);
-}
-@media (min-width: 52em) {
-  .home-block:last-of-type {
-    margin-bottom: 300px;
-  }
 }
 
 @media (min-width: 52em) {
