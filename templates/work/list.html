@@ -5,7 +5,7 @@
 {% set currentProjects = cms.work|where('type','Current') %}
 {% set archivedProjects = cms.work|where('type','Archive') %}
 <div id='work-index' class="z1 relative site-min-height route-padding-top">
-  <article class="work sticky-top-wrapper bg-white center pb4">
+  <article class="work sticky-top-wrapper bg-white center">
     <div class="col-12 flex flex-wrap justify-around">
       {% for project in currentProjects %}
         {% if loop.index % 2 === 1 %}

@@ -1,5 +1,6 @@
 .sticky-top-wrapper {
   @media #{$medium-up} {
+    padding-bottom: 10rem;
     position: relative;
     &.top-stick {
       width: 100%;

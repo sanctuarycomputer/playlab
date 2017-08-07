@@ -503,6 +503,7 @@ h1, h2, h3, h4, h5, h6 {
 
 @media (min-width: 52em) {
   .sticky-top-wrapper {
+    padding-bottom: 10rem;
     position: relative;
   }
   .sticky-top-wrapper.top-stick {
@@ -618,7 +619,7 @@ h1, h2, h3, h4, h5, h6 {
   display: block;
   content: "";
   width: 100%;
-  padding-top: 133.33333%;
+  padding-top: 133.3333333333%;
 }
 .image-block.Portrait > .content {
   position: absolute;
