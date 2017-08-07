@@ -349,6 +349,9 @@ h1, h2, h3, h4, h5, h6 {
 .header.midnightHeader.white {
   color: #fff;
 }
+.header .nav-menu {
+  padding: 0.5rem 0;
+}
 .header .nav-menu.animated {
   will-change: transform;
   transition: transform 500ms linear;
@@ -367,6 +370,19 @@ h1, h2, h3, h4, h5, h6 {
 }
 .header .nav-menu .nav-link .select.active {
   opacity: 1;
+}
+.header .nav-menu .nav-link .select svg {
+  width: 12px;
+}
+@media (min-width: 64em) {
+  .header .nav-menu .nav-link .select svg {
+    width: 16px;
+  }
+}
+@media (min-width: 64em) {
+  .header .nav-menu {
+    padding: 0;
+  }
 }
 @media (min-width: 52em) {
   .header {
@@ -433,7 +449,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 #mobile-header .mobile-menu {
   position: fixed;
-  top: 35px;
+  top: 60px;
   left: 0;
   right: 0;
   min-height: 170px;
@@ -550,7 +566,7 @@ h1, h2, h3, h4, h5, h6 {
     transform: translateY(72px);
   }
   .sticky-bottom-wrapper .bottom-header.fixed-bottom:hover {
-    transform: translateY(45px);
+    transform: translateY(46px);
   }
   .sticky-bottom-wrapper.scrolling {
     overflow: scroll;
