@@ -285,7 +285,7 @@ $('.image-slider').each(function () {
   var count = 0,
       showUsa = false;
 
-  $('.flag-trigger').on('mouseenter tap', function () {
+  $('.flag-trigger').on('mouseenter click', function () {
     var $flags = $('.flag');
     var $russia = $('.russia'),
         $brazil = $('.brazil');
