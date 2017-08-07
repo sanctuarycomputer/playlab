@@ -413,12 +413,13 @@ h1, h2, h3, h4, h5, h6 {
   background: #fff;
 }
 #mobile-header .hamburger {
-  postion: relative;
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   background: none;
   border: none;
+  min-height: 30px;
 }
 #mobile-header .hamburger span {
   display: inline-block;
@@ -433,7 +434,7 @@ h1, h2, h3, h4, h5, h6 {
 #mobile-header .hamburger.active .top {
   position: absolute;
   transform: rotate(-30deg);
-  top: 37%;
+  top: 35%;
 }
 #mobile-header .hamburger.active .middle {
   transform: scale(0);
@@ -442,7 +443,7 @@ h1, h2, h3, h4, h5, h6 {
 #mobile-header .hamburger.active .bottom {
   position: absolute;
   transform: rotate(30deg);
-  bottom: 43%;
+  bottom: 29%;
 }
 #mobile-header .hamburger:focus {
   outline: 0;

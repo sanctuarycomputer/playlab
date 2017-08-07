@@ -23,12 +23,13 @@
   }
 
   .hamburger {
-    postion: relative;
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     background: none;
     border: none;
+    min-height: 30px;
      span {
        display: inline-block;;
        width: 30px;
@@ -44,7 +45,7 @@
        .top {
          position: absolute;
          transform: rotate(-30deg);
-         top: 37%;
+         top: 35%;
        }
        .middle {
          transform:scale(0);
@@ -53,7 +54,7 @@
        .bottom {
          position: absolute;
          transform: rotate(30deg);
-         bottom: 43%;
+         bottom: 29%;
        }
      }
 
