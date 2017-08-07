@@ -3,7 +3,7 @@
 {% block title %}{% parent %} - {{ item.name }}{% endblock %}
 {% set projectType = item.type %}
 {% block content %}
-  <div id="work-show" class="site-min-height route-padding-top relative col-12 z1" style="color:{{item.text_color}};background-color:{{item.block_color}}">
+  <div {% if item.text_color == '#ffffff' %} data-midnight="white" {% endif %} id="work-show" class="site-min-height route-padding-top relative col-12 z1" style="color:{{item.text_color}};background-color:{{item.block_color}}">
     <div>
       <h1 class="center pb4">{{item.name}}</h1>
     </div>
