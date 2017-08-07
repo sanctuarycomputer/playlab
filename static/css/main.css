@@ -503,7 +503,7 @@ h1, h2, h3, h4, h5, h6 {
   cursor: pointer;
   transition: 250ms ease-in-out;
   position: fixed;
-  transform: translateY(-40px);
+  transform: translateY(-50px);
   top: auto;
 }
 .home-block .title-bar.next:hover {
@@ -532,7 +532,7 @@ h1, h2, h3, h4, h5, h6 {
     position: relative;
   }
   .sticky-bottom-wrapper.work {
-    height: 94vh;
+    height: 92vh;
   }
   .sticky-bottom-wrapper.info {
     height: 82vh;
