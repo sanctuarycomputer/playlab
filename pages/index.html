@@ -23,7 +23,7 @@ This is an opening statement that can change and stuff and it’s not our bio. L
   </div>
 
   {% for project in featuredProjects %}
-    <article {% if project.text_color == '#ffffff' %} data-midnight="white-nav" {% endif %} class='home-block clearfix pointer-auto' style='color: {{project.text_color}}; background-color:{{project.block_color}}'>
+    <article data-midnight="header-{{project.text_color}}-{{project.block_color}}" class='home-block clearfix pointer-auto' style='color: {{project.text_color}}; background-color:{{project.block_color}}'>
       <div class='title-bar' style='background-color:{{project.block_color}}'>
         <h1 class='center pb2 pt3'>{{project.name}}</h1>
       </div>

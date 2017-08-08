@@ -308,6 +308,18 @@ $('.image-slider').each(function () {
 
 //Midnight Js
 $(document).ready(function () {
+  var midnightHeaders = $('[data-midnight]');
+
+  midnightHeaders.each(function () {
+    var $this = $(this);
+    var initialDataAttr = $this.data('midnight');
+    var newDataAttr = initialDataAttr.split('#').join('');
+    var colorsArray = initialDataAttr.split('-').slice(1, 3);
+    $this.data('midnight', newDataAttr);
+    var midnightStyle = $('\n      <style>\n        .header > .midnightHeader.' + newDataAttr + ' {\n          color: ' + colorsArray[0] + ';\n          background-color: ' + colorsArray[1] + ';\n        }\n        .mobile-nav-bar > .midnightHeader.' + newDataAttr + ' {\n          color: ' + colorsArray[0] + ';\n          background-color: ' + colorsArray[1] + ';\n        }\n        .mobile-nav-bar > .midnightHeader.' + newDataAttr + ' .hamburger span {\n          background-color: ' + colorsArray[0] + ' !important;\n        }\n      </style>');
+    midnightStyle.appendTo('head');
+  });
+
   $('.header').midnight();
   $('.mobile-nav-bar').midnight();
 });
