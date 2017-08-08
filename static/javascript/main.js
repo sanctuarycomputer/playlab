@@ -1,17 +1,21 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 'use strict';
 
-var isMobile = /iphone|ipod|ipad|android|blackberry|opera mini|opera mobi|skyfire|maemo|windows phone|palm|iemobile|symbian|symbianos|fennec/i.test(navigator.userAgent.toLowerCase());
+var notMobile = !/iphone|ipod|ipad|android|blackberry|opera mini|opera mobi|skyfire|maemo|windows phone|palm|iemobile|symbian|symbianos|fennec/i.test(navigator.userAgent.toLowerCase());
 var SCROLL_DURATION = 600;
+var SMALL_SCREEN = 500;
+var windowWidth = void 0;
 var path = window.location.pathname;
 var route = path.split('/');
 var routeName = route.length > 1 ? route[1] : null;
+windowWidth = $(window).width();
+
 /**
 // Only apply waypoint
 // interactions if not mobile
 **/
 
-if (!isMobile) {
+if (notMobile && $(window).width() >= SMALL_SCREEN) {
   //Homepage scroll interaction
   var $homeBlocks = $('.home-block');
   var $introTrigger = $('.intro-trigger');

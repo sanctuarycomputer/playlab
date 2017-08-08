@@ -8,6 +8,11 @@
       .midnightHeader {
         background: color('black') !important;
         color: color('white') !important;
+        .hamburger {
+          span {
+            background-color: color('white') !important;
+          }
+        }
       }
     }
     .midnightHeader {
@@ -39,12 +44,12 @@
     justify-content: space-between;
     background: none;
     border: none;
-    min-height: 22px;
+    min-height: 24px;
      span {
        display: inline-block;;
        width: 30px;
        height: 2px;
-       margin: 0.25em 0;
+       margin-bottom: 0.20em 0;
        background: color('black');
      }
 

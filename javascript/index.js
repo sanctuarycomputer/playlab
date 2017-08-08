@@ -1,14 +1,18 @@
-const isMobile = /iphone|ipod|ipad|android|blackberry|opera mini|opera mobi|skyfire|maemo|windows phone|palm|iemobile|symbian|symbianos|fennec/i.test(navigator.userAgent.toLowerCase());
+const notMobile = !(/iphone|ipod|ipad|android|blackberry|opera mini|opera mobi|skyfire|maemo|windows phone|palm|iemobile|symbian|symbianos|fennec/i.test(navigator.userAgent.toLowerCase()));
 const  SCROLL_DURATION = 600;
+const  SMALL_SCREEN = 500;
+let windowWidth;
 let path = window.location.pathname;
 let route = path.split('/');
 let routeName = route.length > 1 ? route[1] : null;
+windowWidth = $(window).width();
+
 /**
 // Only apply waypoint
 // interactions if not mobile
 **/
 
-if (!isMobile) {
+if (notMobile && $(window).width() >= SMALL_SCREEN) {
   //Homepage scroll interaction
   let $homeBlocks = $('.home-block');
   let $introTrigger = $('.intro-trigger');
@@ -222,6 +226,7 @@ if (!isMobile) {
     });
   });
 };
+
 
 $(window).load(function() {
   let navMenus = document.getElementsByClassName('nav-menu');

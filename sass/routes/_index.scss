@@ -6,6 +6,7 @@
   @media #{$medium-up} {
     //Footer override
     #footer {
+      pointer-events: auto;
       display: block;
       background: color('white');
       position: relative;

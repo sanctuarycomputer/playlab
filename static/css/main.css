@@ -240,6 +240,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 @media (min-width: 52em) {
   #index #footer {
+    pointer-events: auto;
     display: block;
     background: #fff;
     position: relative;
@@ -440,6 +441,9 @@ h1, h2, h3, h4, h5, h6 {
   background: #000 !important;
   color: #fff !important;
 }
+#mobile-header header.active .midnightHeader .hamburger span {
+  background-color: #fff !important;
+}
 #mobile-header header .midnightHeader.default {
   background: #fff;
   color: #000;
@@ -465,13 +469,13 @@ h1, h2, h3, h4, h5, h6 {
   justify-content: space-between;
   background: none;
   border: none;
-  min-height: 22px;
+  min-height: 24px;
 }
 #mobile-header .hamburger span {
   display: inline-block;
   width: 30px;
   height: 2px;
-  margin: 0.25em 0;
+  margin-bottom: 0.20em 0;
   background: #000;
 }
 #mobile-header .hamburger.active span {
