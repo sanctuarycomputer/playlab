@@ -65,6 +65,13 @@
   padding-top: 1.5rem;
 }
 
+.md-p4 {
+  padding: 0;
+  @media #{$medium-up} {
+    padding: 2rem;
+  }
+}
+
 .link-style {
   border-bottom: solid 1px;
   padding-bottom: 2px;

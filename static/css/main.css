@@ -119,6 +119,15 @@ h1, h2, h3, h4, h5, h6 {
   padding-top: 1.5rem;
 }
 
+.md-p4 {
+  padding: 0;
+}
+@media (min-width: 52em) {
+  .md-p4 {
+    padding: 2rem;
+  }
+}
+
 .link-style {
   border-bottom: solid 1px;
   padding-bottom: 2px;
@@ -296,23 +305,44 @@ h1, h2, h3, h4, h5, h6 {
 #shop .product .product-details {
   position: absolute;
   top: 25%;
-  left: 50px;
+  left: 1rem;
 }
 #shop .product .product-details .title {
   font-weight: normal;
   text-transform: uppercase;
 }
+@media (min-width: 52em) {
+  #shop .product .product-details {
+    left: 2rem;
+  }
+}
 #shop .product .product-purchase {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   position: absolute;
-  padding: 6rem 4rem;
+  padding: 2rem 1rem;
   bottom: 0;
-  right: 0;
 }
 #shop .product .product-purchase button {
-  margin-top: 2rem;
   background-color: transparent;
   padding: 1rem 2rem;
   border: solid 1px #fff;
+}
+@media (min-width: 52em) {
+  #shop .product .product-purchase {
+    width: auto;
+    display: block;
+    right: 0;
+    padding: 6rem 2rem;
+  }
+  #shop .product .product-purchase button {
+    margin-top: 2rem;
+    background-color: transparent;
+    padding: 1rem 2rem;
+    border: solid 1px #fff;
+  }
 }
 @media (min-width: 52em) {
   #shop .product {
@@ -609,7 +639,7 @@ h1, h2, h3, h4, h5, h6 {
     display: block;
     opacity: 0;
     top: 0;
-    left: 80%;
+    right: 0;
     transition: 250ms ease-in-out;
   }
   #info-subsection .hover-image.is-showing {

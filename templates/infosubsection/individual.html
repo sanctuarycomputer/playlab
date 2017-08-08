@@ -56,6 +56,10 @@
               {{ row.link_url }}
             </li>
             <li>
+              <strong>Orientation: </strong>
+              {{ row.orientation }}
+            </li>
+            <li>
               <strong>Content: </strong>
               {{ row.content }}
             </li>
@@ -64,10 +68,6 @@
               {# You can pull out a lot more information from the image property. Info here: #}
                 {# http://www.webhook.com/docs/widget-template-reference/#image #}
                 <img src="{{ row.image|imageSize(200, 200) }}" />
-            </li>
-            <li>
-              <strong>Linebreak: </strong>
-              {{ row.linebreak }}
             </li>
         {% endfor %}
         </ul>
@@ -91,10 +91,6 @@
                 {# http://www.webhook.com/docs/widget-template-reference/#image #}
                 <img src="{{ row.image|imageSize(200, 200) }}" />
             </li>
-            <li>
-              <strong>Linebreak: </strong>
-              {{ row.linebreak }}
-            </li>
         {% endfor %}
         </ul>
       </li>
@@ -113,10 +109,6 @@
       <li>
         <strong>Slug: </strong>
         {{ item.slug }}
-      </li>
-      <li>
-        <strong>Website: </strong>
-        {{ item.website }}
       </li>
   </ul>
 {% endblock %}

@@ -55,7 +55,7 @@
   {% elseif section.title === 'talks-and-exhibits' %}
     <div id={{section.title}} class="col-12 md-col-9 pt4 mx-auto">
       <h2 class="center md-hide lg-hide capitalize py2">{{section.title}}</h2>
-      <ul class="list-reset left-align">
+      <ul class="col-12 list-reset left-align">
       {% for item in section.left_column %}
         <li class="pb4 relative">
           <p>{{item.title}}</p>
@@ -67,10 +67,13 @@
                 <span class="image-trigger link-style mr1">{{item.link_text}}</span>
               {% endif %}
             {% endif %}
-            {{item.content}}
           </p>
           {% if item.image %}
-            <img class="hover-image absolute col-8" src={{item.image.url}} />
+            {% if item.orientation === 'portrait' %}
+              <img class="hover-image absolute" src="{{item.image|imageSize(300, 427) }}" />
+            {% else %}
+              <img class="hover-image absolute" src="{{item.image|imageSize(427, 300) }}" />
+            {% endif %}
           {% endif %}
         </li>
       {% endfor %}
