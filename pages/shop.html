@@ -12,12 +12,12 @@
 {# This sets our page <title>. It will append this shop's name to the site title defined in base.html #}
 {% block title %}{% parent %} - {{ cms.shop.name }}{% endblock %}
 {% block content %}
-  <div data-midnight="white" id="shop" class="relative z1">
+  <div data-midnight="transparent" id="shop" class="relative z1">
     <div class="xs-hide sm-hide product-image-container fixed col-12 height-100 bg-black">
     </div>
     <div class="gradient-overlay xs-hide sm-hide image-gradient fixed col-12 height-100"></div>
     {% for product in cms.products %}
-      <div data-midnight="white" data-image={{product.featured_image.url}} data-gradient={{product.gradient}} class="product col-12 {% if loop.last %} footer-room {% endif %}" style="background-image: url({{product.featured_image.url}})">
+      <div data-midnight="transparent" data-image={{product.featured_image.url}} data-gradient={{product.gradient}} class="product col-12 {% if loop.last %} footer-room {% endif %}" style="background-image: url({{product.featured_image.url}})">
         {% if product.gradient %}
           <div class="md-hide lg-hide absolute image-gradient col-12 height-100"></div>
         {% endif %}

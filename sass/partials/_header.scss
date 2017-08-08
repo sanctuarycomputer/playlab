@@ -3,11 +3,17 @@
   .h1 {
     background-color: transparent;
   }
-  &.midnightHeader {
+  .midnightHeader {
     &.default {
+      background-color: color('white');
       color: color('black');
     }
-    &.white {
+    &.transparent {
+      background-color: transparent;
+      color: color('white');
+    }
+    &.white-nav {
+      background-color: color('black');
       color: color('white');
     }
   }

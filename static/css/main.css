@@ -373,10 +373,16 @@ h1, h2, h3, h4, h5, h6 {
 .header .h1 {
   background-color: transparent;
 }
-.header.midnightHeader.default {
+.header .midnightHeader.default {
+  background-color: #fff;
   color: #000;
 }
-.header.midnightHeader.white {
+.header .midnightHeader.transparent {
+  background-color: transparent;
+  color: #fff;
+}
+.header .midnightHeader.white-nav {
+  background-color: #000;
   color: #fff;
 }
 .header .nav-menu {
@@ -428,15 +434,25 @@ h1, h2, h3, h4, h5, h6 {
   height: 82px;
 }
 #mobile-header header.active {
-  background: #000;
+  background: #000 !important;
 }
 #mobile-header header.active .midnightHeader {
+  background: #000 !important;
   color: #fff !important;
 }
 #mobile-header header .midnightHeader.default {
+  background: #fff;
   color: #000;
 }
+#mobile-header header .midnightHeader.transparent {
+  background-color: transparent;
+  color: #fff;
+}
+#mobile-header header .midnightHeader.transparent span {
+  background: #fff;
+}
 #mobile-header header .midnightHeader.white {
+  background-color: #000;
   color: #fff;
 }
 #mobile-header header .midnightHeader.white span {
@@ -449,7 +465,7 @@ h1, h2, h3, h4, h5, h6 {
   justify-content: space-between;
   background: none;
   border: none;
-  min-height: 30px;
+  min-height: 22px;
 }
 #mobile-header .hamburger span {
   display: inline-block;
@@ -463,8 +479,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 #mobile-header .hamburger.active .top {
   position: absolute;
-  transform: rotate(-30deg);
-  top: 35%;
+  top: 50%;
+  transform: translateY(-50%) rotate(-30deg);
 }
 #mobile-header .hamburger.active .middle {
   transform: scale(0);
@@ -472,8 +488,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 #mobile-header .hamburger.active .bottom {
   position: absolute;
-  transform: rotate(30deg);
-  bottom: 29%;
+  top: 50%;
+  transform: translateY(-50%) rotate(30deg);
 }
 #mobile-header .hamburger:focus {
   outline: 0;
