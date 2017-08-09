@@ -9,9 +9,6 @@
 .footer-room {
   margin-bottom: $mobileFooterHeight;
   @media #{$small-up} {
-    margin-bottom: $tabletFooterHeight;
-  }
-  @media #{$medium-up} {
     margin-bottom: $footerHeight;
   }
 }
@@ -72,6 +69,10 @@
   }
 }
 
+.overflow-ellipsis {
+  text-overflow: ellipsis;
+}
+
 .link-style {
   border-bottom: solid 1px;
   padding-bottom: 2px;
@@ -86,9 +87,6 @@
   height: $mobileFooterHeight;
   background: transparent;
   @media #{$small-up} {
-    height: $tabletFooterHeight;
-  }
-  @media #{$medium-up} {
     height: $footerHeight;
   }
 }

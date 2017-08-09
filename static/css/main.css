@@ -61,12 +61,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 @media (min-width: 40em) {
   .footer-room {
-    margin-bottom: 250px;
-  }
-}
-@media (min-width: 52em) {
-  .footer-room {
-    margin-bottom: 300px;
+    margin-bottom: 285px;
   }
 }
 
@@ -90,7 +85,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .mt-footer-height {
-  margin-top: 300px;
+  margin-top: 285px;
 }
 
 .pointer {
@@ -128,6 +123,10 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+.overflow-ellipsis {
+  text-overflow: ellipsis;
+}
+
 .link-style {
   border-bottom: solid 1px;
   padding-bottom: 2px;
@@ -144,12 +143,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 @media (min-width: 40em) {
   .footer-spacer {
-    height: 250px;
-  }
-}
-@media (min-width: 52em) {
-  .footer-spacer {
-    height: 300px;
+    height: 285px;
   }
 }
 
@@ -241,7 +235,7 @@ h1, h2, h3, h4, h5, h6 {
 @media (min-width: 52em) {
   #index #footer {
     pointer-events: auto;
-    display: block;
+    display: flex;
     background: #fff;
     position: relative;
   }
@@ -522,12 +516,14 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #footer {
+  flex-direction: column;
   padding: 2rem 1rem;
 }
 #footer .submit-wrapper {
   display: flex;
   border: solid 1px #000;
   justify-content: space-between;
+  margin-top: 1rem;
 }
 #footer .submit-wrapper input {
   border: none;
@@ -548,9 +544,32 @@ h1, h2, h3, h4, h5, h6 {
 #footer .flag.is-showing {
   opacity: 1;
 }
-@media (min-width: 52em) {
+#footer .flag-container {
+  order: 2;
+}
+#footer .social-container {
+  margin: 1rem 0;
+  order: 1;
+}
+#footer .social-container .social-list {
+  flex-direction: column;
+}
+@media (min-width: 40em) {
   #footer {
-    padding: 2rem 4rem;
+    flex-direction: row;
+  }
+  #footer .md-left-column {
+    padding-right: 4rem;
+  }
+  #footer .flag-container {
+    order: 1;
+  }
+  #footer .social-container {
+    margin-bottom: 0;
+    order: 2;
+  }
+  #footer .social-container .social-list {
+    flex-direction: row;
   }
 }
 
@@ -669,8 +688,24 @@ h1, h2, h3, h4, h5, h6 {
 
 .image-block .image {
   background-repeat: no-repeat;
-  background-size: cover;
   background-position: center center;
+  background-size: cover;
+}
+.image-block.Flag {
+  position: relative;
+}
+.image-block.Flag:before {
+  display: block;
+  content: "";
+  width: 100%;
+  padding-top: 53.5947712418%;
+}
+.image-block.Flag > .content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 .image-block.Landscape {
   position: relative;
