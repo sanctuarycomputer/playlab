@@ -4,17 +4,13 @@
     background-color: transparent;
   }
   .midnightHeader {
-    &.default {
-      background-color: color('white');
-      color: color('black');
-    }
     &.transparent {
       background-color: transparent;
       color: color('white');
     }
-    &.white-nav {
-      background-color: color('black');
-      color: color('white');
+    &.default {
+      background-color: color('white');
+      color: color('black');
     }
   }
 

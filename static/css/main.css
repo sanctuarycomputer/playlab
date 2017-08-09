@@ -368,17 +368,13 @@ h1, h2, h3, h4, h5, h6 {
 .header .h1 {
   background-color: transparent;
 }
-.header .midnightHeader.default {
-  background-color: #fff;
-  color: #000;
-}
 .header .midnightHeader.transparent {
   background-color: transparent;
   color: #fff;
 }
-.header .midnightHeader.white-nav {
-  background-color: #000;
-  color: #fff;
+.header .midnightHeader.default {
+  background-color: #fff;
+  color: #000;
 }
 .header .nav-menu {
   padding: 0.5rem 0;
@@ -447,13 +443,6 @@ h1, h2, h3, h4, h5, h6 {
   color: #fff;
 }
 #mobile-header header .midnightHeader.transparent span {
-  background: #fff;
-}
-#mobile-header header .midnightHeader.white {
-  background-color: #000;
-  color: #fff;
-}
-#mobile-header header .midnightHeader.white span {
   background: #fff;
 }
 #mobile-header .hamburger {
