@@ -5,7 +5,6 @@ let windowWidth;
 let path = window.location.pathname;
 let route = path.split('/');
 let routeName = route.length > 1 ? route[1] : null;
-windowWidth = $(window).width();
 
 /**
 // Only apply waypoint
