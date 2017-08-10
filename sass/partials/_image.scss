@@ -1,9 +1,10 @@
 .image-block {
   .image {
     background-repeat: no-repeat;
-    background-size: cover;
     background-position: center center;
+    background-size: cover;
   }
+  &.Flag { @include aspect-ratio(153,82); }
   &.Landscape { @include aspect-ratio(4,3); }
   &.Portrait {@include aspect-ratio(3,4);  }
   &.Square { @include aspect-ratio(1,1); }

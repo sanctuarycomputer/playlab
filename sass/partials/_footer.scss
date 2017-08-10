@@ -1,9 +1,11 @@
 #footer {
+  flex-direction: column;
   padding: 2rem 1rem;
   .submit-wrapper {
     display: flex;
     border: solid 1px color('black');
     justify-content: space-between;
+    margin-top: 1rem;
     input {
       border: none;
       background: none;
@@ -24,8 +26,34 @@
       opacity: 1;
     }
   }
+  .flag-container {
+    order: 2;
+  }
+  .social-container {
+    margin: 1rem 0;
+    order: 1;
+    .social-list {
+      flex-direction: column;
+    }
+  }
 
-  @media #{$medium-up} {
-    padding: 2rem 4rem;
+  @media #{$small-up} {
+    flex-direction: row;
+
+    .md-left-column {
+      padding-right: 4rem;
+    }
+
+    .flag-container {
+      order: 1;
+    }
+    .social-container {
+      margin-bottom: 0;
+      order: 2;
+      .social-list {
+        flex-direction: row;
+      }
+    }
+
   }
 }

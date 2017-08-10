@@ -3,16 +3,19 @@
   .h1 {
     background-color: transparent;
   }
-  &.midnightHeader {
-    &.default {
-      color: color('black');
-    }
-    &.white {
+  .midnightHeader {
+    &.transparent {
+      background-color: transparent;
       color: color('white');
+    }
+    &.default {
+      background-color: color('white');
+      color: color('black');
     }
   }
 
   .nav-menu {
+    padding: 0.5rem 0;
     &.animated {
       will-change: transform;
       transition: transform 500ms linear;
@@ -32,8 +35,16 @@
         &.active {
           opacity: 1;
         }
+        svg {
+          width: 12px;
+          @media #{$large-up} {
+            width: 16px;
+          }
+        }
       }
-
+    }
+    @media #{$large-up} {
+      padding: 0;
     }
   }
 

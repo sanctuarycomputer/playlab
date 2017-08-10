@@ -1,85 +1,53 @@
 <div class="footer-spacer"></div>
-<footer id="footer" class='clearfix col-12 fixed bottom-0 z0'>
-  <!-- TABLET + UP FOOTER -->
-  <div class="xs-hide">
-    <div class='col col-6 pr4'>
-      <div class="col-12 mb4">
-        <p>@playlabinc</p>
-        <p>office@playlab.org</p>
-      </div>
-      <div class='col-12'>
-        <div class="submit-wrapper p1">
-          <input class="col-8" placeholder="Subscribe to our newsletter"/>
-          <button>
-            <svg xmlns="http://www.w3.org/2000/svg" width="58" height="18" viewBox="0 0 58 18">
-              <g fill="none">
-                <g stroke="#000">
-                  <path d="M0.5 9L56.6 9"/>
-                  <polyline transform="translate(49.036364 9)rotate(-315)translate(-49.036364 -9)" points="43.2 3.2 43.2 3.2 54.8 3.2 54.8 14.8"/>
-                </g>
-              </g>
-            </svg>
-          </button>
-        </div>
-      </div>
+<footer id="footer" class='flex col-12 fixed bottom-0 z0'>
+  <div class='md-left-column flex flex-column justify-between col-12 md-col-6'>
+    <div class="col-12">
+      <p>@playlabinc</p>
+      <p>office@playlab.org</p>
     </div>
-    <div class='col col-6'>
-      <div class="xs-hide col col-8 mb4 mt2">
-        <p>244 Canal St. 3F</p>
-        <p>New York, NY</p>
-      </div>
-      <div class="col col-4">
-        <div class="flag-trigger relative pointer" style="height: 82px;">
-          <img class="usa absolute r0" style="right: 0;" src="/static/images/flag-usa.png"/>
-          <img class="russia flag absolute z1" style="right: 0;" src="/static/images/flag-russia.png"/>
-          <img class="brazil flag absolute z1" style="right: 0;" src="/static/images/flag-brazil.png"/>
-        </div>
-      </div>
-      <div class="col col-5 md-col-8">
-        <ul class="flex list-reset m0 mt1">
-          <li class="mr2"><a class="link-style">Instagram</a></li>
-          <li class="mr2"><a class="link-style">Twitter</a></li>
-          <li class="mr2"><a class="link-style">Facebook</a></li>
-        </ul>
+    <div class='col-12'>
+      <div class="submit-wrapper p1">
+        <input class="xs-hide sm-hide col-8 overflow-ellipsis" placeholder="Subscribe to our newsletter"/>
+        <input class="md-hide lg-hide col-8 overflow-ellipsis" placeholder="Subscribe"/>
+        <button>
+          <svg xmlns="http://www.w3.org/2000/svg" width="58" height="18" viewBox="0 0 58 18">
+            <g fill="none">
+              <g stroke="#000">
+                <path d="M0.5 9L56.6 9"/>
+                <polyline transform="translate(49.036364 9)rotate(-315)translate(-49.036364 -9)" points="43.2 3.2 43.2 3.2 54.8 3.2 54.8 14.8"/>
+              </g>
+            </g>
+          </svg>
+        </button>
       </div>
     </div>
   </div>
-  <!-- MOBILE FOOTER -->
-  <div class="sm-hide md-hide lg-hide flex justify-between flex-column">
-    <div class='col col-12'>
-      <div class="col-12 mb2">
-        <p>@playlabinc</p>
-        <p>office@playlab.org</p>
+  <div class='md-right-column col-12 md-col-6 flex justify-between flex-column'>
+    <div class="flag-container flex flex-row justify-between">
+      <div class="xs-hide sm-col-9 md-col-8 mb4">
+        <p>244 Canal St. 3F</p>
+        <p>New York, NY</p>
       </div>
-      <div class='col-12'>
-        <div class="submit-wrapper p1">
-          <input class="col-3" placeholder="Subscribe"/>
-          <button>
-            <svg xmlns="http://www.w3.org/2000/svg" width="58" height="18" viewBox="0 0 58 18">
-              <g fill="none">
-                <g stroke="#000">
-                  <path d="M-10 9L56.6 9"/>
-                  <polyline transform="translate(49.036364 9)rotate(-315)translate(-49.036364 -9)" points="43.2 3.2 43.2 3.2 54.8 3.2 54.8 14.8"/>
-                </g>
-              </g>
-            </svg>
-          </button>
+      <div class="col-12 sm-col-3 md-col-4 lg-col-2">
+        <div class="flag-trigger image-block col-12 pointer Flag">
+          <div class="usa content image"
+               style='background-image: url(/static/images/flag-usa.png)'>
+          </div>
+          <div class="russia flag content image"
+               style='background-image: url(/static/images/flag-russia.png)'>
+          </div>
+          <div class="brazil flag content image"
+               style='background-image: url(/static/images/flag-brazil.png)'>
+          </div>
         </div>
       </div>
     </div>
-    <div class="col col-12 lg-col-8 mb3">
-      <ul class="list-reset m0 my2">
-        <li class="mr4"><a href="" class="link-style">Instagram</a></li>
-        <li class="mr4"><a class="link-style">Twitter</a></li>
-        <li class="mr4"><a class="link-style">Facebook</a></li>
+    <div class="social-container col-5 md-col-8">
+      <ul class="social-list flex list-reset m0 mt1">
+        <li class="mr2"><a>Instagram</a></li>
+        <li class="mr2"><a>Twitter</a></li>
+        <li class="mr2"><a>Facebook</a></li>
       </ul>
-    </div>
-    <div class="col col-12">
-      <div class="flag-trigger relative pointer" style="height: 155px;">
-        <img class="usa absolute col-12" style="left: 0; bottom: 0" src="/static/images/flag-usa.png"/>
-        <img class="russia flag absolute z1 col-12" style="left: 0; bottom: 0" src="/static/images/flag-russia.png"/>
-        <img class="brazil flag absolute z1 col-12" style="left: 0; bottom: 0" src="/static/images/flag-brazil.png"/>
-      </div>
     </div>
   </div>
 </footer>

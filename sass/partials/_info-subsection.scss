@@ -25,7 +25,7 @@
       display: block;
       opacity: 0;
       top:  0;
-      left: 80%;
+      right: 0;
       transition: 250ms ease-in-out;
       &.is-showing {
         opacity: 1;

@@ -1,14 +1,17 @@
-const isMobile = /iphone|ipod|ipad|android|blackberry|opera mini|opera mobi|skyfire|maemo|windows phone|palm|iemobile|symbian|symbianos|fennec/i.test(navigator.userAgent.toLowerCase());
+const notMobile = !(/iphone|ipod|ipad|android|blackberry|opera mini|opera mobi|skyfire|maemo|windows phone|palm|iemobile|symbian|symbianos|fennec/i.test(navigator.userAgent.toLowerCase()));
 const  SCROLL_DURATION = 600;
+const  SMALL_SCREEN = 500;
+let windowWidth;
 let path = window.location.pathname;
 let route = path.split('/');
 let routeName = route.length > 1 ? route[1] : null;
+
 /**
 // Only apply waypoint
 // interactions if not mobile
 **/
 
-if (!isMobile) {
+if (notMobile && $(window).width() >= SMALL_SCREEN) {
   //Homepage scroll interaction
   let $homeBlocks = $('.home-block');
   let $introTrigger = $('.intro-trigger');
@@ -223,6 +226,7 @@ if (!isMobile) {
   });
 };
 
+
 $(window).load(function() {
   let navMenus = document.getElementsByClassName('nav-menu');
   let $navMenus = $(navMenus);
@@ -283,7 +287,7 @@ $('.image-slider').each(function(){
   let count = 0,
       showUsa = false;
 
-  $('.flag-trigger').on('mouseenter tap', function() {
+  $('.flag-trigger').on('mouseenter click', function() {
     let $flags  = $('.flag');
     let $russia = $('.russia'),
         $brazil = $('.brazil');
@@ -306,6 +310,31 @@ $('.image-slider').each(function(){
 
 //Midnight Js
 $(document).ready(function(){
+  let midnightHeaders = $('[data-midnight]');
+
+  midnightHeaders.each(function() {
+    let $this = $(this);
+    let initialDataAttr = $this.data('midnight');
+    let newDataAttr = initialDataAttr.split('#').join('');
+    let colorsArray = initialDataAttr.split('-').slice(1, 3);
+    $this.data('midnight', newDataAttr);
+    let midnightStyle = $(`
+      <style>
+        .header > .midnightHeader.${newDataAttr} {
+          color: ${colorsArray[0]};
+          background-color: ${colorsArray[1]};
+        }
+        .mobile-nav-bar > .midnightHeader.${newDataAttr} {
+          color: ${colorsArray[0]};
+          background-color: ${colorsArray[1]};
+        }
+        .mobile-nav-bar > .midnightHeader.${newDataAttr} .hamburger span {
+          background-color: ${colorsArray[0]} !important;
+        }
+      </style>`)
+    midnightStyle.appendTo('head');
+  });
+
   $('.header').midnight();
   $('.mobile-nav-bar').midnight();
 });

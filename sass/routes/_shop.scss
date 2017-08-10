@@ -23,23 +23,41 @@
     .product-details {
       position: absolute;
       top: 25%;
-      left: 50px;
+      left: 1rem;
       .title {
         font-weight: normal                                                                            ;
         text-transform: uppercase;
       }
+      @media #{$medium-up} {
+        left: 2rem;
+      }
     }
 
     .product-purchase {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       position: absolute;
-      padding: 6rem 4rem;
+      padding: 2rem 1rem;
       bottom: 0;
-      right: 0;
       button {
-        margin-top: 2rem;
         background-color: transparent;
         padding: 1rem 2rem;
         border: solid 1px color('white');
+      }
+
+      @media #{$medium-up} {
+        width: auto;
+        display: block;
+        right: 0;
+        padding: 6rem 2rem;
+        button {
+          margin-top: 2rem;
+          background-color: transparent;
+          padding: 1rem 2rem;
+          border: solid 1px color('white');
+        }
       }
     }
 

@@ -1,5 +1,6 @@
 .sticky-top-wrapper {
   @media #{$medium-up} {
+    padding-bottom: 10rem;
     position: relative;
     &.top-stick {
       width: 100%;
@@ -13,7 +14,7 @@
 
 .sticky-bottom-wrapper {
   @media #{$medium-up} {
-    &.work { height: 94vh }
+    &.work { height: 92vh }
     &.info { height: 82vh; }
     width: 100%;
     overflow:hidden;
@@ -30,7 +31,7 @@
         bottom: 0;
         transform: translateY(72px);
         &:hover {
-          transform: translateY(45px);
+          transform: translateY(46px);
         }
       }
     }

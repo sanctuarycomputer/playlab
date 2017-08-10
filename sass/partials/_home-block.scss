@@ -12,17 +12,11 @@
       cursor: pointer;
       transition: 250ms ease-in-out;
       position: fixed;
-      transform: translateY(-40px);
+      transform: translateY(-50px);
       top: auto;
       &:hover {
         transform: translateY(-70px);
       }
-    }
-  }
-
-  @media #{$medium-up} {
-    &:last-of-type {
-      margin-bottom: $footerHeight;
     }
   }
 }

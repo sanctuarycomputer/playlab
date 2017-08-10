@@ -3,16 +3,16 @@
 {% block title %}{% parent %} - {{ item.name }}{% endblock %}
 {% set projectType = item.type %}
 {% block content %}
-  <div id="work-show" class="site-min-height route-padding-top relative col-12 z1" style="color:{{item.text_color}};background-color:{{item.block_color}}">
+  <div data-midnight="header-{{item.text_color}}-{{item.block_color}}" id="work-show" class="site-min-height route-padding-top relative col-12 z1 p2" style="color:{{item.text_color}};background-color:{{item.block_color}}">
     <div>
       <h1 class="center pb4">{{item.name}}</h1>
     </div>
     <!-- Work Block Renderer -->
     {% for block in item.blocks %}
       {% if block.variant === 'featured-image' %}
-        <img class="col-10 mx-auto block" src={{block.featured_image.image.url}} />
+        <img class="col-12 md-col-10 mx-auto block" src={{block.featured_image.image.url}} />
         {% elseif block.variant === 'image-slider' %}
-          <div class="col-10 md-col-8 mx-auto">
+          <div class="col-12 md-col-8 mx-auto">
             <div class="relative">
               <div class='image-slider center'>
                 {% for slide in block.image_slider %}
@@ -37,12 +37,12 @@
             </div>
           </div>
         {% elseif block.variant === 'paragraph' %}
-          <div class="col-10 md-col-8 mx-auto">
-            <p class="p4-medium-up">{{block.paragraph}}</p>
+          <div class="col-12 md-col-8 mx-auto">
+            <p class="p4-medium-up py2">{{block.paragraph}}</p>
           </div>
         {% elseif block.variant === 'two-up' %}
-          <div class="col-12 mx-auto clearfix">
-            <div class="col col-12 md-col-6 p4 md-center">
+          <div class="col-12 mx-auto clearfix py2">
+            <div class="col col-12 md-col-6 md-p4 md-center">
               <div class="image-block col-12 {{block.image_left.crop}}">
                 <div class="content image"
                      style='background-image: url({{block.image_left.image.url}})'>
@@ -51,7 +51,7 @@
               </div>
               <p class="py2 small">{{block.image_left.caption}}</p>
             </div>
-            <div class="col col-12 md-col-6 p4 md-center">
+            <div class="col col-12 md-col-6 md-p4 md-center">
               <div class="image-block col-12 {{block.image_right.crop}}">
                 <div class="content image"
                      style='background-image: url({{block.image_right.image.url}})'>
@@ -62,14 +62,14 @@
             </div>
           </div>
         {% elseif block.variant === 'one-up' %}
-          <div class="col-10 md-col-8 mx-auto md-center">
+          <div class="col-12 md-col-8 mx-auto md-center">
             <img class="col-12" src={{block.featured_image.image.url}} />
             <p class="py2 small">{{block.featured_image.caption}}</p>
           </div>
         {% elseif block.variant === 'image-copy' %}
           <div class="col-12 mx-auto clearfix">
             {% if block.image_right %}
-              <div class="col col-12 md-col-6 p4">
+              <div class="col col-12 md-col-6 md-p4">
                 <div class="image-block col-12 {{block.image_right.crop}}">
                   <div class="content image"
                        style='background-image: url({{block.image_right.image.url}})'>
@@ -77,14 +77,14 @@
                   </div>
                 </div>
               </div>
-              <div class="col col-12 md-col-6 p4">
+              <div class="col col-12 md-col-6 md-p4">
                 <p class="py2">{{block.paragraph}}</p>
               </div>
             {% else %}
-              <div class="col col-12 md-col-6 p4">
+              <div class="col col-12 md-col-6 md-p4">
                 <p class="py2">{{block.paragraph}}</p>
               </div>
-              <div class="col col-12 md-col-6 p4">
+              <div class="col col-12 md-col-6 md-p4">
                 <img class="col-12" src={{block.image_right.image.url}} />
               </div>
             {% endif %}
