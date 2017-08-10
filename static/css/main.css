@@ -796,7 +796,18 @@ html, body {
 }
 
 a {
+  text-decoration: none;
+  border-bottom: solid 1px;
+  padding-bottom: 2px;
+  display: inline-block;
+  pointer-events: auto;
   color: inherit;
+}
+
+.reset-link {
+  border-bottom: none;
+  display: inline;
+  padding-bottom: 0;
   text-decoration: none;
 }
 

@@ -1,4 +1,5 @@
 {% extends "templates/partials/base.html" %}
+{% set home = cms.home %}
 {% set featuredProjects = cms.work|where('type','Current')|slice(0,3) %}
 {% block title %}{% parent %} - Homepage{% endblock %}
 
@@ -6,18 +7,16 @@
 <div id='index' class="relative mb4 route-padding-top pointer-none z1">
   <div class='clearfix site-min-height bg-white'>
     <div class='max-width-4 clearfix mx-auto'>
-      <div class='col col-12 p2'>
-        <p class='mb3'>
-This is an opening statement that can change and stuff and it’s not our bio. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris consequat feugiat ex, et hendrerit turpis tincidunt nec. Fusce vulputate viverra mi, efficitur links are underlined interdum at. Fusce et posuere mi. Maecenas ullamcorper maximus quam, in porttitor lacus pulvinar vel. Proin vel laoreet magna. Donec finibus sed metus a bibendum.
-        </p>
+      <div class='col col-12 py4 px2'>
+        {{ home.intro|markdown }}
       </div>
     </div>
     <div class='max-width-3 mx-auto'>
       <div class='col col-12 p2'>
-        <img class='full fit' src='http://via.placeholder.com/350x250' />
-        <p>
-        Lorem ipsum dolor sit amet,consectetur adipiscing elit.
-        </p>
+        <img class='full fit' src="{{home.image_block.image.url}}" />
+        <div class="pt4 pb2 center">
+          {{home.subline|markdown}}
+        </div>
       </div>
     </div>
   </div>
@@ -54,13 +53,13 @@ This is an opening statement that can change and stuff and it’s not our bio. L
             </button>
           </div>
           <div class="py4">
-            <p class='center py2 mx-auto'><a href={{ url(project)}} class="link-style">See more</a></p>
+            <p class='center py2 mx-auto'><a href={{ url(project)}}>See more</a></p>
           </div>
         </div>
       </div>
       {% if loop.last %}
         <div class="absolute bottom-0 center col-12 bg-red py3">
-          <h3><a href="/work" target="_blank" class="link-style">See Everything</a></h3>
+          <h3><a href="/work" target="_blank">See Everything</a></h3>
         </div>
       {% endif %}
     </article>
