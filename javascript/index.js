@@ -1,6 +1,6 @@
 const notMobile = !(/iphone|ipod|ipad|android|blackberry|opera mini|opera mobi|skyfire|maemo|windows phone|palm|iemobile|symbian|symbianos|fennec/i.test(navigator.userAgent.toLowerCase()));
 const  SCROLL_DURATION = 600;
-const  SMALL_SCREEN = 500;
+const  SMALL_SCREEN = 450;
 let windowWidth;
 let path = window.location.pathname;
 let route = path.split('/');

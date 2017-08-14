@@ -3,12 +3,11 @@
 
 var notMobile = !/iphone|ipod|ipad|android|blackberry|opera mini|opera mobi|skyfire|maemo|windows phone|palm|iemobile|symbian|symbianos|fennec/i.test(navigator.userAgent.toLowerCase());
 var SCROLL_DURATION = 600;
-var SMALL_SCREEN = 500;
+var SMALL_SCREEN = 450;
 var windowWidth = void 0;
 var path = window.location.pathname;
 var route = path.split('/');
 var routeName = route.length > 1 ? route[1] : null;
-windowWidth = $(window).width();
 
 /**
 // Only apply waypoint
