@@ -54,18 +54,6 @@ if (notMobile && $(window).width() >= SMALL_SCREEN) {
     });
   });
 
-  //Back to top
-  $introTrigger.waypoint({
-    handler: function handler(direction) {
-      if (direction === 'down') {
-        window.scrollTo(0, 0);
-      }
-    },
-    offset: function offset() {
-      return TITLE_BAR_HEIGHT / 2;
-    }
-  });
-
   //Homepage click next
   var $sectionBar = $('.title-bar');
   $sectionBar.on('click', function () {

@@ -51,18 +51,6 @@ if (notMobile && $(window).width() >= SMALL_SCREEN) {
     });
   });
 
-  //Back to top
-  $introTrigger.waypoint({
-    handler: function(direction) {
-      if (direction === 'down') {
-        window.scrollTo(0, 0);
-      }
-    },
-    offset: function() {
-      return TITLE_BAR_HEIGHT/2;
-    }
-  });
-
   //Homepage click next
   let $sectionBar = $('.title-bar');
   $sectionBar.on('click', function(){
@@ -75,7 +63,6 @@ if (notMobile && $(window).width() >= SMALL_SCREEN) {
       }, SCROLL_DURATION, 'swing');
     }
   });
-
 
   // Work/Info page scroll interaction
   let $stickyTopWrapper = $('.sticky-top-wrapper');
