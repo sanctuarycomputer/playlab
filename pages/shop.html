@@ -13,24 +13,27 @@
 {% block title %}{% parent %} - {{ cms.shop.name }}{% endblock %}
 {% block content %}
   <div data-midnight="transparent" id="shop" class="relative z1">
-    <div class="xs-hide sm-hide product-image-container fixed col-12 height-100 bg-black">
-    </div>
-    <div class="gradient-overlay xs-hide sm-hide image-gradient fixed col-12 height-100"></div>
     {% for product in cms.products %}
-      <div data-midnight="transparent" data-image={{product.featured_image.url}} data-gradient={{product.gradient}} class="product col-12 {% if loop.last %} footer-room {% endif %}" style="background-image: url({{product.featured_image.url}})">
+      <div data-midnight="transparent" data-image={{product.featured_image.url}} class="product height-100 col-12 {% if loop.last %} footer-room {% endif %}" style="background-image: url({{product.featured_image.url}})">
+        {% if not loop.first %}
+        <div class="product-header col-12" style="background-image: url({{product.featured_image.url}})">
+          hello
+        </div>
+        {% endif %}
+        <div class="product-details col-10 md-col-4 white">
+          <h2 class="title uppercase">{{product.name}}</h2>
+          <p class="description">{{product.description}}</p>
+          <div class="product-purchase flex bg-transparent justify-between items-center">
+            <p>${{product.price}}</p>
+            <label class="h1">QTY:<input class="quant center" type="number" min="1" max="20" value ="1"/></label>
+            <button>
+              <p class="uppercase">Buy</p>
+            </button>
+          </div>
+        </div>
         {% if product.gradient %}
           <div class="md-hide lg-hide absolute image-gradient col-12 height-100"></div>
         {% endif %}
-        <div class="product-details col-10 md-col-3 white">
-          <h2 class="title uppercase">{{product.name}}</h2>
-          <p class="description">{{product.description}}</p>
-        </div>
-        <div class="product-purchase white">
-          <p>${{product.price}}</p>
-          <button>
-            <p class="uppercase">Buy</p>
-          </button>
-        </div>
       </div>
     {% endfor %}
   </div>

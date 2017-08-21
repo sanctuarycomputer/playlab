@@ -1,6 +1,7 @@
 const notMobile = !(/iphone|ipod|ipad|android|blackberry|opera mini|opera mobi|skyfire|maemo|windows phone|palm|iemobile|symbian|symbianos|fennec/i.test(navigator.userAgent.toLowerCase()));
 const  SCROLL_DURATION = 600;
 const  SMALL_SCREEN = 450;
+const TITLE_BAR_HEIGHT = 125;
 let windowWidth;
 let path = window.location.pathname;
 let route = path.split('/');
@@ -15,7 +16,6 @@ if (notMobile && $(window).width() >= SMALL_SCREEN) {
   //Homepage scroll interaction
   let $homeBlocks = $('.home-block');
   let $introTrigger = $('.intro-trigger');
-  const TITLE_BAR_HEIGHT = 125;
 
   $($homeBlocks[0]).find('.title-bar').addClass('next');
 
@@ -161,56 +161,106 @@ if (notMobile && $(window).width() >= SMALL_SCREEN) {
   });
 
 
-  //Shop Page
   let $productBlocks = $('.product');
-  let $shopViewContext = $('.shop-view-context');
-  let $productImageContainer = $('.product-image-container');
-  let $gradientOverlay  = $('.gradient-overlay');
+
+  $($productBlocks[0]).find('.product-header').addClass('next');
 
   $productBlocks.each((i, element) => {
     let $productBlock = $(element);
-    let $productDetails = $('.product-details');
 
-
-    //Scroll down
+    //Peek Next
     $productBlock.waypoint({
       handler: function(direction) {
         if (direction === 'down') {
-          let $thisEl = $(this.element);
-          let activeUrl = $thisEl.data().image;
-          let showGradient = $thisEl.data().gradient;
-          if (showGradient) {
-            $gradientOverlay.addClass('show')
-          } else {
-            $gradientOverlay.removeClass('show')
-          }
-          $productImageContainer.css('background-image', `url(${activeUrl})`);
-          $productBlocks.removeClass('in-view');
-          $thisEl.addClass('in-view');
+          $(this.element).find('.product-header').removeClass('next');
+        }
+
+        if (direction === 'up') {
+          $('.product-header').removeClass('next');
+          $(this.element).find('.product-header').addClass('next');
         }
       },
+      offset: function() {
+        return $(window).innerHeight() - (TITLE_BAR_HEIGHT/2);
+      }
     });
 
-    //Scroll up
+    //Scroll Next
     $productBlock.waypoint({
       handler: function(direction) {
-        if (direction === 'up') {
-          let $thisEl = $(this.element);
-          let activeUrl = $thisEl.data().image;
-          let showGradient = $thisEl.data().gradient;
-          if (showGradient) {
-            $gradientOverlay.addClass('show')
-          } else {
-            $gradientOverlay.removeClass('show')
-          }
-          $productImageContainer.css('background-image', `url(${activeUrl})`);
-          $productBlocks.removeClass('in-view');
-          $thisEl.addClass('in-view');
+        if (this !== this.group.last()) {
+          let next = this.next().element;
+          $(next).find('.product-header').addClass('next');
         }
       },
-      offset: '-25%',
+      offset: 25,
     });
   });
+
+  //Shop
+  let $productHeaders = $('.product-header');
+  $productHeaders.on('click', function(){
+    let $this = $(this);
+    if ($this.hasClass('next')) {
+      $this.removeClass('next');
+      let sectionTop = $this.offset().top;
+      $('html,body').animate({
+        scrollTop: sectionTop
+      }, SCROLL_DURATION, 'swing');
+    }
+  });
+
+
+  // //Shop Page
+  // let $productBlocks = $('.product');
+  // let $shopViewContext = $('.shop-view-context');
+  // let $productImageContainer = $('.product-image-container');
+  // let $gradientOverlay  = $('.gradient-overlay');
+  //
+  // $productBlocks.each((i, element) => {
+  //   let $productBlock = $(element);
+  //   let $productDetails = $('.product-details');
+  //
+  //
+  //   // Scroll down
+  //   $productBlock.waypoint({
+  //     handler: function(direction) {
+  //       if (direction === 'down') {
+  //         let $thisEl = $(this.element);
+  //         let activeUrl = $thisEl.data().image;
+  //         let showGradient = $thisEl.data().gradient;
+  //         if (showGradient) {
+  //           $gradientOverlay.addClass('show')
+  //         } else {
+  //           $gradientOverlay.removeClass('show')
+  //         }
+  //         $productImageContainer.css('background-image', `url(${activeUrl})`);
+  //         $productBlocks.removeClass('in-view');
+  //         $thisEl.addClass('in-view');
+  //       }
+  //     },
+  //   });
+  //
+  //   //Scroll up
+  //   $productBlock.waypoint({
+  //     handler: function(direction) {
+  //       if (direction === 'up') {
+  //         let $thisEl = $(this.element);
+  //         let activeUrl = $thisEl.data().image;
+  //         let showGradient = $thisEl.data().gradient;
+  //         if (showGradient) {
+  //           $gradientOverlay.addClass('show')
+  //         } else {
+  //           $gradientOverlay.removeClass('show')
+  //         }
+  //         $productImageContainer.css('background-image', `url(${activeUrl})`);
+  //         $productBlocks.removeClass('in-view');
+  //         $thisEl.addClass('in-view');
+  //       }
+  //     },
+  //     offset: '-25%',
+  //   });
+  // });
 };
 
 
@@ -261,10 +311,11 @@ $(window).load(function() {
 //Image Gallery
 $('.image-slider').each(function(){
   let $this = $(this);
+
   $this.slick({
     fade: true,
     cssEase: 'ease-in-out',
-    prevArrow: '',
+    prevArrow: $this.prev(),
     nextArrow: $this.next(),
   })
 });

@@ -39,6 +39,12 @@
 
   @media #{$small-up} {
     flex-direction: row;
+    padding-right: 2rem;
+    padding-left: 2rem;
+
+    .submit-wrapper {
+      margin-top: 0;
+    }
 
     .md-left-column {
       padding-right: 4rem;
@@ -48,7 +54,7 @@
       order: 1;
     }
     .social-container {
-      margin-bottom: 0;
+      margin: 0;
       order: 2;
       .social-list {
         flex-direction: row;

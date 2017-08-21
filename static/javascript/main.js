@@ -4,6 +4,7 @@
 var notMobile = !/iphone|ipod|ipad|android|blackberry|opera mini|opera mobi|skyfire|maemo|windows phone|palm|iemobile|symbian|symbianos|fennec/i.test(navigator.userAgent.toLowerCase());
 var SCROLL_DURATION = 600;
 var SMALL_SCREEN = 450;
+var TITLE_BAR_HEIGHT = 125;
 var windowWidth = void 0;
 var path = window.location.pathname;
 var route = path.split('/');
@@ -18,7 +19,6 @@ if (notMobile && $(window).width() >= SMALL_SCREEN) {
   //Homepage scroll interaction
   var $homeBlocks = $('.home-block');
   var $introTrigger = $('.intro-trigger');
-  var TITLE_BAR_HEIGHT = 125;
 
   $($homeBlocks[0]).find('.title-bar').addClass('next');
 
@@ -165,55 +165,105 @@ if (notMobile && $(window).width() >= SMALL_SCREEN) {
     });
   });
 
-  //Shop Page
   var $productBlocks = $('.product');
-  var $shopViewContext = $('.shop-view-context');
-  var $productImageContainer = $('.product-image-container');
-  var $gradientOverlay = $('.gradient-overlay');
+
+  $($productBlocks[0]).find('.product-header').addClass('next');
 
   $productBlocks.each(function (i, element) {
     var $productBlock = $(element);
-    var $productDetails = $('.product-details');
 
-    //Scroll down
+    //Peek Next
     $productBlock.waypoint({
       handler: function handler(direction) {
         if (direction === 'down') {
-          var $thisEl = $(this.element);
-          var activeUrl = $thisEl.data().image;
-          var showGradient = $thisEl.data().gradient;
-          if (showGradient) {
-            $gradientOverlay.addClass('show');
-          } else {
-            $gradientOverlay.removeClass('show');
-          }
-          $productImageContainer.css('background-image', 'url(' + activeUrl + ')');
-          $productBlocks.removeClass('in-view');
-          $thisEl.addClass('in-view');
+          $(this.element).find('.product-header').removeClass('next');
         }
+
+        if (direction === 'up') {
+          $('.product-header').removeClass('next');
+          $(this.element).find('.product-header').addClass('next');
+        }
+      },
+      offset: function offset() {
+        return $(window).innerHeight() - TITLE_BAR_HEIGHT / 2;
       }
     });
 
-    //Scroll up
+    //Scroll Next
     $productBlock.waypoint({
       handler: function handler(direction) {
-        if (direction === 'up') {
-          var $thisEl = $(this.element);
-          var activeUrl = $thisEl.data().image;
-          var showGradient = $thisEl.data().gradient;
-          if (showGradient) {
-            $gradientOverlay.addClass('show');
-          } else {
-            $gradientOverlay.removeClass('show');
-          }
-          $productImageContainer.css('background-image', 'url(' + activeUrl + ')');
-          $productBlocks.removeClass('in-view');
-          $thisEl.addClass('in-view');
+        if (this !== this.group.last()) {
+          var next = this.next().element;
+          $(next).find('.product-header').addClass('next');
         }
       },
-      offset: '-25%'
+      offset: 25
     });
   });
+
+  //Shop
+  var $productHeaders = $('.product-header');
+  $productHeaders.on('click', function () {
+    var $this = $(this);
+    if ($this.hasClass('next')) {
+      $this.removeClass('next');
+      var sectionTop = $this.offset().top;
+      $('html,body').animate({
+        scrollTop: sectionTop
+      }, SCROLL_DURATION, 'swing');
+    }
+  });
+
+  // //Shop Page
+  // let $productBlocks = $('.product');
+  // let $shopViewContext = $('.shop-view-context');
+  // let $productImageContainer = $('.product-image-container');
+  // let $gradientOverlay  = $('.gradient-overlay');
+  //
+  // $productBlocks.each((i, element) => {
+  //   let $productBlock = $(element);
+  //   let $productDetails = $('.product-details');
+  //
+  //
+  //   // Scroll down
+  //   $productBlock.waypoint({
+  //     handler: function(direction) {
+  //       if (direction === 'down') {
+  //         let $thisEl = $(this.element);
+  //         let activeUrl = $thisEl.data().image;
+  //         let showGradient = $thisEl.data().gradient;
+  //         if (showGradient) {
+  //           $gradientOverlay.addClass('show')
+  //         } else {
+  //           $gradientOverlay.removeClass('show')
+  //         }
+  //         $productImageContainer.css('background-image', `url(${activeUrl})`);
+  //         $productBlocks.removeClass('in-view');
+  //         $thisEl.addClass('in-view');
+  //       }
+  //     },
+  //   });
+  //
+  //   //Scroll up
+  //   $productBlock.waypoint({
+  //     handler: function(direction) {
+  //       if (direction === 'up') {
+  //         let $thisEl = $(this.element);
+  //         let activeUrl = $thisEl.data().image;
+  //         let showGradient = $thisEl.data().gradient;
+  //         if (showGradient) {
+  //           $gradientOverlay.addClass('show')
+  //         } else {
+  //           $gradientOverlay.removeClass('show')
+  //         }
+  //         $productImageContainer.css('background-image', `url(${activeUrl})`);
+  //         $productBlocks.removeClass('in-view');
+  //         $thisEl.addClass('in-view');
+  //       }
+  //     },
+  //     offset: '-25%',
+  //   });
+  // });
 };
 
 $(window).load(function () {
@@ -263,10 +313,11 @@ $(window).load(function () {
 //Image Gallery
 $('.image-slider').each(function () {
   var $this = $(this);
+
   $this.slick({
     fade: true,
     cssEase: 'ease-in-out',
-    prevArrow: '',
+    prevArrow: $this.prev(),
     nextArrow: $this.next()
   });
 });
