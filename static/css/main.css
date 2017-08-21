@@ -1,14 +1,14 @@
 /* BassCSS Breakpoints */
 /* Globals */
 /* Colors */
-h1, h2, h3, h4, h5, h6, p, li, input {
+h1, h2, h3, h4, h5, h6, p, li, input, select {
   font-size: 25px;
   font-family: 'Helvetica Neue', 'Helvetica', Arial, sans-serif;
   margin: 0;
   font-weight: 400;
 }
 @media (min-width: 64em) {
-  h1, h2, h3, h4, h5, h6, p, li, input {
+  h1, h2, h3, h4, h5, h6, p, li, input, select {
     font-size: 35px;
   }
 }
@@ -166,6 +166,11 @@ h1, h2, h3, h4, h5, h6 {
   /* IE6-9 */
 }
 
+.hide {
+  opacity: 0;
+  visibility: hidden;
+}
+
 .black {
   color: #000;
 }
@@ -280,65 +285,113 @@ h1, h2, h3, h4, h5, h6 {
 
 #shop {
   height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
-#shop .product {
-  background-size: cover;
-  background-position: center top;
-  background-repeat: no-repeat;
-  position: relative;
-  height: 100%;
-  width: 100%;
-}
-#shop .product .product-details {
+#shop .product-details {
+  transition: 250ms ease-in-out;
   position: absolute;
-  top: 25%;
-  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  padding-left: 1rem;
 }
-#shop .product .product-details .title {
-  font-weight: normal;
-  text-transform: uppercase;
+#shop .product-details .product-purchase {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 1rem;
 }
-@media (min-width: 52em) {
-  #shop .product .product-details {
-    left: 2rem;
-  }
-}
-#shop .product .product-purchase .quant {
-  background: transparent;
-  color: #fff;
+#shop .product-details .product-purchase .variant-select {
+  -webkit-appearance: none;
+  border-radius: 0;
   border: none;
-  border-bottom: solid 3px;
+  font-family: 'Helvetica Neue', 'Helvetica', Arial, sans-serif;
+  padding: 1rem 0.5rem;
+  background-color: #fff;
+  color: #000;
 }
-#shop .product .product-purchase button {
-  background-color: transparent;
-  padding: 1rem 2rem;
+#shop .product-details .product-purchase .quant {
+  background: none;
+  border: none;
+  border-bottom: solid 1px #fff;
+}
+#shop .product-details .product-purchase button {
+  background: none;
   border: solid 1px #fff;
 }
-@media (min-width: 52em) {
-  #shop .product {
-    padding-top: 125px;
+@media (min-width: 40em) {
+  #shop .product-details {
+    padding-left: 2rem;
   }
-  #shop .product .product-header {
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center top;
-    height: 125px;
+  #shop .product-details .product-purchase {
+    display: inline-block;
+    padding-right: 0;
+  }
+  #shop .product-details .product-purchase .price, #shop .product-details .product-purchase .qt-label {
+    margin-right: 2rem;
+  }
+}
+#shop .gradient-overlay {
+  pointer-events: none;
+  z-index: 2;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+#shop .slick-slider,
+#shop .slick-list {
+  height: 100%;
+}
+#shop .slick-slider .slick-track,
+#shop .slick-list .slick-track {
+  height: 100%;
+}
+#shop .next-arrow {
+  display: none !important;
+}
+@media (min-width: 52em) {
+  #shop .next-arrow {
+    padding-right: 10rem;
+    display: block !important;
     position: absolute;
     top: 0;
-    left: 0;
+    bottom: 0;
     right: 0;
-    bottom: -125px;
+    left: 50%;
+    width: 50%;
+    background: none;
+    border: none;
+    text-align: right;
   }
-  #shop .product .product-header.next {
-    cursor: pointer;
+  #shop .next-arrow svg {
     transition: 250ms ease-in-out;
-    position: fixed;
-    transform: translateY(-50px);
-    top: auto;
+    opacity: 0;
   }
-  #shop .product .product-header.next:hover {
-    transform: translateY(-70px);
+  #shop .next-arrow:hover svg {
+    opacity: 1;
   }
+}
+#shop .shop-dots {
+  padding: 0;
+  color: #fff;
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 0;
+  z-index: 2;
+  list-style: none;
+}
+#shop .shop-dots li {
+  display: inline-block;
+}
+#shop .shop-dots li button {
+  background: none;
+  border: none;
 }
 
 .header {
