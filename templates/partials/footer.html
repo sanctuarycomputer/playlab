@@ -1,3 +1,5 @@
+{% set playlab = cms.playlab %}
+
 <div class="footer-spacer"></div>
 <footer id="footer" class='flex col-12 fixed bottom-0 z0'>
   <div class='md-left-column flex flex-column justify-between col-12 md-col-6'>
@@ -50,9 +52,9 @@
     </div>
     <div class="social-container col-5 md-col-8">
       <ul class="social-list flex list-reset m0">
-        <li class="pr3"><a class="link-thin pb1">Instagram</a></li>
-        <li class="pr3"><a class="link-thin pb1">Twitter</a></li>
-        <li class="pr3"><a class="link-thin pb1">Facebook</a></li>
+        <li class="pr3"><a href={{playlab.instagram}} target="_blank" class="link-thin pb1">Instagram</a></li>
+        <li class="pr3"><a href={{playlab.twitter}} target="_blank" class="link-thin pb1">Twitter</a></li>
+        <li class="pr3"><a href={{playlab.facebook}} target="_blank" class="link-thin pb1">Facebook</a></li>
       </ul>
     </div>
   </div>
