@@ -402,9 +402,9 @@ $productImageSliders.each(function(){
 
 $('.buy-button').on('click', function() {
   let productLink;
-  let $productDetails = $(this).parent();
-  let baseUrl = $productDetails.find('.variant-select')[0].value;
-  let quantity = $productDetails.find('.quant')[0].value;
+  let $productPurchase = $(this).closest('.product-purchase');
+  let baseUrl = $productPurchase.find('.variant-select')[0].value;
+  let quantity = $productPurchase.find('.quant')[0].value;
 
   if (quantity > 1) {
     productLink = `${baseUrl}&quantity=${quantity}`;

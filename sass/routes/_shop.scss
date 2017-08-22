@@ -14,35 +14,44 @@
     padding-left: 1rem;
 
     .product-purchase {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-right: 1rem;
+      margin-right: 1rem;
       .variant-select {
         -webkit-appearance: none;
+        background-image: url(/static/images/down-arrow.png);
+        background-repeat: no-repeat;
+        background-position: 95% 50%;
         border-radius: 0;
         border: none;
         font-family: 'Helvetica Neue', 'Helvetica', Arial, sans-serif;
         padding: 1rem 0.5rem;
         background-color: color('white');
         color: color('black');
+        &:focus {
+          outline: 0;
+        }
       }
-      .quant {
-        background: none;
-        border: none;
-        border-bottom: solid 1px color('white');
-      }
-      button {
-        background: none;
-        border: solid 1px color('white');
+
+      .buy-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .quant {
+          background: none;
+          border: none;
+          border-bottom: solid 1px color('white');
+        }
+        button {
+          background: none;
+          border: solid 1px color('white');
+        }
       }
     }
 
     @media #{$small-up} {
       padding-left: 2rem;
       .product-purchase {
+        margin-right: 0;
         display: inline-block;
-        padding-right: 0;
         .price, .qt-label {
           margin-right: 2rem;
         }
