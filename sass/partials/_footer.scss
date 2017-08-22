@@ -5,7 +5,7 @@
     display: flex;
     border: solid 1px color('black');
     justify-content: space-between;
-    margin-top: 1rem;
+    margin-top: 2rem;
     input {
       border: none;
       background: none;
@@ -31,7 +31,7 @@
     order: 2;
   }
   .social-container {
-    margin: 1rem 0;
+    margin: 2rem 0;
     order: 1;
     .social-list {
       flex-direction: column;

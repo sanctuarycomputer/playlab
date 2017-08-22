@@ -572,7 +572,7 @@ h1, h2, h3, h4, h5, h6 {
   display: flex;
   border: solid 1px #000;
   justify-content: space-between;
-  margin-top: 1rem;
+  margin-top: 2rem;
 }
 #footer .submit-wrapper input {
   border: none;
@@ -598,7 +598,7 @@ h1, h2, h3, h4, h5, h6 {
   order: 2;
 }
 #footer .social-container {
-  margin: 1rem 0;
+  margin: 2rem 0;
   order: 1;
 }
 #footer .social-container .social-list {
