@@ -12,7 +12,7 @@
 {# This sets our page <title>. It will append this info's name to the site title defined in base.html #}
 {% block title %}{% parent %} - {{ cms.info.name }}{% endblock %}
 {% block content %}
-  <div id='info' class="z1 relative site-min-height route-padding-top">
+  <div id='info' class="z1 relative site-min-height route-padding-top bg-white">
     <article class="info sticky-top-wrapper bg-white center">
       <div class="md-col-8 mx-auto pt3 px2 left-align">
         <p>{{cms.info.about}}</p>

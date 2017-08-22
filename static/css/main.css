@@ -57,7 +57,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .footer-room {
-  margin-bottom: 520px;
+  margin-bottom: 575px;
 }
 @media (min-width: 40em) {
   .footer-room {
@@ -157,7 +157,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .footer-spacer {
-  height: 520px;
+  height: 575px;
   background: transparent;
 }
 @media (min-width: 40em) {
