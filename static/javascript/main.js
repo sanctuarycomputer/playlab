@@ -76,22 +76,6 @@ if (notMobile && $(window).width() >= SMALL_SCREEN) {
   $stickyBottomWrapper.waypoint({
     handler: function handler(direction) {
       if (direction === 'down') {
-        $bottomHeader.removeClass('fixed-bottom');
-        $stickyBottomWrapper.css({ 'margin-top': $stickyTopWrapper.outerHeight() });
-        $stickyTopWrapper.addClass('top-stick');
-      }
-      if (direction === 'up') {
-        $bottomHeader.addClass('fixed-bottom');
-        $stickyBottomWrapper.css({ 'margin-top': '' });
-        $stickyTopWrapper.removeClass('top-stick');
-      }
-    },
-    offset: '97%'
-  });
-
-  $stickyBottomWrapper.waypoint({
-    handler: function handler(direction) {
-      if (direction === 'down') {
         var bottomHeaderTop = $(this.element).offset().top - $(window).scrollTop();
         $bottomHeader.css({
           position: 'fixed',
@@ -100,15 +84,29 @@ if (notMobile && $(window).width() >= SMALL_SCREEN) {
           top: bottomHeaderTop
         });
         $bottomContentWrapper.css('padding-top', $bottomHeader.height());
-        return $(this.element).addClass('scrolling');
-      }
-      if (direction === 'up') {
+        $(this.element).addClass('scrolling');
+      } else if (direction === 'up') {
         $bottomHeader.removeAttr('style');
         $bottomContentWrapper.css('padding-top', '');
         $(this.element).removeClass('scrolling');
       }
     },
     offset: 'bottom-in-view'
+  });
+
+  $stickyBottomWrapper.waypoint({
+    handler: function handler(direction) {
+      if (direction === 'down') {
+        $bottomHeader.removeClass('fixed-bottom');
+        $stickyBottomWrapper.css({ 'margin-top': $stickyTopWrapper.outerHeight() });
+        $stickyTopWrapper.addClass('top-stick');
+      } else if (direction === 'up') {
+        $bottomHeader.addClass('fixed-bottom');
+        $stickyBottomWrapper.css({ 'margin-top': '' });
+        $stickyTopWrapper.removeClass('top-stick');
+      }
+    },
+    offset: '97%'
   });
 
   //Info/Work Bottom header scroll to
