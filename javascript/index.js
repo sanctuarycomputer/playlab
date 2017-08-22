@@ -97,7 +97,7 @@ if (notMobile && $(window).width() >= SMALL_SCREEN) {
           top: bottomHeaderTop,
         });
         $bottomContentWrapper.css('padding-top', $bottomHeader.height());
-        $(this.element).addClass('scrolling');
+        return $(this.element).addClass('scrolling');
       }
       if (direction === 'up') {
         $bottomHeader.removeAttr('style');

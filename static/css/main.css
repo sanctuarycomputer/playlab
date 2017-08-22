@@ -70,11 +70,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .route-padding-top {
-  padding-top: 4rem;
+  padding-top: 5rem;
 }
 @media (min-width: 52em) {
   .route-padding-top {
-    padding-top: 6rem;
+    padding-top: 8rem;
   }
 }
 
@@ -123,6 +123,15 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+.md-py4 {
+  padding: 0;
+}
+@media (min-width: 52em) {
+  .md-py4 {
+    padding: 2rem 0;
+  }
+}
+
 .overflow-ellipsis {
   text-overflow: ellipsis;
 }
@@ -141,6 +150,12 @@ h1, h2, h3, h4, h5, h6 {
   overflow: auto;
 }
 
+.hanging-indent {
+  display: block;
+  padding-left: 1em;
+  text-indent: -1em;
+}
+
 .footer-spacer {
   height: 520px;
   background: transparent;
@@ -153,6 +168,10 @@ h1, h2, h3, h4, h5, h6 {
 
 .transform-3d {
   -webkit-transform: translate3d(0, 0, 0);
+}
+
+.shadow {
+  box-shadow: 2px 2px 5px #ECEAEA;
 }
 
 .image-gradient {
@@ -564,6 +583,7 @@ h1, h2, h3, h4, h5, h6 {
   color: #000 !important;
 }
 #footer .submit-wrapper button {
+  display: flex;
   border: none;
   background: none;
 }
@@ -633,7 +653,7 @@ h1, h2, h3, h4, h5, h6 {
 
 @media (min-width: 52em) {
   .sticky-top-wrapper {
-    padding-bottom: 10rem;
+    padding-bottom: 15rem;
     position: relative;
   }
   .sticky-top-wrapper.top-stick {
@@ -653,7 +673,7 @@ h1, h2, h3, h4, h5, h6 {
     position: relative;
   }
   .sticky-bottom-wrapper.work {
-    height: 92vh;
+    height: 85vh;
   }
   .sticky-bottom-wrapper.info {
     height: 82vh;
@@ -678,6 +698,62 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+#info-subsection #people .submit-wrapper,
+#info-subsection #services .submit-wrapper,
+#info-subsection #clients .submit-wrapper,
+#info-subsection #talks-and-exhibits .submit-wrapper,
+#info-subsection #contact .submit-wrapper {
+  display: flex;
+  border: solid 1px #fff;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+#info-subsection #people .submit-wrapper input,
+#info-subsection #services .submit-wrapper input,
+#info-subsection #clients .submit-wrapper input,
+#info-subsection #talks-and-exhibits .submit-wrapper input,
+#info-subsection #contact .submit-wrapper input {
+  border: none;
+  background: none;
+  flex-grow: 1;
+}
+#info-subsection #people .submit-wrapper input::-webkit-input-placeholder,
+#info-subsection #services .submit-wrapper input::-webkit-input-placeholder,
+#info-subsection #clients .submit-wrapper input::-webkit-input-placeholder,
+#info-subsection #talks-and-exhibits .submit-wrapper input::-webkit-input-placeholder,
+#info-subsection #contact .submit-wrapper input::-webkit-input-placeholder {
+  color: #fff !important;
+}
+#info-subsection #people .submit-wrapper input:-moz-placeholder,
+#info-subsection #services .submit-wrapper input:-moz-placeholder,
+#info-subsection #clients .submit-wrapper input:-moz-placeholder,
+#info-subsection #talks-and-exhibits .submit-wrapper input:-moz-placeholder,
+#info-subsection #contact .submit-wrapper input:-moz-placeholder {
+  color: #fff !important;
+}
+#info-subsection #people .submit-wrapper input::-webkit-input-placeholder,
+#info-subsection #services .submit-wrapper input::-webkit-input-placeholder,
+#info-subsection #clients .submit-wrapper input::-webkit-input-placeholder,
+#info-subsection #talks-and-exhibits .submit-wrapper input::-webkit-input-placeholder,
+#info-subsection #contact .submit-wrapper input::-webkit-input-placeholder {
+  color: #fff !important;
+}
+#info-subsection #people .submit-wrapper input::-ms-input-placeholder,
+#info-subsection #services .submit-wrapper input::-ms-input-placeholder,
+#info-subsection #clients .submit-wrapper input::-ms-input-placeholder,
+#info-subsection #talks-and-exhibits .submit-wrapper input::-ms-input-placeholder,
+#info-subsection #contact .submit-wrapper input::-ms-input-placeholder {
+  color: #fff !important;
+}
+#info-subsection #people .submit-wrapper button,
+#info-subsection #services .submit-wrapper button,
+#info-subsection #clients .submit-wrapper button,
+#info-subsection #talks-and-exhibits .submit-wrapper button,
+#info-subsection #contact .submit-wrapper button {
+  display: flex;
+  border: none;
+  background: none;
+}
 @media (min-width: 52em) {
   #info-subsection #people,
   #info-subsection #services,
@@ -735,7 +811,7 @@ h1, h2, h3, h4, h5, h6 {
   width: 100%;
   padding-top: 53.5947712418%;
 }
-.image-block.Flag > .content {
+.image-block.Flag > .content, .image-block.Flag iframe {
   position: absolute;
   top: 0;
   left: 0;
@@ -751,7 +827,7 @@ h1, h2, h3, h4, h5, h6 {
   width: 100%;
   padding-top: 75%;
 }
-.image-block.Landscape > .content {
+.image-block.Landscape > .content, .image-block.Landscape iframe {
   position: absolute;
   top: 0;
   left: 0;
@@ -767,7 +843,7 @@ h1, h2, h3, h4, h5, h6 {
   width: 100%;
   padding-top: 133.3333333333%;
 }
-.image-block.Portrait > .content {
+.image-block.Portrait > .content, .image-block.Portrait iframe {
   position: absolute;
   top: 0;
   left: 0;
@@ -783,12 +859,32 @@ h1, h2, h3, h4, h5, h6 {
   width: 100%;
   padding-top: 100%;
 }
-.image-block.Square > .content {
+.image-block.Square > .content, .image-block.Square iframe {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
+}
+.image-block.Video {
+  position: relative;
+}
+.image-block.Video:before {
+  display: block;
+  content: "";
+  width: 100%;
+  padding-top: 56.2666666667%;
+}
+.image-block.Video > .content, .image-block.Video iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+.image-block.Video iframe {
+  width: 100%;
+  height: 100%;
 }
 
 .prev-next-select .pj-image {

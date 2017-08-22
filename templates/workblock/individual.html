@@ -74,5 +74,27 @@
         {# You can ouput more than just the name. Feel free to output more fields from the CMS. #}
         <a href="{{ url(item.image_right) }}">{{ item.image_right.name }}</a>
       </li>
+      <li>
+        <strong>Preview URL: </strong>
+        {{ item.preview_url }}
+      </li>
+      <li>
+        <strong>Slug: </strong>
+        {{ item.slug }}
+      </li>
+      <li>
+        <strong>Work (Block): </strong>
+        {# Relationship. Note that use the label you set for the relation, not the content-type name. #}
+        {% for relation in item.work_block %}
+          {# You can ouput more than just the name. Feel free to output more fields from the CMS. #}
+          <a href="{{ url(relation) }}">{{ relation.name }}</a>{% if not loop.last %},{% endif %}
+        {% endfor %}
+      </li>
+      <li>
+        <strong>Video (Block): </strong>
+        {# Relationship. Note that use the label you set for the relation, not the content-type name. #}
+        {# You can ouput more than just the name. Feel free to output more fields from the CMS. #}
+        <a href="{{ url(item.video_block) }}">{{ item.video_block.name }}</a>
+      </li>
   </ul>
 {% endblock %}

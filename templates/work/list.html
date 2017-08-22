@@ -4,8 +4,8 @@
 {% block content %}
 {% set currentProjects = cms.work|where('type','Current') %}
 {% set archivedProjects = cms.work|where('type','Archive') %}
-<div id='work-index' class="z1 relative site-min-height route-padding-top">
-  <article class="work sticky-top-wrapper bg-white center">
+<div data-midnight="header-#000000-#ECEAEA" id='work-index' class="z1 relative bg-grey site-min-height route-padding-top">
+  <article data-midnight="header-#000000-#ECEAEA" class="work sticky-top-wrapper bg-grey center">
     <div class="col-12 flex flex-wrap justify-around">
       {% for project in currentProjects %}
         {% if loop.index % 2 === 1 %}
@@ -15,7 +15,7 @@
             <a class="block height-100 reset-link" href="{{ url(project) }}">
               <div class="project-col left-align height-100">
                 <div class="project-container flex flex-column items-center height-100">
-                  <div class="col-12 lg-col-8 flex items-center justify-center grow-1">
+                  <div class="col-12 lg-col-7 flex items-center justify-center grow-1">
                     <div class="image-block col-10 {{project.thumbnail.crop}} {% if project.thumbnail.crop === 'Landscape' %}col-12{% else %} col-10 {% endif %}">
                       <div class="content image"
                            style='background-image: url({{project.thumbnail.image.url}})'>
@@ -49,7 +49,7 @@
             <a class="block height-100 reset-link" href="{{ url(project) }}">
               <div class="project-col left-align height-100">
                 <div class="project-container flex flex-column items-center height-100">
-                  <div class="col-12 lg-col-8 flex items-center justify-center grow-1">
+                  <div class="col-12 lg-col-7 flex items-center justify-center grow-1">
                     <div class="image-block {{project.thumbnail.crop}} {% if project.thumbnail.crop === 'Landscape' %}col-12{% else %} col-10 {% endif %}"  >
                       <div class="content image"
                            style='background-image: url({{project.thumbnail.image.url}})'>

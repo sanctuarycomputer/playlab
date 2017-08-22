@@ -40,14 +40,14 @@
       <h2 class="center md-hide lg-hide capitalize py2">{{section.title}}</h2>
       <ul class="list-reset left-align">
       {% for item in section.left_column %}
-        <li>{{item.title}}</li>
+        <li class="hanging-indent">{{item.title}}</li>
       {% endfor %}
       </ul>
     </div>
     <div class="col-12 md-col-5">
       <ul class="list-reset left-align">
       {% for item in section.right_column %}
-        <li>{{item.title}}</li>
+        <li class="hanging-indent">{{item.title}}</li>
       {% endfor %}
       </ul>
     </div>
@@ -66,6 +66,9 @@
                 {% else %}
                 <span class="image-trigger link-style mr1">{{item.link_text}}</span>
               {% endif %}
+            {% endif %}
+            {% if item.content %}
+              <span>{{item.content}}</span>
             {% endif %}
           </p>
           {% if item.image %}
@@ -90,6 +93,25 @@
             <p>{{item.content}}</p>
           </li>
         {% endfor %}
+        <li class="submit-wrapper p2">
+          <input class="col-8 overflow-ellipsis" placeholder="Subscribe"/>
+          <button>
+            <svg class="md-hide" xmlns="http://www.w3.org/2000/svg" width="176" height="18" viewBox="0 0 176 18">
+              <g fill="none" fill-rule="evenodd" stroke="#FFF" stroke-width="1.5" transform="translate(1)">
+                <path stroke-linecap="square" d="M0.499748644,8.79411765 L172.577132,8.79411765"/>
+                <polyline points="159.236 3.176 159.236 3.176 170.836 3.176 170.836 14.824" transform="rotate(45 165.036 9)"/>
+              </g>
+            </svg>
+            <svg class="xs-hide sm-hide lg-hide" xmlns="http://www.w3.org/2000/svg" width="58" height="18" viewBox="0 0 58 18">
+              <g fill="none">
+                <g stroke="#FFF">
+                  <path d="M0.5 9L56.6 9"/>
+                  <polyline transform="translate(49.036364 9)rotate(-315)translate(-49.036364 -9)" points="43.2 3.2 43.2 3.2 54.8 3.2 54.8 14.8"/>
+                </g>
+              </g>
+            </svg>
+          </button>
+        </li>
         </ul>
       </div>
       <div class="col-12 md-col-5">
