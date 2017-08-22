@@ -619,6 +619,9 @@ h1, h2, h3, h4, h5, h6 {
   #footer .flag-container {
     order: 1;
   }
+  #footer .flag-container .flag-trigger {
+    max-width: 200px;
+  }
   #footer .social-container {
     margin: 0;
     order: 2;

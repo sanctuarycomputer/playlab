@@ -53,6 +53,9 @@
 
     .flag-container {
       order: 1;
+      .flag-trigger {
+        max-width: 200px;
+      }
     }
     .social-container {
       margin: 0;

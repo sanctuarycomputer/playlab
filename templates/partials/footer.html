@@ -1,5 +1,4 @@
 {% set playlab = cms.playlab %}
-
 <div class="footer-spacer"></div>
 <footer id="footer" class='flex col-12 fixed bottom-0 z0'>
   <div class='md-left-column flex flex-column justify-between col-12 md-col-6'>
@@ -8,9 +7,9 @@
       <p>office@playlab.org</p>
     </div>
     <div class='col-12'>
-      <div class="submit-wrapper p2">
-        <input class="xs-hide sm-hide col-8 overflow-ellipsis" placeholder="Subscribe to our newsletter"/>
-        <input class="md-hide lg-hide col-8 overflow-ellipsis" placeholder="Subscribe"/>
+      <form class="submit-wrapper p2" action={{playlab.mailchimp_action}} method="post" target="_blank" novalidate>
+        <input class="xs-hide sm-hide col-8 overflow-ellipsis" type="email" value="" name="EMAIL" placeholder="Subscribe to our newsletter"/>
+        <input class="md-hide lg-hide col-8 overflow-ellipsis" type="email" value="" name="EMAIL" placeholder="Subscribe"/>
         <button>
           <svg class="sm-hide md-hide" xmlns="http://www.w3.org/2000/svg" width="176" height="18" viewBox="0 0 176 18">
             <g fill="none" fill-rule="evenodd" stroke="#000" stroke-width="1.5" transform="translate(1)">
@@ -27,7 +26,7 @@
             </g>
           </svg>
         </button>
-      </div>
+      </form>
     </div>
   </div>
   <div class='md-right-column col-12 md-col-6 flex justify-between flex-column'>
@@ -36,16 +35,16 @@
         <p>244 Canal St. 3F</p>
         <p>New York, NY</p>
       </div>
-      <div class="col-12 sm-col-3 md-col-4 lg-col-2">
+      <div class="col-12 sm-col-3 md-col-4 lg-col-3 max-width-1">
         <div class="flag-trigger image-block col-12 pointer Flag">
           <div class="usa content image shadow"
-               style='background-image: url(/static/images/flag-usa.png)'>
+               style='background-image: url(/static/images/usa.jpg)'>
           </div>
           <div class="russia flag content image shadow"
-               style='background-image: url(/static/images/flag-russia.png)'>
+               style='background-image: url(/static/images/russia.jpg)'>
           </div>
           <div class="brazil flag content image shadow"
-               style='background-image: url(/static/images/flag-brazil.png)'>
+               style='background-image: url(/static/images/brazil.jpg)'>
           </div>
         </div>
       </div>
