@@ -4,6 +4,7 @@
 var notMobile = !/iphone|ipod|ipad|android|blackberry|opera mini|opera mobi|skyfire|maemo|windows phone|palm|iemobile|symbian|symbianos|fennec/i.test(navigator.userAgent.toLowerCase());
 var SCROLL_DURATION = 600;
 var SMALL_SCREEN = 450;
+var TITLE_BAR_HEIGHT = 125;
 var windowWidth = void 0;
 var path = window.location.pathname;
 var route = path.split('/');
@@ -18,7 +19,6 @@ if (notMobile && $(window).width() >= SMALL_SCREEN) {
   //Homepage scroll interaction
   var $homeBlocks = $('.home-block');
   var $introTrigger = $('.intro-trigger');
-  var TITLE_BAR_HEIGHT = 125;
 
   $($homeBlocks[0]).find('.title-bar').addClass('next');
 
@@ -54,18 +54,6 @@ if (notMobile && $(window).width() >= SMALL_SCREEN) {
     });
   });
 
-  //Back to top
-  $introTrigger.waypoint({
-    handler: function handler(direction) {
-      if (direction === 'down') {
-        window.scrollTo(0, 0);
-      }
-    },
-    offset: function offset() {
-      return TITLE_BAR_HEIGHT / 2;
-    }
-  });
-
   //Homepage click next
   var $sectionBar = $('.title-bar');
   $sectionBar.on('click', function () {
@@ -88,22 +76,6 @@ if (notMobile && $(window).width() >= SMALL_SCREEN) {
   $stickyBottomWrapper.waypoint({
     handler: function handler(direction) {
       if (direction === 'down') {
-        $bottomHeader.removeClass('fixed-bottom');
-        $stickyBottomWrapper.css({ 'margin-top': $stickyTopWrapper.outerHeight() });
-        $stickyTopWrapper.addClass('top-stick');
-      }
-      if (direction === 'up') {
-        $bottomHeader.addClass('fixed-bottom');
-        $stickyBottomWrapper.css({ 'margin-top': '' });
-        $stickyTopWrapper.removeClass('top-stick');
-      }
-    },
-    offset: '97%'
-  });
-
-  $stickyBottomWrapper.waypoint({
-    handler: function handler(direction) {
-      if (direction === 'down') {
         var bottomHeaderTop = $(this.element).offset().top - $(window).scrollTop();
         $bottomHeader.css({
           position: 'fixed',
@@ -113,14 +85,28 @@ if (notMobile && $(window).width() >= SMALL_SCREEN) {
         });
         $bottomContentWrapper.css('padding-top', $bottomHeader.height());
         $(this.element).addClass('scrolling');
-      }
-      if (direction === 'up') {
+      } else if (direction === 'up') {
         $bottomHeader.removeAttr('style');
         $bottomContentWrapper.css('padding-top', '');
         $(this.element).removeClass('scrolling');
       }
     },
     offset: 'bottom-in-view'
+  });
+
+  $stickyBottomWrapper.waypoint({
+    handler: function handler(direction) {
+      if (direction === 'down') {
+        $bottomHeader.removeClass('fixed-bottom');
+        $stickyBottomWrapper.css({ 'margin-top': $stickyTopWrapper.outerHeight() });
+        $stickyTopWrapper.addClass('top-stick');
+      } else if (direction === 'up') {
+        $bottomHeader.addClass('fixed-bottom');
+        $stickyBottomWrapper.css({ 'margin-top': '' });
+        $stickyTopWrapper.removeClass('top-stick');
+      }
+    },
+    offset: '97%'
   });
 
   //Info/Work Bottom header scroll to
@@ -176,56 +162,6 @@ if (notMobile && $(window).width() >= SMALL_SCREEN) {
       $this.parent().siblings('.hover-image').removeClass('is-showing');
     });
   });
-
-  //Shop Page
-  var $productBlocks = $('.product');
-  var $shopViewContext = $('.shop-view-context');
-  var $productImageContainer = $('.product-image-container');
-  var $gradientOverlay = $('.gradient-overlay');
-
-  $productBlocks.each(function (i, element) {
-    var $productBlock = $(element);
-    var $productDetails = $('.product-details');
-
-    //Scroll down
-    $productBlock.waypoint({
-      handler: function handler(direction) {
-        if (direction === 'down') {
-          var $thisEl = $(this.element);
-          var activeUrl = $thisEl.data().image;
-          var showGradient = $thisEl.data().gradient;
-          if (showGradient) {
-            $gradientOverlay.addClass('show');
-          } else {
-            $gradientOverlay.removeClass('show');
-          }
-          $productImageContainer.css('background-image', 'url(' + activeUrl + ')');
-          $productBlocks.removeClass('in-view');
-          $thisEl.addClass('in-view');
-        }
-      }
-    });
-
-    //Scroll up
-    $productBlock.waypoint({
-      handler: function handler(direction) {
-        if (direction === 'up') {
-          var $thisEl = $(this.element);
-          var activeUrl = $thisEl.data().image;
-          var showGradient = $thisEl.data().gradient;
-          if (showGradient) {
-            $gradientOverlay.addClass('show');
-          } else {
-            $gradientOverlay.removeClass('show');
-          }
-          $productImageContainer.css('background-image', 'url(' + activeUrl + ')');
-          $productBlocks.removeClass('in-view');
-          $thisEl.addClass('in-view');
-        }
-      },
-      offset: '-25%'
-    });
-  });
 };
 
 $(window).load(function () {
@@ -275,10 +211,11 @@ $(window).load(function () {
 //Image Gallery
 $('.image-slider').each(function () {
   var $this = $(this);
+
   $this.slick({
     fade: true,
     cssEase: 'ease-in-out',
-    prevArrow: '',
+    prevArrow: $this.prev(),
     nextArrow: $this.next()
   });
 });
@@ -325,6 +262,44 @@ $(document).ready(function () {
 
   $('.header').midnight();
   $('.mobile-nav-bar').midnight();
+});
+
+var $shopSlider = $('.shop-slider');
+var $productImageSliders = $('.product-image-slider');
+
+$shopSlider.slick({
+  fade: true,
+  slidesToShow: 1,
+  arrows: false,
+  dots: true,
+  dotsClass: 'shop-dots',
+  swipe: false
+});
+
+//Image Gallery
+$productImageSliders.each(function () {
+  var $this = $(this);
+  $this.slick({
+    slidesToShow: 1,
+    arrows: true,
+    prevArrow: '',
+    nextArrow: $this.next()
+  });
+});
+
+$('.buy-button').on('click', function () {
+  var productLink = void 0;
+  var $productPurchase = $(this).closest('.product-purchase');
+  var baseUrl = $productPurchase.find('.variant-select')[0].value;
+  var quantity = $productPurchase.find('.quant')[0].value;
+
+  if (quantity > 1) {
+    productLink = baseUrl + '&quantity=' + quantity;
+  } else {
+    productLink = baseUrl;
+  }
+
+  window.open(productLink, '_blank');
 });
 
 },{}]},{},[1]);

@@ -1,89 +1,124 @@
 #shop {
   height: 100%;
-  .product-image-container {
-    height: 100%;
-    background-size: cover;
-    background-position: center center;
-    background-repeat: no-repeat;
-  }
-  .gradient-overlay {
-    opacity: 0;
-    &.show {
-      opacity: 1;
-    }
-  }
-  .product {
-    background-size: cover;
-    background-position: center center;
-    background-repeat: no-repeat;
-    position: relative;
-    height: 100%;
-    width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 
-    .product-details {
-      position: absolute;
-      top: 25%;
-      left: 1rem;
-      .title {
-        font-weight: normal                                                                            ;
-        text-transform: uppercase;
-      }
-      @media #{$medium-up} {
-        left: 2rem;
-      }
-    }
+  .product-details {
+    transition: 250ms ease-in-out;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    padding-left: 1rem;
 
     .product-purchase {
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: absolute;
-      padding: 2rem 1rem;
-      bottom: 0;
-      button {
-        background-color: transparent;
-        padding: 1rem 2rem;
-        border: solid 1px color('white');
+      margin-right: 1rem;
+      .variant-select {
+        -webkit-appearance: none;
+        background-image: url(/static/images/down-arrow.png);
+        background-repeat: no-repeat;
+        background-position: 95% 50%;
+        border-radius: 0;
+        border: none;
+        font-family: 'Helvetica Neue', 'Helvetica', Arial, sans-serif;
+        padding: 1rem 0.5rem;
+        background-color: color('white');
+        color: color('black');
+        &:focus {
+          outline: 0;
+        }
       }
 
-      @media #{$medium-up} {
-        width: auto;
-        display: block;
-        right: 0;
-        padding: 6rem 2rem;
+      .buy-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .quant {
+          background: none;
+          border: none;
+          border-bottom: solid 1px color('white');
+          border-radius: 0;
+        }
         button {
-          margin-top: 2rem;
-          background-color: transparent;
-          padding: 1rem 2rem;
+          background: none;
           border: solid 1px color('white');
         }
       }
     }
 
-    @media #{$medium-up} {
-      background-size: 0;
-      .product-details {
-        display: none;
-        position: fixed;
-        z-index: 3;
-      }
-
+    @media #{$small-up} {
+      padding-left: 2rem;
       .product-purchase {
-        position: fixed;
-        transition: 250ms ease-in-out;
-        display: none;
-        z-index: 3;
+        margin-right: 0;
+        display: inline-block;
+        .price, .qt-label {
+          margin-right: 2rem;
+        }
       }
+    }
+  }
 
-      &.in-view {
-        .product-details {
-          display: block;
-        }
+  .gradient-overlay {
+    pointer-events: none;
+    z-index: 2;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
 
-        .product-purchase {
-          display: block;
-        }
+
+  //Slick overrides
+  .slick-slider,
+  .slick-list {
+    height: 100%;
+    .slick-track {
+      height: 100%;
+    }
+  }
+
+  //Modifies Slick Arrow
+  .next-arrow {
+    display: none !important;
+    @media #{$medium-up} {
+      padding-right: 10rem;
+      display: block !important;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      left: 50%;
+      width: 50%;
+      background: none;
+      border: none;
+      text-align: right;
+      svg {
+        transition: 250ms ease-in-out;
+        opacity: 0;
+      }
+      &:hover {
+        svg { opacity: 1; }
+      }
+    }
+  }
+
+  .shop-dots {
+    padding: 0;
+    color: color('white');
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 0;
+    z-index: 2;
+    list-style: none;
+    li {
+      display: inline-block;
+      button {
+        background: none;
+        border: none;
       }
     }
   }

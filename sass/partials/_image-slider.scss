@@ -10,6 +10,31 @@
     }
   }
 }
+//Modifies Slick Arrow
+.last-arrow_modified {
+  display: none !important;
+  @media #{$medium-up} {
+    display: block !important;
+    position: absolute;
+    height: 100%;
+    width: 50%;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 50%;
+    background: none;
+    border: none;
+    text-align: left;
+    svg {
+      transition: 250ms ease-in-out;
+      transform: rotate(180deg);
+      opacity: 0;
+    }
+    &:hover {
+      svg { opacity: 1; }
+    }
+  }
+}
 
 //Modifies Slick Arrow
 .next-arrow_modified {
@@ -17,10 +42,20 @@
   @media #{$medium-up} {
     display: block !important;
     position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
+    top: 0;
+    bottom: 0;
     right: 0;
+    left: 50%;
+    width: 50%;
     background: none;
     border: none;
+    text-align: right;
+    svg {
+      transition: 250ms ease-in-out;
+      opacity: 0;
+    }
+    &:hover {
+      svg { opacity: 1; }
+    }
   }
 }

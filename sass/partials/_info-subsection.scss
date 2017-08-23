@@ -4,6 +4,27 @@
   #clients,
   #talks-and-exhibits,
   #contact {
+    .submit-wrapper {
+      display: flex;
+      border: solid 1px color('white');
+      justify-content: space-between;
+      margin-top: 1rem;
+      input {
+        border: none;
+        background: none;
+        flex-grow: 1;
+      }
+      input::-webkit-input-placeholder { color: color('white') !important; }
+      input:-moz-placeholder { color: color('white') !important; }
+      input::-webkit-input-placeholder { color: color('white') !important; }
+      input::-ms-input-placeholder { color: color('white') !important; }
+      button {
+        display: flex;
+        border: none;
+        background: none;
+      }
+    }
+
     @media #{$medium-up} {
       display: none;
       opacity: 0;

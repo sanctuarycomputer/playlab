@@ -1,6 +1,7 @@
 const notMobile = !(/iphone|ipod|ipad|android|blackberry|opera mini|opera mobi|skyfire|maemo|windows phone|palm|iemobile|symbian|symbianos|fennec/i.test(navigator.userAgent.toLowerCase()));
 const  SCROLL_DURATION = 600;
 const  SMALL_SCREEN = 450;
+const TITLE_BAR_HEIGHT = 125;
 let windowWidth;
 let path = window.location.pathname;
 let route = path.split('/');
@@ -15,7 +16,6 @@ if (notMobile && $(window).width() >= SMALL_SCREEN) {
   //Homepage scroll interaction
   let $homeBlocks = $('.home-block');
   let $introTrigger = $('.intro-trigger');
-  const TITLE_BAR_HEIGHT = 125;
 
   $($homeBlocks[0]).find('.title-bar').addClass('next');
 
@@ -51,18 +51,6 @@ if (notMobile && $(window).width() >= SMALL_SCREEN) {
     });
   });
 
-  //Back to top
-  $introTrigger.waypoint({
-    handler: function(direction) {
-      if (direction === 'down') {
-        window.scrollTo(0, 0);
-      }
-    },
-    offset: function() {
-      return TITLE_BAR_HEIGHT/2;
-    }
-  });
-
   //Homepage click next
   let $sectionBar = $('.title-bar');
   $sectionBar.on('click', function(){
@@ -77,27 +65,12 @@ if (notMobile && $(window).width() >= SMALL_SCREEN) {
   });
 
 
+
   // Work/Info page scroll interaction
   let $stickyTopWrapper = $('.sticky-top-wrapper');
   let $stickyBottomWrapper = $('.sticky-bottom-wrapper');
   let $bottomHeader = $('.bottom-header');
   let $bottomContentWrapper = $('.bottom-content-wrapper');
-
-  $stickyBottomWrapper.waypoint({
-    handler: function (direction) {
-      if (direction ==='down') {
-        $bottomHeader.removeClass('fixed-bottom');
-        $stickyBottomWrapper.css({'margin-top': $stickyTopWrapper.outerHeight() });
-        $stickyTopWrapper.addClass('top-stick');
-      }
-      if (direction === 'up') {
-        $bottomHeader.addClass('fixed-bottom');
-        $stickyBottomWrapper.css({'margin-top': ''});
-        $stickyTopWrapper.removeClass('top-stick');
-      }
-    },
-    offset: '97%',
-  });
 
   $stickyBottomWrapper.waypoint({
     handler: function(direction) {
@@ -111,14 +84,28 @@ if (notMobile && $(window).width() >= SMALL_SCREEN) {
         });
         $bottomContentWrapper.css('padding-top', $bottomHeader.height());
         $(this.element).addClass('scrolling');
-      }
-      if (direction === 'up') {
+      } else if (direction === 'up') {
         $bottomHeader.removeAttr('style');
         $bottomContentWrapper.css('padding-top', '');
         $(this.element).removeClass('scrolling');
       }
     },
     offset: 'bottom-in-view',
+  });
+
+  $stickyBottomWrapper.waypoint({
+    handler: function (direction) {
+      if (direction ==='down') {
+        $bottomHeader.removeClass('fixed-bottom');
+        $stickyBottomWrapper.css({'margin-top': $stickyTopWrapper.outerHeight() });
+        $stickyTopWrapper.addClass('top-stick');
+      } else if (direction === 'up') {
+        $bottomHeader.addClass('fixed-bottom');
+        $stickyBottomWrapper.css({'margin-top': ''});
+        $stickyTopWrapper.removeClass('top-stick');
+      }
+    },
+    offset: '97%',
   });
 
   //Info/Work Bottom header scroll to
@@ -172,58 +159,6 @@ if (notMobile && $(window).width() >= SMALL_SCREEN) {
       $this.parent().siblings('.hover-image').removeClass('is-showing');
     });
   });
-
-
-  //Shop Page
-  let $productBlocks = $('.product');
-  let $shopViewContext = $('.shop-view-context');
-  let $productImageContainer = $('.product-image-container');
-  let $gradientOverlay  = $('.gradient-overlay');
-
-  $productBlocks.each((i, element) => {
-    let $productBlock = $(element);
-    let $productDetails = $('.product-details');
-
-
-    //Scroll down
-    $productBlock.waypoint({
-      handler: function(direction) {
-        if (direction === 'down') {
-          let $thisEl = $(this.element);
-          let activeUrl = $thisEl.data().image;
-          let showGradient = $thisEl.data().gradient;
-          if (showGradient) {
-            $gradientOverlay.addClass('show')
-          } else {
-            $gradientOverlay.removeClass('show')
-          }
-          $productImageContainer.css('background-image', `url(${activeUrl})`);
-          $productBlocks.removeClass('in-view');
-          $thisEl.addClass('in-view');
-        }
-      },
-    });
-
-    //Scroll up
-    $productBlock.waypoint({
-      handler: function(direction) {
-        if (direction === 'up') {
-          let $thisEl = $(this.element);
-          let activeUrl = $thisEl.data().image;
-          let showGradient = $thisEl.data().gradient;
-          if (showGradient) {
-            $gradientOverlay.addClass('show')
-          } else {
-            $gradientOverlay.removeClass('show')
-          }
-          $productImageContainer.css('background-image', `url(${activeUrl})`);
-          $productBlocks.removeClass('in-view');
-          $thisEl.addClass('in-view');
-        }
-      },
-      offset: '-25%',
-    });
-  });
 };
 
 
@@ -274,10 +209,11 @@ $(window).load(function() {
 //Image Gallery
 $('.image-slider').each(function(){
   let $this = $(this);
+
   $this.slick({
     fade: true,
     cssEase: 'ease-in-out',
-    prevArrow: '',
+    prevArrow: $this.prev(),
     nextArrow: $this.next(),
   })
 });
@@ -337,4 +273,43 @@ $(document).ready(function(){
 
   $('.header').midnight();
   $('.mobile-nav-bar').midnight();
+});
+
+let $shopSlider = $('.shop-slider');
+let $productImageSliders = $('.product-image-slider');
+
+
+$shopSlider.slick({
+  fade: true,
+  slidesToShow: 1,
+  arrows: false,
+  dots: true,
+  dotsClass: 'shop-dots',
+  swipe: false,
+});
+
+//Image Gallery
+$productImageSliders.each(function(){
+  let $this = $(this);
+  $this.slick({
+    slidesToShow: 1,
+    arrows: true,
+    prevArrow: '',
+    nextArrow: $this.next(),
+  })
+});
+
+$('.buy-button').on('click', function() {
+  let productLink;
+  let $productPurchase = $(this).closest('.product-purchase');
+  let baseUrl = $productPurchase.find('.variant-select')[0].value;
+  let quantity = $productPurchase.find('.quant')[0].value;
+
+  if (quantity > 1) {
+    productLink = `${baseUrl}&quantity=${quantity}`;
+  } else {
+    productLink = baseUrl;
+  }
+
+  window.open(productLink,'_blank');
 });

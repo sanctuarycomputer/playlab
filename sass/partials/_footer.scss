@@ -5,7 +5,7 @@
     display: flex;
     border: solid 1px color('black');
     justify-content: space-between;
-    margin-top: 1rem;
+    margin-top: 2rem;
     input {
       border: none;
       background: none;
@@ -15,6 +15,7 @@
       color: color('black') !important;
     }
     button {
+      display: flex;
       border: none;
       background: none;
     }
@@ -30,7 +31,7 @@
     order: 2;
   }
   .social-container {
-    margin: 1rem 0;
+    margin: 2rem 0;
     order: 1;
     .social-list {
       flex-direction: column;
@@ -39,6 +40,12 @@
 
   @media #{$small-up} {
     flex-direction: row;
+    padding-right: 2rem;
+    padding-left: 2rem;
+
+    .submit-wrapper {
+      margin-top: 0;
+    }
 
     .md-left-column {
       padding-right: 4rem;
@@ -46,9 +53,12 @@
 
     .flag-container {
       order: 1;
+      .flag-trigger {
+        max-width: 200px;
+      }
     }
     .social-container {
-      margin-bottom: 0;
+      margin: 0;
       order: 2;
       .social-list {
         flex-direction: row;

@@ -12,26 +12,54 @@
 {# This sets our page <title>. It will append this shop's name to the site title defined in base.html #}
 {% block title %}{% parent %} - {{ cms.shop.name }}{% endblock %}
 {% block content %}
-  <div data-midnight="transparent" id="shop" class="relative z1">
-    <div class="xs-hide sm-hide product-image-container fixed col-12 height-100 bg-black">
-    </div>
-    <div class="gradient-overlay xs-hide sm-hide image-gradient fixed col-12 height-100"></div>
-    {% for product in cms.products %}
-      <div data-midnight="transparent" data-image={{product.featured_image.url}} data-gradient={{product.gradient}} class="product col-12 {% if loop.last %} footer-room {% endif %}" style="background-image: url({{product.featured_image.url}})">
-        {% if product.gradient %}
-          <div class="md-hide lg-hide absolute image-gradient col-12 height-100"></div>
-        {% endif %}
-        <div class="product-details col-10 md-col-3 white">
-          <h2 class="title uppercase">{{product.name}}</h2>
-          <p class="description">{{product.description}}</p>
-        </div>
-        <div class="product-purchase white">
-          <p>${{product.price}}</p>
-          <button>
-            <p class="uppercase">Buy</p>
+  <div id="shop" class="relative z1 bg-white">
+
+    <div data-midnight="transparent" class="shop-slider height-100 col-12">
+      {% for product in cms.products %}
+        <div class="relative" style="background-color: blue;">
+          <div class="product-image-slider col-12 height-100">
+            {% for image in product.gallery %}
+              <div class="height-100" style="background-image: url({{image.url}}); background-size: cover; background-repeat: no-repeat; background-position: center center;"></div>
+            {% endfor %}
+          </div>
+          <button class="next-arrow pointer-auto z1">
+            <svg xmlns="http://www.w3.org/2000/svg" width="77" height="49" viewBox="0 0 77 49">
+              <g fill="none">
+                <g fill='white'>
+                  <g transform="translate(-1156 -5813)translate(1156 5812)">
+                    <polygon points="1 27 71.2 27 71.2 23 1 23"/>
+                    <polygon transform="translate(52.014973 25.079942)rotate(-315)translate(-52.014973 -25.079942)" points="65 12 65 42.2 69 42.2 69 8 35 8 35 12"/>
+                  </g>
+                </g>
+              </g>
+            </svg>
           </button>
+          {% if product.gradient %}
+            <div class="gradient-overlay image-gradient"></div>
+          {% endif %}
+          <div class="product-details pointer-none col-12 md-col-6 white z4">
+            <div class="max-width-2">
+              <h2 class="title uppercase pb1">{{product.name}}</h2>
+              <p class="description">{{product.description}}</p>
+            </div>
+            <div class="product-purchase bg-transparent mt3 pointer-auto">
+              <select class="variant-select col-12 block mb3 {% if product.variants.length <= 1 %}hide{% endif %}">
+                {% for variant in product.variants %}
+                <option value={{variant.value}}>{{variant.label}}</option>
+                {% endfor %}
+              </select>
+              <div class="buy-container">
+                <p class="price inline-block">${{product.price}}</p>
+                <p class="qt-label inline-block">QTY:<input class="quant center p2" type="number" min="1" max="20" value="1"/></p>
+                <button class="buy-button p2 inline-block">
+                  <p class="uppercase">Buy</p>
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-    {% endfor %}
+      {% endfor %}
+    </div>
+    <div class="shop-dots"></div>
   </div>
 {% endblock %}

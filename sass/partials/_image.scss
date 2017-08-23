@@ -8,4 +8,11 @@
   &.Landscape { @include aspect-ratio(4,3); }
   &.Portrait {@include aspect-ratio(3,4);  }
   &.Square { @include aspect-ratio(1,1); }
+  &.Video {
+    @include aspect-ratio(375,211);
+    iframe {
+      width: 100%;
+      height: 100%;
+    }
+  }
 }

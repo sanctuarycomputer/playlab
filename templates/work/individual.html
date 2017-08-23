@@ -14,6 +14,19 @@
         {% elseif block.variant === 'image-slider' %}
           <div class="col-12 md-col-8 mx-auto">
             <div class="relative">
+              <!-- THIS ORDER IS IMPORTANT -->
+              <button class="last-arrow_modified z1">
+                <svg xmlns="http://www.w3.org/2000/svg" width="77" height="49" viewBox="0 0 77 49">
+                  <g fill="none">
+                    <g fill={{item.text_color}}>
+                      <g transform="translate(-1156 -5813)translate(1156 5812)">
+                        <polygon points="1 27 71.2 27 71.2 23 1 23"/>
+                        <polygon transform="translate(52.014973 25.079942)rotate(-315)translate(-52.014973 -25.079942)" points="65 12 65 42.2 69 42.2 69 8 35 8 35 12"/>
+                      </g>
+                    </g>
+                  </g>
+                </svg>
+              </button>
               <div class='image-slider center'>
                 {% for slide in block.image_slider %}
                   <div>
@@ -62,7 +75,7 @@
             </div>
           </div>
         {% elseif block.variant === 'one-up' %}
-          <div class="col-12 md-col-8 mx-auto md-center">
+          <div class="col-12 md-col-8 mx-auto md-center md-py4">
             <img class="col-12" src={{block.featured_image.image.url}} />
             <p class="py2 small">{{block.featured_image.caption}}</p>
           </div>
@@ -89,6 +102,13 @@
               </div>
             {% endif %}
           </div>
+      {% elseif block.variant === 'video' %}
+        <div class="col-12 md-col-8 mx-auto md-center md-py4">
+          <div class="image-block Video">
+            {{block.video_block.vimeo_embed|safe}}
+          </div>
+          <p class="py2 small">{{block.video_block.caption}}</p>
+        </div>
       {% endif %}
     {% endfor %}
     {% include "templates/partials/prev-next-select.html" %}
