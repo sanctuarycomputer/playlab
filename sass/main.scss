@@ -45,6 +45,8 @@ a {
   text-decoration: none;
 }
 
+//Input overrides
+
 input, button {
   &:focus { outline:0; }
 }
@@ -60,4 +62,9 @@ input, button {
 }
 :-moz-placeholder { /* Firefox 18- */
   color: color('black');
+}
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }

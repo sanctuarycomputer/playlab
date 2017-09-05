@@ -9,8 +9,7 @@
   .product-details {
     transition: 250ms ease-in-out;
     position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
+    top: 25%;
     padding-left: 1rem;
 
     .product-purchase {
@@ -49,6 +48,7 @@
     }
 
     @media #{$small-up} {
+      top: 35%;
       padding-left: 2rem;
       .product-purchase {
         margin-right: 0;
@@ -106,11 +106,12 @@
   }
 
   .shop-dots {
+    text-align: center;
     padding: 0;
     color: color('white');
     position: fixed;
-    left: 50%;
-    transform: translateX(-50%);
+    left: 0;
+    right: 0;
     bottom: 0;
     z-index: 2;
     list-style: none;
@@ -119,6 +120,9 @@
       button {
         background: none;
         border: none;
+      }
+      &.slick-active {
+        font-style: italic;
       }
     }
   }

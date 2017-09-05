@@ -90,7 +90,9 @@ if (notMobile && $(window).width() >= SMALL_SCREEN) {
         $(this.element).removeClass('scrolling');
       }
     },
-    offset: 'bottom-in-view',
+    offset: function() {
+      return Waypoint.viewportHeight() - (this.element.clientHeight - 2)
+    }
   });
 
   $stickyBottomWrapper.waypoint({

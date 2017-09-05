@@ -171,7 +171,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .shadow {
-  box-shadow: 2px 2px 5px #ECEAEA;
+  box-shadow: 1px 1px 15px rgba(0, 0, 0, 0.25);
 }
 
 .image-gradient {
@@ -319,8 +319,7 @@ h1, h2, h3, h4, h5, h6 {
 #shop .product-details {
   transition: 250ms ease-in-out;
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
+  top: 25%;
   padding-left: 1rem;
 }
 #shop .product-details .product-purchase {
@@ -358,6 +357,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 @media (min-width: 40em) {
   #shop .product-details {
+    top: 35%;
     padding-left: 2rem;
   }
   #shop .product-details .product-purchase {
@@ -411,11 +411,12 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 #shop .shop-dots {
+  text-align: center;
   padding: 0;
   color: #fff;
   position: fixed;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 0;
+  right: 0;
   bottom: 0;
   z-index: 2;
   list-style: none;
@@ -426,6 +427,9 @@ h1, h2, h3, h4, h5, h6 {
 #shop .shop-dots li button {
   background: none;
   border: none;
+}
+#shop .shop-dots li.slick-active {
+  font-style: italic;
 }
 
 .header {
@@ -1018,6 +1022,12 @@ input:focus, button:focus {
 :-moz-placeholder {
   /* Firefox 18- */
   color: #000;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 /*# sourceMappingURL=main.css.map */
