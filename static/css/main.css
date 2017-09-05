@@ -300,11 +300,15 @@ h1, h2, h3, h4, h5, h6 {
     display: block;
   }
   #info .info-header .info-tab.active-tab:after {
-    content: url("/static/images/bullet-white.svg");
+    content: url("/static/images/bullet-white_small.svg");
     color: white;
     position: absolute;
-    width: 10px;
-    margin-left: 5px;
+    margin-left: 10px;
+  }
+}
+@media (min-width: 52em) and (min-width: 64em) {
+  #info .info-header .info-tab.active-tab:after {
+    content: url("/static/images/bullet-white.svg");
   }
 }
 
@@ -333,7 +337,7 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 0;
   border: none;
   font-family: 'Helvetica Neue', 'Helvetica', Arial, sans-serif;
-  padding: 1rem 0.5rem;
+  padding: 1rem;
   background-color: #fff;
   color: #000;
 }
