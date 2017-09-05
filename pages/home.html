@@ -43,6 +43,14 @@
         {{ cms.home.subline|markdown }}
       </li>
       <li>
+        <strong>Featured Projects: </strong>
+        {# Relationship. Note that use the label you set for the relation, not the content-type name. #}
+        {% for relation in cms.home.featured_projects %}
+          {# You can ouput more than just the name. Feel free to output more fields from the CMS. #}
+          <a href="{{ url(relation) }}">{{ relation.name }}</a>{% if not loop.last %},{% endif %}
+        {% endfor %}
+      </li>
+      <li>
         <strong>Preview URL: </strong>
         {{ cms.home.preview_url }}
       </li>

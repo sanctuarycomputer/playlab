@@ -5,6 +5,8 @@
     .image-slider-img {
       width: 100%;
       @media #{$medium-up} {
+        max-height: 60vh;
+        min-height: 300px;
         width: auto;
       }
     }

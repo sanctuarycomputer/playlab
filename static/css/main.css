@@ -137,7 +137,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .link-style {
-  border-bottom: solid 3px;
+  border-bottom: solid 1px;
   padding-bottom: 2px;
   display: inline-block;
 }
@@ -254,6 +254,9 @@ h1, h2, h3, h4, h5, h6 {
   stroke: #D0021B;
 }
 
+#index .see-all {
+  height: calc(100vh - 575px);
+}
 #index .footer-spacer {
   display: none;
 }
@@ -261,6 +264,9 @@ h1, h2, h3, h4, h5, h6 {
   display: none;
 }
 @media (min-width: 52em) {
+  #index .see-all {
+    height: calc(100vh - 277px);
+  }
   #index #footer {
     pointer-events: auto;
     display: flex;
@@ -907,6 +913,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 @media (min-width: 52em) {
   .image-slider .slick-track .image-slider-img {
+    max-height: 60vh;
+    min-height: 300px;
     width: auto;
   }
 }
@@ -974,7 +982,7 @@ html, body {
 
 a {
   text-decoration: none;
-  border-bottom: solid 3px;
+  border-bottom: solid 1px;
   padding-bottom: 2px;
   display: inline-block;
   pointer-events: auto;

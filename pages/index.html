@@ -1,6 +1,5 @@
 {% extends "templates/partials/base.html" %}
 {% set home = cms.home %}
-{% set featuredProjects = cms.work|where('type','Current')|slice(0,3) %}
 {% block title %}{% parent %} - Homepage{% endblock %}
 
 {% block content %}
@@ -21,7 +20,7 @@
     </div>
   </div>
 
-  {% for project in featuredProjects %}
+  {% for project in home.featured_projects %}
     <article data-midnight="header-{{project.text_color}}-{{project.block_color}}" class='home-block clearfix pointer-auto' style='color: {{project.text_color}}; background-color:{{project.block_color}}'>
       <div class='title-bar z4' style='background-color:{{project.block_color}}'>
         <h1 class='center pb2 pt3'>{{project.name}}</h1>
@@ -70,12 +69,10 @@
           </div>
         </div>
       </div>
-      {% if loop.last %}
-        <div class="absolute bottom-0 center col-12 bg-red py3">
-          <h3><a href="/work">See Everything</a></h3>
-        </div>
-      {% endif %}
     </article>
   {% endfor %}
+  <div data-midnight="header-#000000-#D0021B" class="see-all center flex items-center justify-center col-12 bg-red py3">
+    <h3><a href="/work">See Everything</a></h3>
+  </div>
 </div>
 {% endblock %}
