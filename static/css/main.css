@@ -21,7 +21,9 @@ h1, h2, h3, h4, h5, h6, p, li, input, select {
 }
 @media (min-width: 64em) {
   .small {
-    font-size: 25px;
+    font-size: 18px;
+    letter-spacing: 0.1px;
+    line-height: 26px;
   }
 }
 
