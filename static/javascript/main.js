@@ -304,7 +304,7 @@ $shopSlider.on('afterChange', function (e, slick, currentSlide) {
   window.location.hash = nextProductHash;
 });
 
-if (path === '/shop/') {
+if (path === '/shop/' || path === '/shop') {
   if (!window.location.hash) {
     var _productHash = $shopSlider.find('.slick-current').data().productHash;
     window.location.hash = _productHash;
