@@ -340,3 +340,13 @@ $('.buy-button').on('click', function() {
 
   window.open(productLink,'_blank');
 });
+
+let inputMax = 9;
+
+$('input[type=number]').on('mouseup keyup', function () {
+  let $this = $(this);
+
+   if ($this.val() > inputMax) {
+     $this.val(inputMax)
+   }
+});

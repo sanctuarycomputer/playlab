@@ -329,4 +329,14 @@ $('.buy-button').on('click', function () {
   window.open(productLink, '_blank');
 });
 
+var inputMax = 9;
+
+$('input[type=number]').on('mouseup keyup', function () {
+  var $this = $(this);
+
+  if ($this.val() > inputMax) {
+    $this.val(inputMax);
+  }
+});
+
 },{}]},{},[1]);
