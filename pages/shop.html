@@ -16,7 +16,7 @@
 
     <div data-midnight="transparent" class="shop-slider height-100 col-12">
       {% for product in cms.products %}
-        <div class="relative" style="background-color: blue;">
+        <div class="product-slide relative" data-product-hash="{{product.url}}">
           <div class="product-image-slider col-12 height-100">
             {% for image in product.gallery %}
               <div class="height-100" style="background-image: url({{image.url}}); background-size: cover; background-repeat: no-repeat; background-position: center center;"></div>
@@ -50,7 +50,7 @@
               </select>
               <div class="buy-container">
                 <p class="price inline-block">${{product.price}}</p>
-                <p class="qt-label inline-block">QTY:<input class="quant center p2" type="number" inputmode="numeric" pattern="[0-9]*" min="1" max="50" value="1"/></p>
+                <p class="qt-label inline-block">QTY:<input class="quant center p2" type="number" inputmode="numeric" pattern="[0-9]*" min="1" max="9" value="1"/></p>
                 <button class="buy-button p2 inline-block">
                   <p class="uppercase">Buy</p>
                 </button>
