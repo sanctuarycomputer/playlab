@@ -289,6 +289,13 @@ $productImageSliders.each(function () {
   });
 });
 
+// Slider to Slider interaction
+$productImageSliders.on('beforeChange', function (e, slick, currentSlide, nextSlide) {
+  if (nextSlide === 0) {
+    $shopSlider.slick('slickNext');
+  }
+});
+
 $('.buy-button').on('click', function () {
   var productLink = void 0;
   var $productPurchase = $(this).closest('.product-purchase');
