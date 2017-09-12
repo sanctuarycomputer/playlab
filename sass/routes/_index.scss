@@ -1,9 +1,15 @@
 #index {
+  .see-all {
+    height: calc(100vh - #{$mobileFooterHeight});
+  }
   .footer-spacer {
     display: none;
   }
   #footer { display: none; }
   @media #{$medium-up} {
+    .see-all {
+      height: calc(100vh - #{$footerHeight});
+    }
     //Footer override
     #footer {
       pointer-events: auto;

@@ -90,7 +90,9 @@ if (notMobile && $(window).width() >= SMALL_SCREEN) {
         $(this.element).removeClass('scrolling');
       }
     },
-    offset: 'bottom-in-view',
+    offset: function() {
+      return Waypoint.viewportHeight() - (this.element.clientHeight - 2)
+    }
   });
 
   $stickyBottomWrapper.waypoint({
@@ -299,11 +301,36 @@ $productImageSliders.each(function(){
   })
 });
 
+// Slider to Slider interaction
+$productImageSliders.on('beforeChange', function(e, slick, currentSlide, nextSlide) {
+  if (nextSlide === 0) {
+    $shopSlider.slick('slickNext');
+    let nextProductHash = $shopSlider.find('.slick-current').data().productHash;
+    window.location.hash = nextProductHash;
+  }
+});
+
+$shopSlider.on('afterChange', function(e, slick, currentSlide) {
+  let $this = $(this);
+  let nextProductHash = $this.find('.product-slide.slick-current').data().productHash;
+  window.location.hash = nextProductHash;
+});
+
+if (path === '/shop/' || path === '/shop') {
+  if (!window.location.hash) {
+    let productHash      = $shopSlider.find('.slick-current').data().productHash;
+    window.location.hash = productHash;
+  }
+  let productHash        = window.location.hash;
+  let productIndex       = $shopSlider.find(`[data-product-hash='${productHash.split('#')[1]}']`).index();
+  $shopSlider.slick('slickGoTo', productIndex);
+}
+
 $('.buy-button').on('click', function() {
   let productLink;
   let $productPurchase = $(this).closest('.product-purchase');
-  let baseUrl = $productPurchase.find('.variant-select')[0].value;
-  let quantity = $productPurchase.find('.quant')[0].value;
+  let baseUrl          = $productPurchase.find('.variant-select')[0].value;
+  let quantity         = $productPurchase.find('.quant')[0].value;
 
   if (quantity > 1) {
     productLink = `${baseUrl}&quantity=${quantity}`;
@@ -312,4 +339,14 @@ $('.buy-button').on('click', function() {
   }
 
   window.open(productLink,'_blank');
+});
+
+let inputMax = 9;
+
+$('input[type=number]').on('mouseup keyup', function () {
+  let $this = $(this);
+
+   if ($this.val() > inputMax) {
+     $this.val(inputMax)
+   }
 });

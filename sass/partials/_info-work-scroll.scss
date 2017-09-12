@@ -14,7 +14,7 @@
 
 .sticky-bottom-wrapper {
   @media #{$medium-up} {
-    &.work { height: 85vh }
+    &.work { height: 85vh; }
     &.info { height: 82vh; }
     width: 100%;
     overflow:hidden;

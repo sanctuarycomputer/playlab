@@ -1,14 +1,26 @@
-{% set prev = prevItem(item, 'type', false) %}
-{% set next = nextItem(item, 'type', false) %}
+{% set prev  = prevItem(item, false) %}
+{% set next  = nextItem(item, false) %}
+{% set firstProject = cms.work|first %}
+{% set lastProject  = cms.work|last %}
 
 <div class="prev-next-select col-12 mx-auto flex justify-between">
   <div class="prev-wrapper col-4 md-col-3 center p2">
     {% if prev %}
       <a class="prev-pj reset-link" href={{url(prev)}}>
-        <p>Previous</p>
+        <p class="mb2">Previous</p>
         <div class="pj-image xs-hide sm-hide image-block col-12 Landscape">
           <div class="content image"
                style='background-image: url({{prev.thumbnail.image.url}})'>
+
+          </div>
+        </div>
+      </a>
+      {% else %}
+      <a class="prev-pj reset-link" href={{url(lastProject)}}>
+        <p class="mb2">Previous</p>
+        <div class="pj-image xs-hide sm-hide image-block col-12 Landscape">
+          <div class="content image"
+               style='background-image: url({{lastProject.thumbnail.image.url}})'>
 
           </div>
         </div>
@@ -18,10 +30,20 @@
   <div class="next-wrapper col-4 md-col-3 center p2">
     {% if next %}
       <a class="next-pj reset-link" href={{url(next)}}>
-        <p>Next</p>
+        <p class="mb2">Next</p>
         <div class="pj-image xs-hide sm-hide image-block col-12 Landscape">
           <div class="content image"
                style='background-image: url({{next.thumbnail.image.url}})'>
+
+          </div>
+        </div>
+      </a>
+      {% else %}
+      <a class="next-pj reset-link" href={{url(firstProject)}}>
+        <p class="mb2">Next</p>
+        <div class="pj-image xs-hide sm-hide image-block col-12 Landscape">
+          <div class="content image"
+               style='background-image: url({{firstProject.thumbnail.image.url}})'>
 
           </div>
         </div>

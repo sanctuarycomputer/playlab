@@ -9,7 +9,7 @@
     <div class="col-12 flex flex-wrap justify-around">
       {% for project in currentProjects %}
         {% if loop.index % 2 === 1 %}
-          <div class="col-12 flex flex-wrap justify-around">
+          <div class="col-12 flex flex-wrap justify-start">
         {% endif %}
           <div class="col-12 md-col-6">
             <a class="block height-100 reset-link" href="{{ url(project) }}">
@@ -24,7 +24,11 @@
                     </div>
                   </div>
                   <div class="col-12 mt3">
-                    <p>{{project.subtitle}}</p>
+                    {% if project.subtitle %}
+                      <p>{{project.subtitle}}</p>
+                    {% else %}
+                      <p class="hide">Invisible Spaces</p>
+                    {% endif %}
                     <p class="uppercase">{{project.name}}</p>
                   </div>
                 </div>
@@ -38,12 +42,13 @@
     </div>
   </article>
   <article data-midnight="header-#ffffff-#000000" class="work sticky-bottom-wrapper center bg-black white">
-    <div class="bottom-header fixed-bottom transform-3d pointer">
+    <div class="work-header bottom-header fixed-bottom transform-3d pointer">
       <h1 class="py2 bg-black">Archive</h1>
     </div>
+    <div class="work bottom-content-wrapper">
     {% for project in archivedProjects %}
       {% if loop.index % 2 === 1 %}
-        <div class="col-12 flex flex-wrap justify-around">
+        <div class="col-12 flex flex-wrap justify-start">
       {% endif %}
           <div class="col-12 md-col-6">
             <a class="block height-100 reset-link" href="{{ url(project) }}">
@@ -58,7 +63,11 @@
                     </div>
                   </div>
                   <div class="col-12 mt3">
-                    <p>{{project.subtitle}}</p>
+                    {% if project.subtitle %}
+                      <p>{{project.subtitle}}</p>
+                    {% else %}
+                      <p class="hide">Invisible Spaces</p>
+                    {% endif %}
                     <p class="uppercase">{{project.name}}</p>
                   </div>
                 </div>
@@ -69,6 +78,7 @@
         </div>
       {% endif %}
     {% endfor %}
+    </div>
   </article>
 </div>
 {% endblock %}
