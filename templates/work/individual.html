@@ -12,7 +12,7 @@
       {% if block.variant === 'featured-image' %}
         <img class="featured-image block" src={{block.featured_image.image.url}} />
         {% elseif block.variant === 'image-slider' %}
-          <div class="col-12 md-col-8 mx-auto">
+          <div class="col-12 md-col-8 mx-auto md-py4">
             <div class="relative">
               <!-- THIS ORDER IS IMPORTANT -->
               <button class="last-arrow_modified z1">
@@ -54,7 +54,7 @@
             <p class="p4-medium-up py2">{{block.paragraph}}</p>
           </div>
         {% elseif block.variant === 'two-up' %}
-          <div class="col-12 mx-auto clearfix py2">
+          <div class="col-12 mx-auto clearfix md-py4">
             <div class="col col-12 md-col-6 md-p4 md-center">
               <div class="image-block col-12 {{block.image_left.crop}}">
                 <div class="content image"
