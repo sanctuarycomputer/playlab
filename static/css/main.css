@@ -21,9 +21,7 @@ h1, h2, h3, h4, h5, h6, p, li, input, select {
 }
 @media (min-width: 64em) {
   .small {
-    font-size: 18px;
-    letter-spacing: 0.1px;
-    line-height: 26px;
+    font-size: 25px;
   }
 }
 
@@ -292,6 +290,17 @@ h1, h2, h3, h4, h5, h6 {
 
 #work-show {
   -webkit-transform: translate3d(0, 0, 0);
+}
+#work-show .featured-image {
+  display: block;
+  width: 100%;
+  margin: 0 auto;
+}
+@media (min-width: 52em) {
+  #work-show .featured-image {
+    max-height: 50em;
+    width: auto;
+  }
 }
 
 #info .info-header {
@@ -923,7 +932,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 @media (min-width: 52em) {
   .image-slider .slick-track .image-slider-img {
-    max-height: 60vh;
+    max-height: 50em;
     min-height: 300px;
     width: auto;
   }

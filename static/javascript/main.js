@@ -115,7 +115,7 @@ if (notMobile && $(window).width() >= SMALL_SCREEN) {
   $bottomHeader.on('click', function () {
     var $this = $(this);
     if ($this.hasClass('fixed-bottom')) {
-      var sectionTop = $this.offset().top + $this.parent().innerHeight();
+      var sectionTop = $this.offset().top + $this.parent().offset().top;
       $('html,body').animate({
         scrollTop: sectionTop
       }, SCROLL_DURATION, 'swing');

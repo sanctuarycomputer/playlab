@@ -1,3 +1,14 @@
 #work-show {
   -webkit-transform: translate3d(0, 0, 0);
+
+  .featured-image {
+    display: block;
+    width: 100%;
+    margin: 0 auto;
+
+    @media #{$medium-up} {
+      max-height: $sliderMaxHeight;
+      width: auto;
+    }
+  }
 }

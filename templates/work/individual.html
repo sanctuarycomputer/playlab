@@ -10,7 +10,7 @@
     <!-- Work Block Renderer -->
     {% for block in item.blocks %}
       {% if block.variant === 'featured-image' %}
-        <img class="col-12 md-col-10 mx-auto block" src={{block.featured_image.image.url}} />
+        <img class="featured-image block" src={{block.featured_image.image.url}} />
         {% elseif block.variant === 'image-slider' %}
           <div class="col-12 md-col-8 mx-auto">
             <div class="relative">
