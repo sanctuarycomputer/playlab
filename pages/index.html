@@ -23,12 +23,12 @@
   {% for project in home.featured_projects %}
     <article data-midnight="header-{{project.text_color}}-{{project.block_color}}" class='home-block clearfix pointer-auto' style='color: {{project.text_color}}; background-color:{{project.block_color}}'>
       <div class='title-bar z4' style='background-color:{{project.block_color}}'>
-        <h1 class='center pb2 pt3'>{{project.name}}</h1>
+        <h1 class='center pb2 pt3'>{{project.name|safe}}</h1>
       </div>
       <div class='max-width-4 mx-auto'>
         <div class='col col-12 p2 {% if loop.last %} mb4 {% endif %} '>
           <img class='col-12' src='{{project.featured_image.url}}' />
-          <p class='py2 p4-medium-up'>{{project.summary}}</p>
+          <p class='py2 p4-medium-up'>{{project.summary|safe}}</p>
           <div class="relative">
             <!-- THIS ORDER IS IMPORTANT -->
             <button class="last-arrow_modified pointer-auto z1">
