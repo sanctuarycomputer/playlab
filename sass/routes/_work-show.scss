@@ -1,12 +1,12 @@
 #work-show {
   -webkit-transform: translate3d(0, 0, 0);
 
-  .featured-image {
+  .featured-image, .one-up {
     display: block;
     width: 100%;
     margin: 0 auto;
 
-    @media #{$medium-up} {
+    @media #{$large-up} {
       max-height: $sliderMaxHeight;
       width: auto;
     }

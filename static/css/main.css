@@ -291,13 +291,13 @@ h1, h2, h3, h4, h5, h6 {
 #work-show {
   -webkit-transform: translate3d(0, 0, 0);
 }
-#work-show .featured-image {
+#work-show .featured-image, #work-show .one-up {
   display: block;
   width: 100%;
   margin: 0 auto;
 }
-@media (min-width: 52em) {
-  #work-show .featured-image {
+@media (min-width: 64em) {
+  #work-show .featured-image, #work-show .one-up {
     max-height: 50em;
     width: auto;
   }
