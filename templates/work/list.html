@@ -25,7 +25,7 @@
                   </div>
                   <div class="col-12 mt3">
                     {% if project.subtitle %}
-                      <p>{{project.subtitle}}</p>
+                      <p>{{project.subtitle|safe}}</p>
                     {% else %}
                       <p class="hide">Invisible Spaces</p>
                     {% endif %}
@@ -64,7 +64,7 @@
                   </div>
                   <div class="col-12 mt3">
                     {% if project.subtitle %}
-                      <p>{{project.subtitle}}</p>
+                      <p>{{project.subtitle|safe}}</p>
                     {% else %}
                       <p class="hide">Invisible Spaces</p>
                     {% endif %}
