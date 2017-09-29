@@ -298,7 +298,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 @media (min-width: 64em) {
   #work-show .featured-image, #work-show .one-up {
-    max-height: 50em;
+    max-height: 788px;
     width: auto;
   }
 }
@@ -932,7 +932,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 @media (min-width: 52em) {
   .image-slider .slick-track .image-slider-img {
-    max-height: 50em;
+    max-height: 788px;
     min-height: 300px;
     width: auto;
   }
