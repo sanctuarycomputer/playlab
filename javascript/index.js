@@ -168,13 +168,22 @@ if (notMobile && $(window).width() >= SMALL_SCREEN) {
 function checkFooter() {
   $(document).scrollTop() > 10 ? $('#footer').removeClass('inactive') : $('#footer').addClass('inactive');
 }
+// Fixes Issue #64: Footer spacer sizing
+function checkFooterSpacer() {
+  if (!notMobile) $('.footer-spacer').height($(window).height() - $('header.mobile-nav-bar').height());
+}
 
 $(window).scroll(function() {
   checkFooter();
 });
 
+$(window).resize(function() {
+  checkFooterSpacer();
+});
+
 $(document).ready(function() {
   checkFooter();
+  checkFooterSpacer()
 });
 
 
