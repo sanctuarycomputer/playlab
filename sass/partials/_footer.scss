@@ -66,4 +66,8 @@
     }
 
   }
+
+  &.inactive {
+    opacity: 0;
+  }
 }

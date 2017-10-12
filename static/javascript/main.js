@@ -166,6 +166,19 @@ if (notMobile && $(window).width() >= SMALL_SCREEN) {
   });
 };
 
+// Fixes Issue #63: Footer mobile swipe up fix
+function checkFooter() {
+  $(document).scrollTop() > 10 ? $('#footer').removeClass('inactive') : $('#footer').addClass('inactive');
+}
+
+$(window).scroll(function () {
+  checkFooter();
+});
+
+$(document).ready(function () {
+  checkFooter();
+});
+
 $(window).load(function () {
   var navMenus = document.getElementsByClassName('nav-menu');
   var $navMenus = $(navMenus);

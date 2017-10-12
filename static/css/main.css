@@ -655,6 +655,9 @@ h1, h2, h3, h4, h5, h6 {
     flex-direction: row;
   }
 }
+#footer.inactive {
+  opacity: 0;
+}
 
 .home-block {
   padding-top: 125px;
