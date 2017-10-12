@@ -12,7 +12,7 @@
       {% if block.variant === 'featured-image' %}
         <img class="featured-image block" src={{block.featured_image.image.url}} />
         {% elseif block.variant === 'image-slider' %}
-          <div class="col-12 md-col-8 mx-auto md-py4">
+          <div class="col-12 mx-auto md-py4">
             <div class="relative">
               <!-- THIS ORDER IS IMPORTANT -->
               <button class="last-arrow_modified z1">
@@ -30,7 +30,12 @@
               <div class='image-slider center'>
                 {% for slide in block.image_slider %}
                   <div>
-                    <img class="image-slider-img mx-auto" src="{{slide.image.url}}" />
+                  <div class="image-block col-12 {{slide.crop}}" style="max-height: 788px;">
+                    <div class="content slider-image"
+                         style='background-image: url({{slide.image.url}})'>
+
+                    </div>
+                  </div>
                   </div>
                 {% endfor %}
               </div>

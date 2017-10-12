@@ -2,13 +2,11 @@
   .slick-track {
     display: flex;
     align-items: center;
-    .image-slider-img {
-      width: 100%;
-      @media #{$medium-up} {
-        max-height: $sliderMaxHeight;
-        min-height: 300px;
-        width: auto;
-      }
+    .slick-slide  {
+      width: 100% !important;
+    }
+    .image-block {
+      max-height: $sliderMaxHeight;
     }
   }
 }
@@ -28,6 +26,8 @@
     border: none;
     text-align: left;
     svg {
+      position: absolute;
+      left: 10%;
       transition: 250ms ease-in-out;
       transform: rotate(180deg);
       opacity: 0;
@@ -53,6 +53,8 @@
     border: none;
     text-align: right;
     svg {
+      position: absolute;
+      right: 10%;
       transition: 250ms ease-in-out;
       opacity: 0;
     }

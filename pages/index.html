@@ -31,10 +31,10 @@
           <p class='py2 p4-medium-up'>{{project.summary|safe}}</p>
           <div class="relative">
             <!-- THIS ORDER IS IMPORTANT -->
-            <button class="last-arrow_modified pointer-auto z1">
+            <button class="last-arrow_modified z1">
               <svg xmlns="http://www.w3.org/2000/svg" width="77" height="49" viewBox="0 0 77 49">
                 <g fill="none">
-                  <g fill={{project.text_color}}>
+                  <g fill={{item.text_color}}>
                     <g transform="translate(-1156 -5813)translate(1156 5812)">
                       <polygon points="1 27 71.2 27 71.2 23 1 23"/>
                       <polygon transform="translate(52.014973 25.079942)rotate(-315)translate(-52.014973 -25.079942)" points="65 12 65 42.2 69 42.2 69 8 35 8 35 12"/>
@@ -44,17 +44,22 @@
               </svg>
             </button>
             <div class='image-slider center'>
-              {% for image in project.gallery %}
+              {% for image in project.image_gallery %}
                 <div>
-                  <img class="image-slider-img mx-auto" src="{{image.url}}" />
+                <div class="image-block col-12 {{image.crop}}" style="max-height: 788px;">
+                  <div class="content slider-image"
+                       style='background-image: url({{image.url}})'>
+
+                  </div>
+                </div>
                 </div>
               {% endfor %}
             </div>
             <!-- THIS ORDER IS IMPORTANT -->
-            <button class="next-arrow_modified pointer-auto z1">
+            <button class="next-arrow_modified">
               <svg xmlns="http://www.w3.org/2000/svg" width="77" height="49" viewBox="0 0 77 49">
                 <g fill="none">
-                  <g fill={{project.text_color}}>
+                  <g fill={{item.text_color}}>
                     <g transform="translate(-1156 -5813)translate(1156 5812)">
                       <polygon points="1 27 71.2 27 71.2 23 1 23"/>
                       <polygon transform="translate(52.014973 25.079942)rotate(-315)translate(-52.014973 -25.079942)" points="65 12 65 42.2 69 42.2 69 8 35 8 35 12"/>
