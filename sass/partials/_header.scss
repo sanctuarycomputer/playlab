@@ -43,6 +43,10 @@
         }
       }
     }
+    .reset-link:first-of-type {
+      display: inline-block;
+      margin-left: 18px;
+    }
     @media #{$large-up} {
       padding: 0;
     }

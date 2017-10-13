@@ -11,4 +11,18 @@
       width: auto;
     }
   }
+
+  .image-slider-container {
+    margin-bottom: 1em;
+
+    @media #{$medium-up} {
+      margin-bottom: 0;
+    }
+  }
+
+  .work-block {
+    @media #{$medium-up} {
+      margin-top: 0;
+    }
+  }
 }
