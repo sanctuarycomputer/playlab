@@ -67,7 +67,9 @@
 
                 </div>
               </div>
-              <p class="py2 small">{{block.image_left.caption|safe}}</p>
+              {% if block.image_left.caption %}
+                <p class="py2 small">{{block.image_left.caption|safe}}</p>
+              {% endif %}
             </div>
             <div class="col col-12 md-col-6 md-p4 md-center">
               <div class="image-block col-12 {{block.image_right.crop}}">
@@ -76,13 +78,17 @@
 
                 </div>
               </div>
-              <p class="py2 small">{{block.image_right.caption|safe}}</p>
+              {% if block.image_right.caption %}
+                <p class="py2 small">{{block.image_right.caption|safe}}</p>
+              {% endif %}
             </div>
           </div>
         {% elseif block.variant === 'one-up' %}
           <div class="work-block col-12 mx-auto mt1 md-center md-py4">
             <img class="one-up" src={{block.featured_image.image.url}} />
-            <p class="py2 small">{{block.featured_image.caption|safe}}</p>
+            {% if block.featured_image.caption %}
+              <p class="py2 small">{{block.featured_image.caption|safe}}</p>
+            {% endif %}
           </div>
         {% elseif block.variant === 'image-copy' %}
           <div class="work-block col-12 mx-auto mt1 clearfix">
