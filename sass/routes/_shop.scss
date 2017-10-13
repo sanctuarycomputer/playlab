@@ -43,6 +43,12 @@
         button {
           background: none;
           border: solid 1px color('white');
+
+          &.sold-out {
+            background: color('white');
+            color: color('black');
+            cursor: default;
+          }
         }
       }
     }

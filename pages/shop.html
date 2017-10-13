@@ -51,9 +51,15 @@
               <div class="buy-container">
                 <p class="price inline-block">${{product.price}}</p>
                 <p class="qt-label inline-block">QTY:<input class="quant center p2" type="number" inputmode="numeric" pattern="[0-9]*" min="1" max="9" value="1"/></p>
-                <button class="buy-button p2 inline-block">
-                  <p class="uppercase">Buy</p>
-                </button>
+                {% if product.sold_out %}
+                  <button class="buy-button sold-out p2 inline-block" disabled>
+                    <p class="uppercase">Sold Out</p>
+                  </button>
+                {% else %}
+                  <button class="buy-button p2 inline-block">
+                    <p class="uppercase">Buy</p>
+                  </button>
+                {% endif %}
               </div>
             </div>
           </div>
