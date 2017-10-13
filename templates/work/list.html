@@ -2,8 +2,8 @@
 {# This sets our page <title>. It will append this work's name to the site title defined in base.html #}
 {% block title %}{% parent %} - {{ cms.work.name }}{% endblock %}
 {% block content %}
-{% set currentProjects = cms.work|where('type','Current') %}
-{% set archivedProjects = cms.work|where('type','Archive') %}
+{% set currentProjects = cms.workorder.current %}
+{% set archivedProjects = cms.workorder.archive %}
 <div data-midnight="header-#000000-#ECEAEA" id='work-index' class="z1 relative bg-grey site-min-height route-padding-top">
   <article data-midnight="header-#000000-#ECEAEA" class="work sticky-top-wrapper bg-grey center">
     <div class="col-12 flex flex-wrap justify-around">

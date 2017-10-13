@@ -175,15 +175,30 @@ function checkFooterSpacer() {
   if (!notMobile) $('.footer-spacer').height($(window).height() - $('header.mobile-nav-bar').height());
 }
 
+function sizeVideo() {
+  $('.Video').each(function () {
+    var $iframe = $(this).find('iframe');
+    var iHeight = parseInt($iframe.attr('height'));
+    var iWidth = parseInt($iframe.attr('width'));
+    var vWidth = $(this).width();
+    var vHeight = iHeight / iWidth * vWidth;
+
+    $(this).height(vHeight);
+    $(this).parent().height(vHeight);
+  });
+}
+
 $(window).scroll(function () {
   checkFooter();
 });
 
 $(window).resize(function () {
+  sizeVideo();
   checkFooterSpacer();
 });
 
 $(document).ready(function () {
+  sizeVideo();
   checkFooter();
   checkFooterSpacer();
 });
