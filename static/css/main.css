@@ -302,12 +302,18 @@ h1, h2, h3, h4, h5, h6 {
     width: auto;
   }
 }
-#work-show .image-slider-container {
-  margin-bottom: 1em;
+#work-show .work-block {
+  margin-top: 1em;
+}
+#work-show .work-block.image-two-up {
+  margin-top: 0;
+}
+#work-show .work-block.image-two-up > div {
+  margin-top: 1em;
 }
 @media (min-width: 52em) {
-  #work-show .image-slider-container {
-    margin-bottom: 0;
+  #work-show .work-block.image-two-up > div {
+    margin-top: 0;
   }
 }
 @media (min-width: 52em) {
