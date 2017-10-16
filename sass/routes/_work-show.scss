@@ -12,15 +12,21 @@
     }
   }
 
-  .image-slider-container {
-    margin-bottom: 1em;
-
-    @media #{$medium-up} {
-      margin-bottom: 0;
-    }
-  }
-
   .work-block {
+    margin-top: 1em;
+
+    &.image-two-up {
+      margin-top: 0;
+
+      > div {
+        margin-top: 1em;
+
+        @media #{$medium-up} {
+          margin-top: 0;
+        }
+      }
+    }
+
     @media #{$medium-up} {
       margin-top: 0;
     }
