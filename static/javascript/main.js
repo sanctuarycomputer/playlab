@@ -166,6 +166,43 @@ if (notMobile && $(window).width() >= SMALL_SCREEN) {
   });
 };
 
+// Fixes Issue #63: Footer mobile swipe up fix
+function checkFooter() {
+  $(document).scrollTop() > 10 ? $('#footer').removeClass('inactive') : $('#footer').addClass('inactive');
+}
+// Fixes Issue #64: Footer spacer sizing
+function checkFooterSpacer() {
+  if (!notMobile) $('.footer-spacer').height($(window).height() - $('header.mobile-nav-bar').height());
+}
+
+function sizeVideo() {
+  $('.Video').each(function () {
+    var $iframe = $(this).find('iframe');
+    var iHeight = parseInt($iframe.attr('height'));
+    var iWidth = parseInt($iframe.attr('width'));
+    var vWidth = $(this).width();
+    var vHeight = iHeight / iWidth * vWidth;
+
+    $(this).height(vHeight);
+    $(this).parent().height(vHeight);
+  });
+}
+
+$(window).scroll(function () {
+  checkFooter();
+});
+
+$(window).resize(function () {
+  sizeVideo();
+  checkFooterSpacer();
+});
+
+$(document).ready(function () {
+  sizeVideo();
+  checkFooter();
+  checkFooterSpacer();
+});
+
 $(window).load(function () {
   var navMenus = document.getElementsByClassName('nav-menu');
   var $navMenus = $(navMenus);

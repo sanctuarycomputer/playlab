@@ -43,6 +43,12 @@
         button {
           background: none;
           border: solid 1px color('white');
+
+          &.sold-out {
+            background: color('white');
+            color: color('black');
+            cursor: default;
+          }
         }
       }
     }
@@ -120,6 +126,7 @@
       button {
         background: none;
         border: none;
+        padding: 0 12px;
       }
       &.slick-active {
         font-style: italic;
