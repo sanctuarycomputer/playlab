@@ -15,7 +15,7 @@
   <div id="shop" class="relative z1 bg-white">
 
     <div data-midnight="transparent" class="shop-slider height-100 col-12">
-      {% for product in cms.products %}
+      {% for product in cms.shop.product_order %}
         <div class="product-slide relative" data-product-hash="{{product.url}}">
           <div class="product-image-slider col-12 height-100">
             {% for image in product.gallery %}
