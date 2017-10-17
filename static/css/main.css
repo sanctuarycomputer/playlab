@@ -396,6 +396,28 @@ h1, h2, h3, h4, h5, h6 {
   background: #fff;
   color: #000;
   cursor: default;
+  margin-top: 1em;
+}
+@media (min-width: 52em) {
+  #shop .product-details .product-purchase .buy-container button.sold-out {
+    margin-top: 0;
+  }
+}
+#shop .product-details .product-purchase .buy-container.sold-out {
+  display: block;
+}
+#shop .product-details .product-purchase .buy-container.sold-out .qt-label {
+  margin-left: .5em;
+}
+@media (min-width: 52em) {
+  #shop .product-details .product-purchase .buy-container.sold-out {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  #shop .product-details .product-purchase .buy-container.sold-out .qt-label {
+    margin-left: 0;
+  }
 }
 @media (min-width: 40em) {
   #shop .product-details {
