@@ -353,6 +353,16 @@ $shopSlider.on('afterChange', function(e, slick, currentSlide) {
   window.location.hash = nextProductHash;
 });
 
+
+// Fixes #68: Issue with product carousels with single image not advancing to next product
+$('.next-arrow').click(function() {
+  if ($(this).parent().find('.slick-slide').length <= 1) {
+    $shopSlider.slick('slickNext');
+    let nextProductHash = $shopSlider.find('.slick-current').data().productHash;
+    window.location.hash = nextProductHash;
+  }
+});
+
 if (path === '/shop/' || path === '/shop') {
   if (!window.location.hash) {
     let productHash      = $shopSlider.find('.slick-current').data().productHash;
