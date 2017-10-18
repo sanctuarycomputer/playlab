@@ -6,10 +6,11 @@
   }
   .slider-image {
     background-repeat: no-repeat;
-    background-size: contain;
+    background-position: center center;
+    background-size: cover;
 
     @media #{$medium-up} {
-      background-position: center center;
+      background-size: contain;
     }
   }
   &.Flag { @include aspect-ratio(153,82); }

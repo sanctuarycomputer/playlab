@@ -945,11 +945,12 @@ h1, h2, h3, h4, h5, h6 {
 }
 .image-block .slider-image {
   background-repeat: no-repeat;
-  background-size: contain;
+  background-position: center center;
+  background-size: cover;
 }
 @media (min-width: 52em) {
   .image-block .slider-image {
-    background-position: center center;
+    background-size: contain;
   }
 }
 .image-block.Flag {
