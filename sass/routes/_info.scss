@@ -25,7 +25,7 @@
   }
 }
 
-#info + footer,
-#info + .footer-spacer {
+#info ~ footer,
+#info ~ .footer-spacer {
   display: none;
 }
