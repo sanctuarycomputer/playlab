@@ -52,7 +52,7 @@
           </div>
         {% elseif block.variant === 'paragraph' %}
           <div class="work-block col-12 md-col-8 mx-auto">
-            <p class="p4-medium-up py2">{{block.paragraph|safe}}</p>
+            <p class="p4-medium-up">{{block.paragraph|safe}}</p>
           </div>
         {% elseif block.variant === 'two-up' %}
           <div class="work-block image-two-up col-12 mx-auto clearfix md-py4">
@@ -64,7 +64,7 @@
                 </div>
               </div>
               {% if block.image_left.caption %}
-                <p class="py2 small">{{block.image_left.caption|safe}}</p>
+                <p class="pt2 small">{{block.image_left.caption|safe}}</p>
               {% endif %}
             </div>
             <div class="col col-12 md-col-6 md-p4 md-center">
@@ -75,7 +75,7 @@
                 </div>
               </div>
               {% if block.image_right.caption %}
-                <p class="py2 small">{{block.image_right.caption|safe}}</p>
+                <p class="pt2 small">{{block.image_right.caption|safe}}</p>
               {% endif %}
             </div>
           </div>
@@ -83,7 +83,7 @@
           <div class="work-block col-12 mx-auto md-center md-py4">
             <img class="one-up" src={{block.featured_image.image.url}} />
             {% if block.featured_image.caption %}
-              <p class="py2 small">{{block.featured_image.caption|safe}}</p>
+              <p class="pt2 small">{{block.featured_image.caption|safe}}</p>
             {% endif %}
           </div>
         {% elseif block.variant === 'image-copy' %}
@@ -98,11 +98,11 @@
                 </div>
               </div>
               <div class="col col-12 md-col-6 md-p4">
-                <p>{{block.paragraph|safe}}</p>
+                <p class="mt2">{{block.paragraph|safe}}</p>
               </div>
             {% else %}
               <div class="col col-12 md-col-6 md-p4">
-                <p>{{block.paragraph|safe}}</p>
+                <p class="mt2">{{block.paragraph|safe}}</p>
               </div>
               <div class="col col-12 md-col-6 md-p4">
                 <img class="col-12" src={{block.image_right.image.url}} />
@@ -114,7 +114,7 @@
           <div class="image-block Video">
             {{block.video_block.vimeo_embed|safe}}
           </div>
-          <p class="py2 small">{{block.video_block.caption|safe}}</p>
+          <p class="pt2 small">{{block.video_block.caption|safe}}</p>
         </div>
       {% endif %}
     {% endfor %}

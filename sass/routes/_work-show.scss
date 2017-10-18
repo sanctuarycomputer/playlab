@@ -32,7 +32,14 @@
     }
   }
 
-  .image-block + p {
-    line-height: 35px;
+  .image-block {
+    img {
+      max-width: 100%;
+      width: 100%;
+    }
+
+    + p {
+      line-height: 35px;
+    }
   }
 }

@@ -172,7 +172,7 @@ function checkFooter() {
 }
 // Fixes Issue #64: Footer spacer sizing
 function checkFooterSpacer() {
-  if (!notMobile) $('.footer-spacer').height($(window).height() - $('header.mobile-nav-bar').height());
+  if (!notMobile) $('.footer-spacer').height($(window).height());
 }
 
 function sizeVideo() {
