@@ -342,6 +342,7 @@ $productImageSliders.each(function(){
 $productImageSliders.on('beforeChange', function(e, slick, currentSlide, nextSlide) {
   if (nextSlide === 0) {
     $shopSlider.slick('slickNext');
+    
     let nextProductHash = $shopSlider.find('.slick-current').data().productHash;
     window.location.hash = nextProductHash;
   }
@@ -371,6 +372,34 @@ if (path === '/shop/' || path === '/shop') {
   let productHash        = window.location.hash;
   let productIndex       = $shopSlider.find(`[data-product-hash='${productHash.split('#')[1]}']`).index();
   $shopSlider.slick('slickGoTo', productIndex);
+
+
+  // Fixes #68: (continued) Mobile issue with product carousels with single image not advancing to next product
+  document.addEventListener('touchstart', handleTouchStart, false);        
+  document.addEventListener('touchmove', handleTouchMove, false);
+
+  let xDown = null;                                                        
+
+  function handleTouchStart(e) {                                         
+    xDown = e.touches[0].clientX;                                      
+  };                                                
+
+  function handleTouchMove(e) {
+    if (!xDown) return;
+
+    let xUp   = e.touches[0].clientX;   
+    let xDiff = xDown - xUp;
+
+    if (xDiff > 0) {
+      let $targetSlider = $(e.target).closest('.slick-slider');
+      if ($targetSlider.find('.slick-slide').length <= 1) $shopSlider.slick('slickNext');
+    } else {
+      let $targetSlider = $(e.target).closest('.slick-slider');
+      if ($targetSlider.find('.slick-slide').length <= 1) $shopSlider.slick('slickPrev');
+    }    
+
+    xDown = null;                                          
+  };
 }
 
 $('.buy-button').on('click', function() {
