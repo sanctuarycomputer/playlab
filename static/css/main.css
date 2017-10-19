@@ -358,7 +358,12 @@ h1, h2, h3, h4, h5, h6 {
   width: 100%;
 }
 #work-show .image-block + p {
-  line-height: 35px;
+  line-height: 25px;
+}
+@media (min-width: 52em) {
+  #work-show .image-block + p {
+    line-height: 35px;
+  }
 }
 
 #info .info-header {
