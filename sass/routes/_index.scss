@@ -1,4 +1,37 @@
 #index {
+  .home-intro {
+    padding: 1em;
+
+    @media #{$medium-up} {
+      padding: 4em 1em;
+    }
+  }
+
+  .home-subline {
+    padding-bottom: 1em;
+
+    @media #{$medium-up} {
+      padding-bottom: 4em;
+    }
+  }
+
+  .see-more {
+    padding: 0;
+
+    > p {
+      margin-bottom: 1em;
+      padding: 0;
+    }
+
+    @media #{$medium-up} {
+      padding-bottom: 2em;
+    }
+  }
+
+  .home-item.last-item {
+    margin-bottom: 0;
+  }
+
   .see-all {
     height: calc(100vh - #{$mobileFooterHeight});
   }

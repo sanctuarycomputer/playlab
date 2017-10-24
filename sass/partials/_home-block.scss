@@ -1,13 +1,13 @@
 .home-block {
-  padding-top: $titleBarHeight;
+  padding-top: $titleBarHeightMobile;
   position: relative;
   .title-bar {
-    height: $titleBarHeight;
+    height: $titleBarHeightMobile;
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
-    bottom: -$titleBarHeight;
+    bottom: -$titleBarHeightMobile;
     &.next {
       cursor: pointer;
       transition: 250ms ease-in-out;
@@ -18,5 +18,14 @@
         transform: translateY(-70px);
       }
     }
+
+    @media #{$medium-up} {
+      height: $titleBarHeight;
+      bottom: -$titleBarHeight;
+    }
+  }
+
+  @media #{$medium-up} {
+    padding-top: $titleBarHeight;
   }
 }

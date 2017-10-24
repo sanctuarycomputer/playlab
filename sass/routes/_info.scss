@@ -17,4 +17,15 @@
       }
     }
   }
+
+  #talks-and-exhibits {
+    ul li:last-of-type {
+      padding-bottom: 0;
+    }
+  }
+}
+
+#info ~ footer,
+#info ~ .footer-spacer {
+  display: none;
 }

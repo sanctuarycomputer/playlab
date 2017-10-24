@@ -54,7 +54,7 @@
     </div>
   </div>
   {% elseif section.title === 'talks-and-exhibits' %}
-    <div id={{section.title}} class="col-12 md-col-9 pt4 mx-auto">
+    <div id={{section.title}} class="col-12 md-col-9 pt1 mx-auto">
       <h2 class="center md-hide lg-hide capitalize py2">{{section.title}}</h2>
       <ul class="col-12 list-reset left-align">
       {% for item in section.left_column %}
@@ -84,7 +84,7 @@
       </ul>
     </div>
   {% elseif section.title === 'contact' %}
-    <div id={{section.title}} class="col-12 md-col-9 mx-auto py1 flex flex-wrap">
+    <div id={{section.title}} class="col-12 md-col-9 mx-auto pt1 flex flex-wrap">
       <div class="col-12 md-col-5">
         <h2 class="center md-hide lg-hide capitalize py2">{{section.title|safe}}</h2>
         <ul class="list-reset left-align">

@@ -38,6 +38,10 @@ a {
   color: inherit;
 }
 
+p a {
+  display: inline;
+}
+
 .reset-link {
   border-bottom: none;
   display: inline;

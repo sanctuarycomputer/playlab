@@ -6,14 +6,14 @@
 <div id='index' class="relative route-padding-top pointer-none z1 bg-white">
   <div class='clearfix site-min-height bg-white'>
     <div class='max-width-4 clearfix mx-auto'>
-      <div class='col col-12 py4 px2'>
+      <div class='home-intro col col-12 py4 px2'>
         {{ home.intro|markdown }}
       </div>
     </div>
     <div class='max-width-3 mx-auto'>
       <div class='col col-12 p2'>
         <img class='full fit' src="{{home.image_block.image.url}}" />
-        <div class="pt1 pb4 center">
+        <div class="home-subline pt1 pb4 center">
           {{home.subline|markdown}}
         </div>
       </div>
@@ -26,19 +26,17 @@
         <h1 class='center pb2 pt3'>{{project.name|safe}}</h1>
       </div>
       <div class='max-width-4 mx-auto'>
-        <div class='col col-12 p2 {% if loop.last %} mb4 {% endif %} '>
+        <div class='home-item col col-12 p2 {% if loop.last %} last-item mb4 {% endif %} '>
           <img class='col-12' src='{{project.featured_image.url}}' />
           <p class='py2 p4-medium-up'>{{project.summary|safe}}</p>
           <div class="relative">
             <!-- THIS ORDER IS IMPORTANT -->
             <button class="last-arrow_modified z1">
               <svg xmlns="http://www.w3.org/2000/svg" width="77" height="49" viewBox="0 0 77 49">
-                <g fill="none">
-                  <g fill={{item.text_color}}>
-                    <g transform="translate(-1156 -5813)translate(1156 5812)">
-                      <polygon points="1 27 71.2 27 71.2 23 1 23"/>
-                      <polygon transform="translate(52.014973 25.079942)rotate(-315)translate(-52.014973 -25.079942)" points="65 12 65 42.2 69 42.2 69 8 35 8 35 12"/>
-                    </g>
+                <g fill="{{item.text_color}}">
+                  <g transform="translate(-1156 -5813)translate(1156 5812)">
+                    <polygon points="1 27 71.2 27 71.2 23 1 23"/>
+                    <polygon transform="translate(52.014973 25.079942)rotate(-315)translate(-52.014973 -25.079942)" points="65 12 65 42.2 69 42.2 69 8 35 8 35 12"/>
                   </g>
                 </g>
               </svg>
@@ -58,19 +56,17 @@
             <!-- THIS ORDER IS IMPORTANT -->
             <button class="next-arrow_modified">
               <svg xmlns="http://www.w3.org/2000/svg" width="77" height="49" viewBox="0 0 77 49">
-                <g fill="none">
-                  <g fill={{item.text_color}}>
-                    <g transform="translate(-1156 -5813)translate(1156 5812)">
-                      <polygon points="1 27 71.2 27 71.2 23 1 23"/>
-                      <polygon transform="translate(52.014973 25.079942)rotate(-315)translate(-52.014973 -25.079942)" points="65 12 65 42.2 69 42.2 69 8 35 8 35 12"/>
-                    </g>
+                <g fill="{{item.text_color}}">
+                  <g transform="translate(-1156 -5813)translate(1156 5812)">
+                    <polygon points="1 27 71.2 27 71.2 23 1 23"/>
+                    <polygon transform="translate(52.014973 25.079942)rotate(-315)translate(-52.014973 -25.079942)" points="65 12 65 42.2 69 42.2 69 8 35 8 35 12"/>
                   </g>
                 </g>
               </svg>
             </button>
           </div>
-          <div class="py4">
-            <p class='center py2 mb4 mx-auto'><a href={{ url(project)}}>See more</a></p>
+          <div class="see-more py4 mt2">
+            <p class="center mb4 mx-auto"><a href="{{ url(project)}}">See more</a></p>
           </div>
         </div>
       </div>

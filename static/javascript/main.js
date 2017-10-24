@@ -172,7 +172,7 @@ function checkFooter() {
 }
 // Fixes Issue #64: Footer spacer sizing
 function checkFooterSpacer() {
-  if (!notMobile) $('.footer-spacer').height($(window).height() - $('header.mobile-nav-bar').height());
+  if (!notMobile) $('.footer-spacer').height($(window).height());
 }
 
 function sizeVideo() {
@@ -330,6 +330,7 @@ $productImageSliders.each(function () {
 $productImageSliders.on('beforeChange', function (e, slick, currentSlide, nextSlide) {
   if (nextSlide === 0) {
     $shopSlider.slick('slickNext');
+
     var nextProductHash = $shopSlider.find('.slick-current').data().productHash;
     window.location.hash = nextProductHash;
   }
@@ -341,7 +342,37 @@ $shopSlider.on('afterChange', function (e, slick, currentSlide) {
   window.location.hash = nextProductHash;
 });
 
+// Fixes #68: Issue with product carousels with single image not advancing to next product
+$('.next-arrow').click(function () {
+  if ($(this).parent().find('.slick-slide').length <= 1) {
+    $shopSlider.slick('slickNext');
+    var nextProductHash = $shopSlider.find('.slick-current').data().productHash;
+    window.location.hash = nextProductHash;
+  }
+});
+
 if (path === '/shop/' || path === '/shop') {
+  var handleTouchStart = function handleTouchStart(e) {
+    xDown = e.touches[0].clientX;
+  };
+
+  var handleTouchMove = function handleTouchMove(e) {
+    if (!xDown) return;
+
+    var xUp = e.touches[0].clientX;
+    var xDiff = xDown - xUp;
+
+    if (xDiff > 0) {
+      var $targetSlider = $(e.target).closest('.slick-slider');
+      if ($targetSlider.find('.slick-slide').length <= 1) $shopSlider.slick('slickNext');
+    } else {
+      var _$targetSlider = $(e.target).closest('.slick-slider');
+      if (_$targetSlider.find('.slick-slide').length <= 1) $shopSlider.slick('slickPrev');
+    }
+
+    xDown = null;
+  };
+
   if (!window.location.hash) {
     var _productHash = $shopSlider.find('.slick-current').data().productHash;
     window.location.hash = _productHash;
@@ -349,6 +380,16 @@ if (path === '/shop/' || path === '/shop') {
   var productHash = window.location.hash;
   var productIndex = $shopSlider.find('[data-product-hash=\'' + productHash.split('#')[1] + '\']').index();
   $shopSlider.slick('slickGoTo', productIndex);
+
+  // Fixes #68: (continued) Mobile issue with product carousels with single image not advancing to next product
+  document.addEventListener('touchstart', handleTouchStart, false);
+  document.addEventListener('touchmove', handleTouchMove, false);
+
+  var xDown = null;
+
+  ;
+
+  ;
 }
 
 $('.buy-button').on('click', function () {

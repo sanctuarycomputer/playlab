@@ -3,8 +3,8 @@
 <footer id="footer" class='flex col-12 fixed bottom-0 z0'>
   <div class='md-left-column flex flex-column justify-between col-12 md-col-6'>
     <div class="col-12">
-      <p>@playlabinc</p>
-      <p>office@playlab.org</p>
+      <p>{{ playlab.twitter_handle }}</p>
+      <p>{{ playlab.email }}</p>
     </div>
     <div class='col-12'>
       <form class="submit-wrapper p2" action={{playlab.mailchimp_action}} method="post" target="_blank" novalidate>
@@ -26,8 +26,8 @@
   <div class='md-right-column col-12 md-col-6 flex justify-between flex-column'>
     <div class="flag-container flex flex-row justify-between">
       <div class="xs-hide sm-col-9 md-col-8 mb4">
-        <p>244 Canal St. 3F</p>
-        <p>New York, NY</p>
+        <p>{{ playlab.street_address }}</p>
+        <p>{{ playlab.city }}</p>
       </div>
       <div class="col-12 sm-col-3 md-col-4 lg-col-3 max-width-1">
         <div class="flag-trigger image-block col-12 pointer Flag">

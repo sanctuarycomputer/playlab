@@ -48,6 +48,29 @@
             background: color('white');
             color: color('black');
             cursor: default;
+            margin-top: 1em;
+
+            @media #{$medium-up} {
+              margin-top: 0;
+            }
+          }
+        }
+
+        &.sold-out {
+          display: block;
+
+          .qt-label {
+            margin-left: .5em;
+          }
+
+          @media #{$medium-up} {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            .qt-label {
+              margin-left: 0;
+            }
           }
         }
       }
