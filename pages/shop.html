@@ -12,7 +12,7 @@
 {# This sets our page <title>. It will append this shop's name to the site title defined in base.html #}
 {% block title %}{% parent %} - {{ cms.shop.name }}{% endblock %}
 {% block content %}
-  <div id="shop" class="relative z1 bg-white">
+  <div id="shop" class="relative z1 bg-white inactive">
 
     <div data-midnight="transparent" class="shop-slider height-100 col-12">
       {% for product in cms.shop.product_order %}
