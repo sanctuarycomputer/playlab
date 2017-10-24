@@ -204,6 +204,10 @@ $(document).ready(function () {
 });
 
 $(window).load(function () {
+
+  $('header').removeClass('inactive');
+  if ($('#shop').length) $('#shop').removeClass('inactive');
+
   var navMenus = document.getElementsByClassName('nav-menu');
   var $navMenus = $(navMenus);
   var $scrollContainer = $('.html');

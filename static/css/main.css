@@ -402,6 +402,7 @@ h1, h2, h3, h4, h5, h6 {
   left: 0;
   right: 0;
   bottom: 0;
+  transition: opacity 400ms;
 }
 #shop .product-details {
   transition: 250ms ease-in-out;
@@ -546,9 +547,16 @@ h1, h2, h3, h4, h5, h6 {
 #shop .shop-dots li.slick-active {
   font-style: italic;
 }
+#shop.inactive {
+  opacity: 0;
+}
+#shop ~ footer {
+  display: none;
+}
 
 .header {
   display: none;
+  transition: opacity 400ms;
 }
 .header .h1 {
   background-color: transparent;
@@ -604,6 +612,9 @@ h1, h2, h3, h4, h5, h6 {
   .header {
     display: flex;
   }
+}
+.header.inactive {
+  opacity: 0;
 }
 
 #mobile-header {

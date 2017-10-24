@@ -1,5 +1,6 @@
 .header {
   display: none;
+  transition: opacity 400ms;
   .h1 {
     background-color: transparent;
   }
@@ -54,5 +55,9 @@
 
   @media #{$medium-up} {
     display: flex;
+  }
+
+  &.inactive {
+    opacity: 0;
   }
 }

@@ -5,6 +5,7 @@
   left: 0;
   right: 0;
   bottom: 0;
+  transition: opacity 400ms;
 
   .product-details {
     transition: 250ms ease-in-out;
@@ -155,5 +156,13 @@
         font-style: italic;
       }
     }
+  }
+
+  &.inactive {
+    opacity: 0;
+  }
+
+  ~ footer {
+    display: none;
   }
 }
