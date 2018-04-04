@@ -264,26 +264,13 @@ $('.image-slider').each(function(){
 //Flag touch/hover
 (function() {
   let count = 0,
-      showUsa = false;
+      showUsa = false,
+      $flags  = $('.flag');
 
+  $flags.eq(count).addClass('is-showing');
   $('.flag-trigger').on('mouseenter click', function() {
-    let $flags  = $('.flag');
-    let $russia = $('.russia'),
-        $brazil = $('.brazil');
-
-    if (showUsa) {
-      showUsa = false;
-      return $flags.removeClass('is-showing')
-    };
-
-    if (count % 2 === 0) {
-      $brazil.addClass('is-showing');
-      count +=1;
-      return showUsa = true;
-    }
-    $russia.addClass('is-showing');
-    count +=1;
-    return showUsa = true;
+    count = (count >= $flags.length - 1) ? 0 : count + 1;
+    $flags.removeClass('is-showing').eq(count).addClass('is-showing');
   });
 }());
 

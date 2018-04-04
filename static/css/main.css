@@ -730,6 +730,7 @@ h1, h2, h3, h4, h5, h6 {
 #footer .flag {
   opacity: 0;
   transition: 250ms ease-in-out;
+  width: 100%;
 }
 #footer .flag.is-showing {
   opacity: 1;
@@ -976,7 +977,7 @@ h1, h2, h3, h4, h5, h6 {
   display: block;
   content: "";
   width: 100%;
-  padding-top: 53.5947712418%;
+  padding-top: 65.3594771242%;
 }
 .image-block.Flag > .content, .image-block.Flag iframe {
   position: absolute;

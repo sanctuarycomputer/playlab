@@ -23,6 +23,7 @@
   .flag {
     opacity: 0;
     transition: 250ms ease-in-out;
+    width: 100%;
     &.is-showing {
       opacity: 1;
     }
