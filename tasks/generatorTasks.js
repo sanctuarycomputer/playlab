@@ -54,6 +54,10 @@ module.exports = function(grunt) {
     generator.renderTemplates(done, generator.reloadFiles);
   });
 
+  grunt.registerTask('migrateDataToContentful', '', function() {
+    generator.migrateDataToContentful(this.async(), generator.reloadFiles); 
+  });
+
   grunt.registerTask('buildPages', 'Generate static files from pages directory', function() {
     var done = this.async();
 

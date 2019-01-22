@@ -216,6 +216,46 @@ module.exports.generator = function (config, options, logger, fileParser) {
 
   var searchEntryStream = null;
 
+  this.migrateDataToContentful = function (done, cb)  {
+    getData(function(webhookData, webhookTypes) {
+
+      const detectedInverseRelationships = Object.keys(webhookTypes).reduce((acc, webhookKey) => {
+        const webhookType = webhookTypes[webhookKey];
+        const ignored = webhookType.controls.reduce((acc, control) => {
+          if (control.controlType !== 'relation') return acc;
+          if (control.meta.reverseName.length === control.name.length) {
+            throw Error(`reverseName (${control.meta.reverseName.length}) same length as control name (${control.name})`);
+          }
+          if (control.meta.reverseName.length > control.name.length) return acc;
+          return [...acc, control.name]
+        }, []);
+        acc[webhookKey] = ignored;
+        return acc;
+      }, {});
+
+      global.webhook2contentful = {
+        webhookData,
+        webhookTypes,
+        detectedInverseRelationships
+      }; 
+
+      require('./contentfulPopulate')(global.webhook2contentful).finally(() => { if(cb) cb(done); });
+
+      //const runMigration = require('contentful-migration/built/bin/cli').runMigration
+      //const options = {
+      //  filePath: `${__dirname}/contentfulMigration.js`,
+      //  spaceId: 'a8mx6djbd6sl',
+      //  accessToken: 'CFPAT-317a6d8f97b261601a6f61f097342c2219dcfef5ce176fb37705d9df8f73a085',
+      //}
+      //runMigration(options)
+      //  .then(() => {
+      //    require('./contentfulPopulate')(data, typeInfo);
+      //  })
+      //  .catch((e) => console.error)
+      //  .finally(() => { if(cb) cb(done); });
+    });
+  }
+
   this.openSearchEntryStream = function(callback) {
     if(config.get('webhook').noSearch === true) {
       callback();
@@ -627,7 +667,7 @@ module.exports.generator = function (config, options, logger, fileParser) {
   this.renderPages = function (done, cb)  {
     logger.ok('Rendering Pages\n');
 
-    getData(function(data) {
+    getData(function(data, contentTypes) {
 
       glob('pages/**/*', function(err, files) {
         files.forEach(function(file) {
