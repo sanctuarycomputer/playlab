@@ -1,14 +1,9 @@
 const contentful = require('contentful-management');
 
-const SKIP_ASSETS = true;
-
-// TODO: Display Fields
-// TODO: Slug doesn't seem to work right
-// TODO: Seems like Mardown is the default
-// TODO: Persist grid items eventually
-// TODO: Variablize stuff
+// TODO: Handle Checkboxes
 
 const ENTRY_TYPES = ['Link', 'Array']; 
+const BROKEN_ASSETS = [];
 
 const cherrypickFields = (webhookDataset, fields, webhookId) => {
   const memo = {};
@@ -45,12 +40,14 @@ const cherrypickFields = (webhookDataset, fields, webhookId) => {
 
 const createAsset = (environment, assetBlueprintItem) => {
   // It's possible for webhook to store a file without
-  // a content type, so let's ignore it
-  if (!assetBlueprintItem.type) return Promise.resolve();
+  // a content type, so let's throw
+  if (!assetBlueprintItem.type) return Promise.reject();
 
   const splat = assetBlueprintItem.url.split('/');
   const filename = splat[splat.length - 1];
+
   console.log(`🖼 ~~~> Uploading ${filename} to Contentful.`);
+
   return environment.createAsset({
     fields: {
       title: { 'en-US': filename },
@@ -58,12 +55,27 @@ const createAsset = (environment, assetBlueprintItem) => {
         'en-US': {
           contentType: assetBlueprintItem.type,
           fileName: filename,
-          upload: `http://playlab.webhook.org${assetBlueprintItem.url}`
+          upload: `http://${global.webhook2contentful.webhookSiteName}.webhook.org${assetBlueprintItem.url}`
         }
       }
     }
   }).then(asset => {
-    return asset.processForAllLocales().then(asset => asset.publish());
+    return asset.processForAllLocales()
+      .then(asset => {
+        return asset.publish().catch(err => {
+          console.log(`🚫 ~~~> Could NOT publish asset ${filename}.`, err);
+          BROKEN_ASSETS.push(`http://${global.webhook2contentful.webhookSiteName}.webhook.org${assetBlueprintItem.url}`);
+          throw err;
+        });
+      }).catch(err => {
+        console.log(`🚫 ~~~> Could NOT process asset ${filename} (${assetBlueprintItem.url}).`, err);
+        BROKEN_ASSETS.push(`http://${global.webhook2contentful.webhookSiteName}.webhook.org${assetBlueprintItem.url}`);
+        throw err;
+      });
+  }).catch(err => {
+    console.log(`~~~~> Could not create asset`, err);
+    BROKEN_ASSETS.push(`http://${global.webhook2contentful.webhookSiteName}.webhook.org${assetBlueprintItem.url}`);
+    throw err;
   });
 }
 
@@ -71,6 +83,10 @@ const buildAssetsForObject = async(environment, obj) => {
   const objKeyResolvers = Object.keys(obj.__BUILD_ASSETS__).reduce((acc, assetKey) => {
     let assetBlueprint = obj.__BUILD_ASSETS__[assetKey];
     let arrayifiedAssetBlueprint = Array.isArray(assetBlueprint) ? assetBlueprint : [assetBlueprint];
+
+    if (arrayifiedAssetBlueprint.length === 0) {
+      return acc;
+    }
 
     let processedAssets = [];
 
@@ -80,12 +96,19 @@ const buildAssetsForObject = async(environment, obj) => {
         return createAsset(environment, assetBlueprintItem).then(asset => {
           processedAssets.push(asset);
           return asset;
+        }).catch(err => {
+          console.log('Skipping one asset that could not be processed', assetBlueprintItem);
+          return err;
         });
       });
     }, Promise.resolve());
       
     return acc.then(() => build.then(() => {
-      obj.__BUILD_ASSETS__[assetKey] = Array.isArray(assetBlueprint) ? processedAssets : processedAssets[0];
+      if (Array.isArray(assetBlueprint)) {
+        obj.__BUILD_ASSETS__[assetKey] = processedAssets;
+      } else {
+        obj.__BUILD_ASSETS__[assetKey] = processedAssets[0];
+      }
       return processedAssets;
     }));
   }, Promise.resolve());
@@ -96,7 +119,14 @@ const buildAssetsForObject = async(environment, obj) => {
   // Bring newly created assets back into the fieldset
   Object.keys(obj.__BUILD_ASSETS__).forEach(key => {
     const assetResult = obj.__BUILD_ASSETS__[key];
-    if (!assetResult) return;
+
+    // TODO: Is this where it's getting confused??
+    if (!assetResult) {
+      console.log('~~~~~~~~~> YUP, this happened', obj[key]);
+      delete obj[key];
+      delete obj.__BUILD_ASSETS__[key];
+      return;
+    }
 
     if (Array.isArray(assetResult)) {
       obj[key] = { 
@@ -134,19 +164,10 @@ const createContentfulDataset = async (
     });
   }
 
-  if (SKIP_ASSETS) {
-    workingSet.forEach(obj => {
-      Object.keys(obj.__BUILD_ASSETS__).forEach(key => {
-        delete obj[key];
-      });
-    });
-    console.log(`✅ ~~~> Skipping assets for ${webhookKey}`);
-  } else {
-    await workingSet.reduce((acc, obj) => {
-      return acc.then(() => buildAssetsForObject(environment, obj));
-    }, Promise.resolve());
-    console.log(`✅ ~~~> Finished building assets for ${webhookKey}`);
-  }
+  await workingSet.reduce((acc, obj) => {
+    return acc.then(() => buildAssetsForObject(environment, obj));
+  }, Promise.resolve());
+  console.log(`✅ ~~~> Finished building assets for ${webhookKey}`);
  
   // Attempt to persist the dataset itself
   let persisted = false; 
@@ -156,6 +177,7 @@ const createContentfulDataset = async (
     console.log(`🚫 ~~~> Couldn't persist ${webhookKey} yet, as further links are required.`);
   } else {
     await workingSet.reduce((acc, fields) => {
+
       let webhookId;
       if (fields.__WEBHOOK_ID__) {
         webhookId = fields.__WEBHOOK_ID__;
@@ -163,6 +185,7 @@ const createContentfulDataset = async (
       }
       delete fields.__RESOLVE_LINKS__;
       delete fields.__BUILD_ASSETS__;
+
       return acc.then(() => {
         return environment.createEntry(webhookKey, { fields }).then(entry => {
           return entry.publish().then(entry => {
@@ -173,10 +196,19 @@ const createContentfulDataset = async (
               persistedWorkingSet['oneOff'] = entry;
             }
             return entry;
+          }).catch(err => {
+            console.log(`🚫 ~~~> Could NOT publish ${webhookKey}.`, err);
+            // Let it slide, it will just be in draft more
+            return err;
           });
+        }).catch(err => {
+          console.log('~~~~~~~~~> Could not create entry', err);
+          throw err;
         });
       });
+
     }, Promise.resolve());
+
     persisted = true;
     console.log(`✅ ~~~> Did persist ${webhookKey} as all links were resolved on first pass.`);
   }
@@ -213,17 +245,23 @@ const findPersistedEntryForRelation = (persisted, webhookRelation) => {
     return false;
   }
 
-  console.log("!!! SPLAT WEIRD", splat);
+  console.warn("W2C ~~~> !!! SPLAT WEIRD", splat);
   return false;
 };
 
-const resolveLinksForObject = (obj, persisted, webhookType) => {
+const resolveLinksForObject = (obj, persisted, webhookType, stack, webhookId, webhookKey) => {
   obj.__RESOLVE_LINKS__.forEach(key => {
     const unresolved = obj[key]['en-US'];
 
-    // TODO: Persist grid items eventually
+    // Stash Grids for later
     const control = webhookType.controls.find(c => c.name === key);
     if (control.controlType === 'grid') {
+      stack.grids.push({
+        webhookKey,
+        webhookId,
+        key,
+        data: unresolved,
+      });
       delete obj[key];
       obj.__RESOLVE_LINKS__ = obj.__RESOLVE_LINKS__.filter(unresolvedKey => unresolvedKey !== key);
       return;
@@ -240,7 +278,7 @@ const resolveLinksForObject = (obj, persisted, webhookType) => {
       });
       if (entries.every(entry => entry === false)) return;
       if (entries.some(entry => entry === false)) {
-        console.log(`!!! BAD CASE -> ${key}`, webhookType.name, obj);
+        console.log(`W2C ~~~> !!! BAD CASE, should never happen -> ${key}`, webhookType.name, obj);
         return;
       }
 
@@ -268,9 +306,9 @@ const resolveLinksForObject = (obj, persisted, webhookType) => {
   });
 }
 
-const resolveLinksForCollection = (collection, persisted, webhookType) => {
-  Object.values(collection).forEach(obj => {
-    resolveLinksForObject(obj, persisted, webhookType);
+const resolveLinksForCollection = (collection, persisted, webhookType, stack, webhookKey) => {
+  collection.forEach(obj => {
+    resolveLinksForObject(obj, persisted, webhookType, stack, obj.__WEBHOOK_ID__, webhookKey);
   });
 };
 
@@ -285,7 +323,7 @@ const resolveLinksAcrossStack = (environment, stack, webhookTypes) => {
       const workingSet = stack.waiting[webhookKey];
 
       if (Array.isArray(workingSet)) {
-        resolveLinksForCollection(workingSet, stack.persisted, webhookTypes[webhookKey]);
+        resolveLinksForCollection(workingSet, stack.persisted, webhookTypes[webhookKey], stack, webhookKey);
         if (workingSet.some(obj => obj.__RESOLVE_LINKS__.length > 0)) {
           console.log(`🚫 ~~~> Couldn't persist ${webhookKey} yet, as further links are required.`);
           return Promise.resolve();
@@ -308,6 +346,9 @@ const resolveLinksAcrossStack = (environment, stack, webhookTypes) => {
                 }
                 console.log(`🙄 ~~~> Did persist a ${webhookKey} record, moving on...`);
                 return entry;
+              }).catch(err => {
+                console.log(`🚫 ~~~> Could NOT publish ${webhookKey}.`, err);
+                throw err;
               });
             }));
           }, Promise.resolve());
@@ -320,7 +361,7 @@ const resolveLinksAcrossStack = (environment, stack, webhookTypes) => {
           });
         }
       } else {
-        resolveLinksForObject(workingSet, stack.persisted, webhookTypes[webhookKey]);
+        resolveLinksForObject(workingSet, stack.persisted, webhookTypes[webhookKey], stack, webhookKey, webhookKey);
         if (workingSet.__RESOLVE_LINKS__.length > 0) {
           console.log(`🚫 ~~~> Couldn't persist ${webhookKey} yet, as further links are required.`);
           return Promise.resolve();
@@ -334,6 +375,9 @@ const resolveLinksAcrossStack = (environment, stack, webhookTypes) => {
               delete stack.waiting[webhookKey]
               stack.persisted[webhookKey] = entry;
               return entry;
+            }).catch(err => {
+              console.log(`🚫 ~~~> Could NOT publish ${webhookKey}.`, err);
+              throw err;
             });
           });
         }
@@ -354,11 +398,11 @@ const resolveLinksAcrossStack = (environment, stack, webhookTypes) => {
 
 module.exports = async function({ webhookData, webhookTypes, detectedInverseRelationships }) {
   const client = contentful.createClient({
-    accessToken: 'CFPAT-317a6d8f97b261601a6f61f097342c2219dcfef5ce176fb37705d9df8f73a085', // TODO: variable
+    accessToken: global.webhook2contentful.contentfulPersonalAccessToken,
   });
 
   console.log(`⌛ ~~~> Loading your Contentful space data...`);
-  const space = await client.getSpace('a8mx6djbd6sl'); // TODO: variable
+  const space = await client.getSpace(global.webhook2contentful.contentfulSpaceId);   
   const environment = await space.getEnvironment('master');
 
   /* Preload the Content Types */
@@ -377,7 +421,7 @@ module.exports = async function({ webhookData, webhookTypes, detectedInverseRela
   console.log(`✅ ~~~> Loaded your Contentful space data!`);
 
   /* Let's take a pass */
-  const stack = { persisted: {}, waiting: {} };
+  const stack = { persisted: {}, waiting: {}, grids: [] };
 
   await Object.keys(webhookData).reduce((acc, webhookKey) => {
     const webhookType = webhookTypes[webhookKey];
@@ -386,6 +430,7 @@ module.exports = async function({ webhookData, webhookTypes, detectedInverseRela
 
     return acc.then(() => {
       console.log(`🔨 ~~~> Taking initial pass for: ${webhookKey}`);
+      
       return createContentfulDataset(
         environment, 
         ContentTypes[webhookKey], 
@@ -403,5 +448,74 @@ module.exports = async function({ webhookData, webhookTypes, detectedInverseRela
     });
   }, Promise.resolve());
 
-  await resolveLinksAcrossStack(environment, stack, webhookTypes);
+  await resolveLinksAcrossStack(environment, stack, webhookTypes).then(() => {
+    console.log('~~~> Linking back grid items');
+
+    return Promise.all(stack.grids.map(gridDataset => {
+      if (!gridDataset.data) return Promise.resolve();
+
+      const fauxWebhookKey = `${gridDataset.key}_subitem`;
+      console.log('~~~> will load a content type', fauxWebhookKey);
+      return environment.getContentType(fauxWebhookKey).then(ContentType => {
+        const fauxWebhookType = {
+          oneOff: false,
+          controls: webhookTypes[gridDataset.webhookKey].controls.find(c => c.name === gridDataset.key).controls
+        };
+
+        console.log('~~~> will create grid item', ContentType, fauxWebhookKey, fauxWebhookType, gridDataset.data);
+
+        return createContentfulDataset(
+          environment,
+          ContentType,
+          fauxWebhookKey,
+          fauxWebhookType,
+          gridDataset.data 
+        ).then(({ workingSet, persisted }) => {
+
+          console.log('~~~> did persist a grid item', workingSet, persisted);
+
+          if (persisted) {
+            const persistedSet = stack.persisted[gridDataset.webhookKey];
+            // Parent is not One Off
+            if (webhookTypes[gridDataset.webhookKey].oneOff) {
+              // Parent IS one off
+              persistedSet.fields[gridDataset.key] = {
+                'en-US': Object.values(workingSet).map(entry => ({
+                  sys: { type: 'Link', linkType: 'Entry', id: entry.sys.id }
+                }))
+              }
+              return persistedSet.update();
+            } else {
+              persistedSet[gridDataset.webhookId].fields[gridDataset.key] = {
+                'en-US': Object.values(workingSet).map(entry => ({
+                  sys: { type: 'Link', linkType: 'Entry', id: entry.sys.id }
+                }))
+              }
+              return persistedSet[gridDataset.webhookId].update();
+            }
+          } else {
+            console.log("!!! ~~~~> Grid items were not persisted due to unresolved links! This case is not supported by webhook2contentful yet.");
+            return Promise.resolve();
+          }
+        });
+      }).catch(err => {
+        console.log('!!!! Could not persist a grid item.');
+        console.log(err);
+        // Let it slide
+        return err;
+      });
+    })).then(() => {
+
+      // JSONFlie
+      return new Promise((resolve, reject) => {
+        require('jsonfile').writeFile(`${__dirname}/brokenAssets.json`, {
+          brokenAssets: BROKEN_ASSETS 
+        }, function(err) {
+          if (err) return reject(err);
+          resolve();
+        });
+      });
+
+    });
+  });
 }

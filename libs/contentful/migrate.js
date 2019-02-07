@@ -1,97 +1,73 @@
-const Types = {
-  SYMBOL: 'Symbol',
-  TEXT: 'Text',
-  INTEGER: 'Integer',
-  NUMBER: 'Number',
-  DATE: 'Date',
-  BOOLEAN: 'Boolean',
-  OBJECT: 'Object',
-  LOCATION: 'Location',
-  RICH_TEXT: 'RichText',
-  ARRAY: 'Array',
-  LINK: 'Link',
-  ENTRY: 'Entry',
-  ASSET: 'Asset'
-};
+const Constants = require('./constants');
+const { Types, Widgets, WebhookFieldMappings } = Constants;
 
-const Widgets = {
-  DROPDOWN: 'dropdown',
-  URL_EDITOR: 'urlEditor',
-  SLUG_EDITOR: 'slugEditor',
-  BOOLEAN: 'boolean',
-  ENTRY_LINKS_EDITOR: 'entryLinksEditor',
-  ASSET_GALLERY_EDITOR: 'assetGalleryEditor'
-};
-
-const WebhookFieldMappings = {
-  'textfield': {
-    contentfulType: Types.TEXT
-  },
-  'textarea': {
-    contentfulType: Types.TEXT
-  },
-  'datetime': {
-    contentfulType: Types.DATE
-  },
-  'markdown': {
-    contentfulType: Types.TEXT
-  },
-  'url': {
-    contentfulType: Types.SYMBOL,
-  },
-  'email': {
-    contentfulType: Types.SYMBOL
-  },
-  'color': {
-    contentfulType: Types.SYMBOL
-  },
-  'boolean': {
-    contentfulType: Types.BOOLEAN,
-  },
-  'select': {
-    contentfulType: Types.SYMBOL
-  },
-  'relation': {},
-  'image': {},
-  'gallery': {},
-  'grid': {},
+const applyDisplayField = (ContentType, fieldNames) => {
+  if (fieldNames.includes('name')) return ContentType.displayField('name');
+  if (fieldNames.includes('title')) return ContentType.displayField('title');
+  if (fieldNames.includes('label')) return ContentType.displayField('label');
+  return;
 }
+
+const TAKEN_GRIDITEM_SUBTYPES = [];
 
 const buildWebhookControlForContentType = (migration, ContentType, control, detectedInverseRelationships) => {
   if (detectedInverseRelationships.includes(control.name)) {
-    console.warn(`Ignoring relationship ${control.name} as it appears to be inverse`);
+    console.warn(`W2C ~~~> Ignoring relationship ${control.name} as it appears to be inverse`);
     return; 
   }
 
-  // Ignore Timestamps
-  if (["create_date", "last_updated", "publish_date", "preview_url"].includes(control.name)) return;
+  /* Ignore Timestamps & Extra Junk - slugs are generated at build time by webhook */
+  if (["slug", "create_date", "last_updated", "publish_date", "preview_url"].includes(control.name)) return;
+
+  /* Ignore "instruction" blocks */
+  if (control.controlType === "instruction") {
+    console.warn(`W2C ~~~> Ignoring instruction ${control.name} as contentful instructions belong on the field rather than seperate.`, control.help);
+    return;
+  }
+
+  /* TODO: dont early return here */
+  if (control.controlType === "embedly") {
+    console.warn(`W2C ~~~> Treating ${control.name} as a string, as Contentful doesn't support embedly.`);
+    return;
+  }
 
   const controlMapping = WebhookFieldMappings[control.controlType];
-  if (!controlMapping) throw new Error(`No mapping for webhook control: ${control.controlType}`);
-  let defaultValidations = controlMapping.contentfulValidations || [];
+  if (!controlMapping) {
+    console.log(control, control.meta);
+    throw new Error(`W2C ~~~> No mapping for webhook control: ${control.controlType}`);
+  }
 
-  // Break Grid Types into subtypes
+  let defaultValidations = [];
+
+  /* Pull out Grid Types into subtypes */
   if (control.controlType === 'grid') {
+    const subItemType = `${control.name}_subitem`;
+    if (TAKEN_GRIDITEM_SUBTYPES.includes(subItemType)) {
+      throw new Error("webhook2contentful ~~~> Dang. You've got a couple of different grids (list item types) in your webhook model that have the same key name. Right now, this isn't a scenario we handle, please reach out to @_HHFF on twitter for some ideas");
+    }
     const GridSubItemContentType = buildWebhookType(migration, `${control.name}_subitem`, `${control.label} Subitem`);
     control.controls.forEach(control => {
       buildWebhookControlForContentType(migration, GridSubItemContentType, control, []);
     });
+    applyDisplayField(GridSubItemContentType, control.controls.map(c => c.name));
+    TAKEN_GRIDITEM_SUBTYPES.push(subItemType);
   }
 
-  // Init the default field
+  /* Init the field */
   const Field = ContentType.createField(control.name)
     .name(control.label)
     .required(control.required);
 
   let type = controlMapping.contentfulType;
 
-  // Deal with the trippy types
+  /* Deal with the trippy types */
   if (control.controlType === 'relation') {
     if (control.meta.isSingle) {
       Field.type(Types.LINK).linkType(Types.ENTRY);
       defaultValidations = [...defaultValidations, {
         linkContentType: [control.meta.contentTypeId]
       }];
+      ContentType.changeEditorInterface(control.name, Widgets.ENTRY_LINK_EDITOR);
     } else {
       Field.type(Types.ARRAY).items({
         type: Types.LINK,
@@ -100,10 +76,10 @@ const buildWebhookControlForContentType = (migration, ContentType, control, dete
           linkContentType: [control.meta.contentTypeId]
         }]
       });
+      ContentType.changeEditorInterface(control.name, Widgets.ENTRY_LINKS_EDITOR, {
+        bulkEditing: true
+      });
     }
-    ContentType.changeEditorInterface(control.name, Widgets.ENTRY_LINKS_EDITOR, {
-      bulkEditing: true
-    });
   } else if (control.controlType === 'grid') {
     Field.type(Types.ARRAY).items({
       type: Types.LINK,
@@ -120,6 +96,8 @@ const buildWebhookControlForContentType = (migration, ContentType, control, dete
     defaultValidations = [...defaultValidations, {
       linkMimetypeGroup: ['image']
     }];
+  } else if (control.controlType === 'file') {
+    Field.type(Types.LINK).linkType(Types.ASSET);
   } else if (control.controlType === 'gallery') {
     Field.type(Types.ARRAY).items({
       type: Types.LINK,
@@ -137,19 +115,30 @@ const buildWebhookControlForContentType = (migration, ContentType, control, dete
 
   // Editors & Extra Validations
   switch(control.controlType) {
-    case 'url':
+    case 'url': {
       ContentType.changeEditorInterface(control.name, Widgets.URL_EDITOR);
       break;
+    }
 
-    case 'select':
+    case 'select': {
       ContentType.changeEditorInterface(control.name, Widgets.DROPDOWN);
       const { options } = control.meta;
       defaultValidations = [...defaultValidations, {
         in: options.map(o => o.value)
       }];
       break;
+    }
 
-    case 'boolean':
+    case 'checkbox': {
+      ContentType.changeEditorInterface(control.name, Widgets.CHECKBOX);
+      const { options } = control.meta;
+      defaultValidations = [...defaultValidations, {
+        in: options.map(o => o.label)
+      }];
+      break;
+    }
+
+    case 'boolean': {
       let { falseLabel, trueLabel } = control.meta;
       if (!falseLabel) falseLabel = "No";
       if (!trueLabel) falseLabel = "Yes";
@@ -157,11 +146,8 @@ const buildWebhookControlForContentType = (migration, ContentType, control, dete
         trueLabel, falseLabel
       });
       break;
+    }
   };
-
-  if (control.name === 'slug') {
-    ContentType.changeEditorInterface(control.name, Widgets.SLUG_EDITOR);
-  }
 
   // Apply Validations
   if (defaultValidations.length) {
@@ -173,55 +159,39 @@ const buildWebhookType = (migration, key, name) => {
   return migration.createContentType(key).name(name);
 }
 
-const cherrypickFields = (webhookData, contentType) => {
-  return webhookType.controls.reduce((data, control) => {
-
-    contentType.fields.forEach(field => {
-    });
-
-  if (control.controlType === 'relation') {
-  } else if (control.controlType === 'grid') {
-  } else if (control.controlType === 'image') {
-  } else if (control.controlType === 'gallery') {
-  } else {
-    // Primitves
-      
-  }
-    
-  }, {});
-}
-
-
 module.exports = function (migration, context) {
-  const { webhookData, webhookTypes } = global.webhook2contentful;
+  const { 
+    webhookData, 
+    webhookTypes, 
+    detectedInverseRelationships 
+  } = global.webhook2contentful;
 
-  // Build Data
-  //Object.keys(webhookData).forEach(webhookKey => {
-  //  const webhookType = webhookTypes[webhookKey];
-  //  if (!webhookType) return;
-  //  const webhookDataset = webhookData[webhookKey];
-  //  createContentfulDataset(client, webhookKey, webhookType, webhookDataset, detectedInverseRelationships[webhookKey]);
-  //});
+  global.webhook2contentful.oneOff = [];
 
-  createContentfulDataset(null, 'home', webhookTypes['home'], webhookData['home'], detectedInverseRelationships['home']);
-
-  //console.log(webhookTypes['home'].oneOff)
-  //console.log(webhookData['home']);
-
-
-  return;
-
-  // Build our Main content types
+  /* Build our Main content types */
   const ContentTypeTuples = Object.keys(webhookTypes).map(webhookKey => {
     const webhookType = webhookTypes[webhookKey];
-    return { ContentType: buildWebhookType(migration, webhookKey, webhookType.name), webhookKey };
+    return { 
+      ContentType: buildWebhookType(migration, webhookKey, webhookType.name), 
+      webhookKey 
+    };
   });
 
-  // Populate Content Types fields 
+  /* Populate Content Types fields */
   ContentTypeTuples.forEach(({ ContentType, webhookKey }) => {
+    if (webhookTypes[webhookKey].oneOff) {
+      global.webhook2contentful.oneOff.push(webhookKey);
+    }
+
     webhookTypes[webhookKey].controls.forEach(control => {
-      buildWebhookControlForContentType(migration, ContentType, control, detectedInverseRelationships[webhookKey])
+      buildWebhookControlForContentType(
+        migration, 
+        ContentType, 
+        control, 
+        detectedInverseRelationships[webhookKey]
+      )
     });
+    applyDisplayField(ContentType, webhookTypes[webhookKey].controls.map(c => c.name));
   });
 
   //const GlobalSettings = migration.createContentType('settings')

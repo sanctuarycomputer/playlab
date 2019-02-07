@@ -1,0 +1,6 @@
+{
+  "webhookSiteName": "playlab",
+  "contentfulSpaceId": "osuo406nwtxc",
+  "contentfulPersonalAccessToken": "CFPAT-317a6d8f97b261601a6f61f097342c2219dcfef5ce176fb37705d9df8f73a085",
+  "singletons": ["home", "workorder", "playlab", "shop", "info"]
+}
