@@ -116,10 +116,10 @@ const buildAssetsForObject = async(environment, obj) => {
     }));
   }, Promise.resolve());
 
-  // Wait until all assets are built
+  /* Wait until all assets are built */
   await objKeyResolvers;
 
-  // Bring newly created assets back into the fieldset
+  /* Bring newly created assets back into the fieldset */
   Object.keys(obj.__BUILD_ASSETS__).forEach(key => {
     const assetResult = obj.__BUILD_ASSETS__[key];
 
@@ -170,7 +170,7 @@ const createContentfulDataset = async (
   }, Promise.resolve());
   console.log(`✅ ~~~> Finished building assets for ${webhookKey}`);
  
-  // Attempt to persist the dataset itself
+  /* Attempt to persist the dataset itself */
   let persisted = false; 
   let persistedWorkingSet = {};
 
@@ -231,14 +231,14 @@ const findPersistedEntryForRelation = (persisted, webhookRelation) => {
   const splat = webhookRelation.split(' ');
 
   if (splat.length === 2) {
-    // Refers to something in a collection
+    /* Refers to something in a collection */
     const [webhookKey, webhookId] = splat;
     if (persisted[webhookKey] && persisted[webhookKey][webhookId]) {
       return persisted[webhookKey][webhookId];
     }
     return false;
   } else if (splat.length === 1) {
-    // Refers to a singleton
+    /* Refers to a singleton */
     const webhookKey = splat[0];
     if (persisted[webhookKey]) {
       return persisted[webhookKey];
@@ -254,7 +254,7 @@ const resolveLinksForObject = (obj, persisted, webhookType, stack, webhookId, we
   obj.__RESOLVE_LINKS__.forEach(key => {
     const unresolved = obj[key]['en-US'];
 
-    // Stash Grids for later
+    /* Stash Grids for later */
     const control = webhookType.controls.find(c => c.name === key);
     if (control.controlType === 'grid') {
       stack.grids.push({
@@ -269,7 +269,7 @@ const resolveLinksForObject = (obj, persisted, webhookType, stack, webhookId, we
     }
 
     if (Array.isArray(unresolved)) {
-      // Relationship not populated, ignore this key
+      /* Relationship not populated, ignore this key */
       if (unresolved.length === 0) {
         obj.__RESOLVE_LINKS__ = obj.__RESOLVE_LINKS__.filter(unresolvedKey => unresolvedKey !== key);
         return;
@@ -290,7 +290,7 @@ const resolveLinksForObject = (obj, persisted, webhookType, stack, webhookId, we
       };
       obj.__RESOLVE_LINKS__ = obj.__RESOLVE_LINKS__.filter(unresolvedKey => unresolvedKey !== key);
     } else {
-      // Relationship not populated, ignore this key
+      /* Relationship not populated, ignore this key */
       if (!unresolved) {
         obj.__RESOLVE_LINKS__ = obj.__RESOLVE_LINKS__.filter(unresolvedKey => unresolvedKey !== key);
         return;
@@ -506,5 +506,5 @@ module.exports = async function({ webhookData, webhookTypes, detectedInverseRela
   await resolveLinksAcrossStack(environment, stack, webhookTypes);
   await persistGridItems(environment, stack, webhookTypes);
 
-  console.log("~~~~> FINISHED. You're now riding on contentful. Try a `wh serve` and see the magic.");
+  console.log("🎉 ~~~> FINISHED! You're now riding on Contentful. Try a `wh serve` and see the magic.");
 }

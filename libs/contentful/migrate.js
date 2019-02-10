@@ -16,25 +16,24 @@ const buildWebhookControlForContentType = (migration, ContentType, control, dete
     return; 
   }
 
-  /* Ignore Timestamps & Extra Junk - slugs are generated at build time by webhook */
+  /* Ignore Timestamps & Extra Junk - plus slugs are generated at build time by webhook */
   if (["slug", "create_date", "last_updated", "publish_date", "preview_url"].includes(control.name)) return;
 
   /* Ignore "instruction" blocks */
   if (control.controlType === "instruction") {
-    console.warn(`W2C ~~~> Ignoring instruction ${control.name} as contentful instructions belong on the field rather than seperate.`, control.help);
+    console.warn(`webhook2contentful ~~~> Ignoring instruction ${control.name} as contentful instructions belong on the field rather than seperate.`, control.help);
     return;
   }
 
-  /* TODO: dont early return here */
   if (control.controlType === "embedly") {
-    console.warn(`W2C ~~~> Treating ${control.name} as a string, as Contentful doesn't support embedly.`);
+    console.warn(`webhook2contentful ~~~> Treating ${control.name} as a string, as Contentful doesn't support embedly.`);
     return;
   }
 
   const controlMapping = WebhookFieldMappings[control.controlType];
   if (!controlMapping) {
     console.log(control, control.meta);
-    throw new Error(`W2C ~~~> No mapping for webhook control: ${control.controlType}`);
+    throw new Error(`webhook2contentful ~~~> No mapping for webhook control: ${control.controlType}`);
   }
 
   let defaultValidations = [];

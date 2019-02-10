@@ -14,8 +14,7 @@ const deserializeImageAsset = asset => {
 }
 
 const deserializeSingularValue = (value, control, result) => {
-  // TODO: Handle parsing / coercing maybe?
-  /* Value is primitive */ 
+  /* Value is primitive, return it as is. Oneday this maybe needs a coersion layer. */ 
   if (!value.sys) return value;
   
   /* Handle case when value is a Link or Asset */

@@ -10,6 +10,7 @@ const controlTypeForField = (field, editor) => {
       if (linkValidation.linkMimetypeGroup[0] === "image") {
         return { controlType: "gallery" };
       }
+      console.log(field);
       throw "Array.Asset.notImplemented";
     } 
 
@@ -22,6 +23,7 @@ const controlTypeForField = (field, editor) => {
       }
       return { controlType: 'relation', meta: { contentTypeId: linkValidation.linkContentType[0] } };
     } 
+    console.log(field);
     throw "Array.unknownItemLinkType";
   }
 
@@ -33,6 +35,7 @@ const controlTypeForField = (field, editor) => {
       if (linkValidation.linkMimetypeGroup[0] === "image") {
         return { controlType: "image" };
       }
+      console.log(field);
       throw "Link.Asset.unknownValidation"
     } 
 
@@ -42,6 +45,7 @@ const controlTypeForField = (field, editor) => {
       if (!linkValidation) throw "Link.Entry.noValidation";
       return { controlType: 'relation', meta: { contentTypeId: linkValidation.linkContentType[0], isSingle: true } };
     } 
+    console.log(field);
     throw "Link.unknownLinktype";
   }
 
@@ -59,15 +63,15 @@ const controlTypeForField = (field, editor) => {
       }
       return type;
     }
-    if (widgetId === Widgets.CHECKBOX) throw "Symbol.Checkbox.notImplemented"; // TODO add example
-    if (widgetId === Widgets.SLUG_EDITOR) return { controlType: "textfield" }; // TODO add example
+    if (widgetId === Widgets.CHECKBOX) throw "TODO: Symbol.Checkbox.notImplemented";
+    if (widgetId === Widgets.SLUG_EDITOR) return { controlType: "textfield" };
     if (widgetId === Widgets.URL_EDITOR) return { controlType: "url" };
     return { controlType: "textfield" };
   }
 
   if (field.type === Types.TEXT) {
     const widgetId = editor.controls.find(c => c.fieldId === field.id).widgetId;
-    if (widgetId === Widgets.MARKDOWN) return { controlType: "markdown" }; // TODO add example, plus ensure all text areas aren't markdown
+    if (widgetId === Widgets.MARKDOWN) return { controlType: "markdown" };
     return { controlType: "textarea" };
   }
 
@@ -84,11 +88,12 @@ const controlTypeForField = (field, editor) => {
   }
 
   if (field.type === Types.DATE) {
-    throw "Date.notImplemented"; // TODO add example
+    console.log(field, editor);
+    throw "TODO: Date.notImplemented";
   }
 
   console.log(field, editor);
-  throw "Primitive.NotImplemented";
+  throw "TODO: Primitive.NotImplemented";
 }
 
 const editorForField = (contentTypeId, fieldId, editors) => {
