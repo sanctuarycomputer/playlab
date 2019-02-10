@@ -615,6 +615,10 @@ module.exports.init = function (swig) {
   jsonP.safe = true;
   json.safe = true;
 
+  let oldGoogleImageSize;
+  [googleImageSize, oldGoogleImageSize] = 
+    require(`${__dirname}/contentful/decorators/googleImageSize`)(googleImageSize);
+
   swig.setFilter('upper', upper);
   swig.setFilter('slice', slice);
   swig.setFilter('truncate', truncate);

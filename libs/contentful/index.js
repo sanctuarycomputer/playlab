@@ -1,6 +1,3 @@
-// TODO: resize URLs
-// TODO: Validate Logging 
-
 const runMigration = require('contentful-migration/built/bin/cli').runMigration
 const getConfig = require('./getConfig');
 
