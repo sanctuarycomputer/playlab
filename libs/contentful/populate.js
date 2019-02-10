@@ -123,9 +123,7 @@ const buildAssetsForObject = async(environment, obj) => {
   Object.keys(obj.__BUILD_ASSETS__).forEach(key => {
     const assetResult = obj.__BUILD_ASSETS__[key];
 
-    // TODO: Is this where it's getting confused??
     if (!assetResult) {
-      console.log('~~~~~~~~~> YUP, this happened', obj[key]);
       delete obj[key];
       delete obj.__BUILD_ASSETS__[key];
       return;
@@ -506,6 +504,7 @@ module.exports = async function({ webhookData, webhookTypes, detectedInverseRela
   }, Promise.resolve());
 
   await resolveLinksAcrossStack(environment, stack, webhookTypes);
-  await resolveGridItems(environment, stack, webhookTypes);
+  await persistGridItems(environment, stack, webhookTypes);
+
   console.log("~~~~> FINISHED. You're now riding on contentful. Try a `wh serve` and see the magic.");
 }

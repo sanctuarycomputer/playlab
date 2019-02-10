@@ -1,6 +1,7 @@
 const contentfulExport = require('contentful-export');
 const mungeContent = require('../mungeContent');
 const mungeTypes = require('../mungeTypes');
+const getConfig = require('../getConfig');
 
 require('colors');
 
@@ -9,55 +10,50 @@ let _onceStack = [];
 
 const getBucket = () => {
   console.log("webhook2contentful ~~~> Success, we're using contentful!".green);
+  const contentfulConfig = getConfig();
 
   require('jsonfile').readFile(
-    `${__dirname}/../config.json`, 
-    function (err, contentfulConfig) {
+    `${__dirname}/../generatedMeta.json`, 
+    function(err, meta) {
       if (err) return console.error(err);
-      require('jsonfile').readFile(
-        `${__dirname}/../generatedMeta.json`, 
-        function(err, meta) {
-          if (err) return console.error(err);
 
-          contentfulConfig.singletons = meta.oneOff;
-          contentfulExport({
-            spaceId: contentfulConfig.contentfulSpaceId,
-            managementToken: contentfulConfig.contentfulPersonalAccessToken,
-            skipRoles: true,
-            skipWebhooks: true,
-            saveFile: false,
-          }).then((result) => {
-            const mungedTypes = mungeTypes(result, contentfulConfig);
-            const mungedContent = mungeContent(result, contentfulConfig, mungedTypes);
+      contentfulConfig.singletons = meta.oneOff;
+      contentfulExport({
+        spaceId: contentfulConfig.contentfulSpaceId,
+        managementToken: contentfulConfig.contentfulPersonalAccessToken,
+        skipRoles: true,
+        skipWebhooks: true,
+        saveFile: false,
+      }).then((result) => {
+        const mungedTypes = mungeTypes(result, contentfulConfig);
+        const mungedContent = mungeContent(result, contentfulConfig, mungedTypes);
 
-            Object.keys(mungedTypes).forEach(typeKey => {
-              if (typeKey.endsWith("_subitem")) delete mungedTypes[typeKey];
-            });
+        Object.keys(mungedTypes).forEach(typeKey => {
+          if (typeKey.endsWith("_subitem")) delete mungedTypes[typeKey];
+        });
 
-            Object.keys(mungedContent).forEach(typeKey => {
-              if (typeKey.endsWith("_subitem")) delete mungedContent[typeKey];
-            });
+        Object.keys(mungedContent).forEach(typeKey => {
+          if (typeKey.endsWith("_subitem")) delete mungedContent[typeKey];
+        });
 
-            let mungedSettings = {};
-            if (mungedContent["site_settings"]) {
-              mungedSettings = { general: mungedContent["site_settings"] };
-              delete mungedContent["site_settings"];
-            }
-
-            _contentfulResults = {
-              val: function() {
-                return {
-                  data: mungedContent,
-                  contentType: mungedTypes,
-                  settings: mungedSettings,
-                }
-              }
-            };
-            _onceStack.forEach(cb => cb(_contentfulResults));
-            _onceStack = [];
-          });
+        let mungedSettings = {};
+        if (mungedContent["site_settings"]) {
+          mungedSettings = { general: mungedContent["site_settings"] };
+          delete mungedContent["site_settings"];
         }
-      );
+
+        _contentfulResults = {
+          val: function() {
+            return {
+              data: mungedContent,
+              contentType: mungedTypes,
+              settings: mungedSettings,
+            }
+          }
+        };
+        _onceStack.forEach(cb => cb(_contentfulResults));
+        _onceStack = [];
+      });
     }
   );
 

@@ -253,19 +253,6 @@ var isCyclic = function(obj) {
 
   var searchEntryStream = null;
 
-  let oldGetBucket;
-  [getBucket, oldGetBucket] = 
-    require(`${__dirname}/contentful/decorators/getBucket`)(getBucket);
-  this.migrateToContentful = function(done, cb) {
-    oldGetBucket().once('value', function(data) {
-      data = data.val() || {};
-      let typeInfo = data['contentType'] || {};
-      let settings = data['settings'] || {};
-      data = data['data'] || {};
-      require(`${__dirname}/contentful`)(data, typeInfo, settings, done, cb);
-    });
-  }
-
   this.openSearchEntryStream = function(callback) {
     if(config.get('webhook').noSearch === true) {
       callback();
@@ -1641,6 +1628,22 @@ var isCyclic = function(obj) {
   this.enableProduction = function() {
     productionFlag = true;
     swig.setDefaults({ cache: 'memory' });
+  }
+
+  let oldGetBucket;
+  [getBucket, oldGetBucket] = 
+    require(`${__dirname}/contentful/decorators/getBucket`)(getBucket);
+  let oldGetDnsChild;
+  [getDnsChild, oldGetDnsChild] = 
+    require(`${__dirname}/contentful/decorators/getDnsChild`)(getDnsChild);
+  this.migrateToContentful = function(done, cb) {
+    oldGetBucket().once('value', function(data) {
+      data = data.val() || {};
+      let typeInfo = data['contentType'] || {};
+      let settings = data['settings'] || {};
+      data = data['data'] || {};
+      require(`${__dirname}/contentful`)(data, typeInfo, settings, done, cb);
+    });
   }
 
   return this;

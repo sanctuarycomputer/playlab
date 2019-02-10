@@ -53,6 +53,7 @@
     "contentful-export": "^7.4.0",
     "contentful-management": "^5.4.0",
     "contentful-migration": "^0.16.4",
+    "dotenv": "^6.2.0",
     "flatted": "^2.0.0",
     "grunt-browserify": "^5.0.0",
     "grunt-contrib-sass": "^1.0.0",
