@@ -1,5 +1,5 @@
 const Constants = require('./constants');
-const { Types, Widgets, WebhookFieldMappings } = Constants;
+const { Types, Widgets, WebhookFieldMappings, WebhookSiteSettingsType } = Constants;
 
 const applyDisplayField = (ContentType, fieldNames) => {
   if (fieldNames.includes('name')) return ContentType.displayField('name');
@@ -163,8 +163,15 @@ module.exports = function (migration, context) {
   const { 
     webhookData, 
     webhookTypes, 
+    webhookSettings,
     detectedInverseRelationships 
   } = global.webhook2contentful;
+
+  /* Treat settings like any other type */
+  if (webhookSettings && webhookSettings.general) {
+    webhookData['site_settings'] = webhookSettings.general;
+    webhookTypes['site_settings'] = WebhookSiteSettingsType;
+  }
 
   global.webhook2contentful.oneOff = [];
 
@@ -182,31 +189,14 @@ module.exports = function (migration, context) {
     if (webhookTypes[webhookKey].oneOff) {
       global.webhook2contentful.oneOff.push(webhookKey);
     }
-
     webhookTypes[webhookKey].controls.forEach(control => {
       buildWebhookControlForContentType(
         migration, 
         ContentType, 
         control, 
-        detectedInverseRelationships[webhookKey]
+        (detectedInverseRelationships[webhookKey] || [])
       )
     });
     applyDisplayField(ContentType, webhookTypes[webhookKey].controls.map(c => c.name));
   });
-
-  //const GlobalSettings = migration.createContentType('settings')
-  //  .name('Global Settings')
-  //  .description('The global settings for this website.');
-
-  //GlobalSettings.createField('site_description')
-  //  .name('Site Description')
-  //  .type(Types.SYMBOL);
-
-  //GlobalSettings.createField('site_facebook')
-  //  .name('Site Facebook')
-  //  .type(Types.SYMBOL);
-
-  //GlobalSettings.createField('site_keywords')
-  //  .name('Site Keyworkds')
-  //  .type(Types.SYMBOL);
 };

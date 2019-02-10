@@ -1,15 +1,10 @@
-// TODO: load site name from config
-// TODO: refactor data munge
-// TODO: use generatedMeta
-// TODO: list the images that couldnt be uploaded
 // TODO: resize URLs
 // TODO: Global site settings
-// TODO: lose config.singletons
-// TODO: actually use publish_date
+// TODO: Validate Logging 
 
 const runMigration = require('contentful-migration/built/bin/cli').runMigration
 
-module.exports = (webhookData, webhookTypes, done, cb) => {
+module.exports = (webhookData, webhookTypes, webhookSettings, done, cb) => {
   const detectedInverseRelationships = require(`./detectInverseRelationships`)(webhookTypes);
 
   require('jsonfile').readFile(`${__dirname}/config.json`, function (err, config) {
@@ -23,6 +18,7 @@ module.exports = (webhookData, webhookTypes, done, cb) => {
       ...config,
       webhookData,
       webhookTypes,
+      webhookSettings,
       detectedInverseRelationships,
     }; 
 

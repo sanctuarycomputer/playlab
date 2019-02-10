@@ -1,9 +1,5 @@
 const contentful = require('contentful-management');
-
-// TODO: Handle Checkboxes
-
 const ENTRY_TYPES = ['Link', 'Array']; 
-const BROKEN_ASSETS = [];
 
 const cherrypickFields = (webhookDataset, fields, webhookId) => {
   const memo = {};
@@ -13,6 +9,16 @@ const cherrypickFields = (webhookDataset, fields, webhookId) => {
     acc[field.id] = {
       'en-US': webhookDataset[field.id]
     };
+
+    // In validations don't allow nulls. Here we backkport them!
+    const inValidation = field.validations.find(v => Object.keys(v).includes("in"));
+    if (!acc[field.id]['en-US'] && inValidation) {
+      if (inValidation) {
+        acc[field.id] = {
+          'en-US': inValidation["in"][0]
+        };
+      }
+    }
 
     if (field.type === 'Array') {
       if (field.items.linkType === 'Asset') {
@@ -64,17 +70,14 @@ const createAsset = (environment, assetBlueprintItem) => {
       .then(asset => {
         return asset.publish().catch(err => {
           console.log(`🚫 ~~~> Could NOT publish asset ${filename}.`, err);
-          BROKEN_ASSETS.push(`http://${global.webhook2contentful.webhookSiteName}.webhook.org${assetBlueprintItem.url}`);
           throw err;
         });
       }).catch(err => {
         console.log(`🚫 ~~~> Could NOT process asset ${filename} (${assetBlueprintItem.url}).`, err);
-        BROKEN_ASSETS.push(`http://${global.webhook2contentful.webhookSiteName}.webhook.org${assetBlueprintItem.url}`);
         throw err;
       });
   }).catch(err => {
     console.log(`~~~~> Could not create asset`, err);
-    BROKEN_ASSETS.push(`http://${global.webhook2contentful.webhookSiteName}.webhook.org${assetBlueprintItem.url}`);
     throw err;
   });
 }
@@ -396,6 +399,60 @@ const resolveLinksAcrossStack = (environment, stack, webhookTypes) => {
   });
 };
 
+const persistGridItems = (environment, stack, webhookTypes) => {
+  return stack.grids.reduce((chain, gridDataset) => {
+    return chain.then(() => {
+      if (!gridDataset.data) return Promise.resolve();
+      const fauxWebhookKey = `${gridDataset.key}_subitem`;
+
+      /* Load the content type for the grid item */
+      return environment.getContentType(fauxWebhookKey).then(ContentType => {
+        const fauxWebhookType = {
+          oneOff: false,
+          controls: webhookTypes[gridDataset.webhookKey].controls.find(c => c.name === gridDataset.key).controls
+        };
+
+        return createContentfulDataset(
+          environment,
+          ContentType,
+          fauxWebhookKey,
+          fauxWebhookType,
+          gridDataset.data 
+        ).then(({ workingSet, persisted }) => {
+          if (persisted) {
+            /* Resolve the parent */
+            let parentEntry;
+            if (webhookTypes[gridDataset.webhookKey].oneOff) {
+              parentEntry = stack.persisted[gridDataset.webhookKey];
+            } else {
+              parentEntry = stack.persisted[gridDataset.webhookKey][gridDataset.webhookId];
+            }
+            /* Reload the parent entry to avoid 409 Conflicts */
+            return environment.getEntry(parentEntry.sys.id).then(reloadedEntry => {
+              reloadedEntry.fields[gridDataset.key] = {
+                'en-US': Object.values(workingSet).map(entry => ({
+                  sys: { type: 'Link', linkType: 'Entry', id: entry.sys.id }
+                }))
+              }
+              return reloadedEntry.update();
+            }).catch(err => {
+              console.log('Couldnt reload the parent entry for a grid item', err); 
+              return err;
+            });
+          } else {
+            console.log(`!!! ~~~~> Your ${fauxWebhookKey} grid items have relationships! This case is not supported by webhook2contentful yet.`);
+            return Promise.resolve();
+          }
+        });
+      }).catch(err => {
+        console.log('!!! Could not finalize a grid item ~~~~>', gridDataset.data);
+        console.log(err);
+        return err;
+      });
+    });
+  }, Promise.resolve());
+}
+
 module.exports = async function({ webhookData, webhookTypes, detectedInverseRelationships }) {
   const client = contentful.createClient({
     accessToken: global.webhook2contentful.contentfulPersonalAccessToken,
@@ -448,74 +505,7 @@ module.exports = async function({ webhookData, webhookTypes, detectedInverseRela
     });
   }, Promise.resolve());
 
-  await resolveLinksAcrossStack(environment, stack, webhookTypes).then(() => {
-    console.log('~~~> Linking back grid items');
-
-    return Promise.all(stack.grids.map(gridDataset => {
-      if (!gridDataset.data) return Promise.resolve();
-
-      const fauxWebhookKey = `${gridDataset.key}_subitem`;
-      console.log('~~~> will load a content type', fauxWebhookKey);
-      return environment.getContentType(fauxWebhookKey).then(ContentType => {
-        const fauxWebhookType = {
-          oneOff: false,
-          controls: webhookTypes[gridDataset.webhookKey].controls.find(c => c.name === gridDataset.key).controls
-        };
-
-        console.log('~~~> will create grid item', ContentType, fauxWebhookKey, fauxWebhookType, gridDataset.data);
-
-        return createContentfulDataset(
-          environment,
-          ContentType,
-          fauxWebhookKey,
-          fauxWebhookType,
-          gridDataset.data 
-        ).then(({ workingSet, persisted }) => {
-
-          console.log('~~~> did persist a grid item', workingSet, persisted);
-
-          if (persisted) {
-            const persistedSet = stack.persisted[gridDataset.webhookKey];
-            // Parent is not One Off
-            if (webhookTypes[gridDataset.webhookKey].oneOff) {
-              // Parent IS one off
-              persistedSet.fields[gridDataset.key] = {
-                'en-US': Object.values(workingSet).map(entry => ({
-                  sys: { type: 'Link', linkType: 'Entry', id: entry.sys.id }
-                }))
-              }
-              return persistedSet.update();
-            } else {
-              persistedSet[gridDataset.webhookId].fields[gridDataset.key] = {
-                'en-US': Object.values(workingSet).map(entry => ({
-                  sys: { type: 'Link', linkType: 'Entry', id: entry.sys.id }
-                }))
-              }
-              return persistedSet[gridDataset.webhookId].update();
-            }
-          } else {
-            console.log("!!! ~~~~> Grid items were not persisted due to unresolved links! This case is not supported by webhook2contentful yet.");
-            return Promise.resolve();
-          }
-        });
-      }).catch(err => {
-        console.log('!!!! Could not persist a grid item.');
-        console.log(err);
-        // Let it slide
-        return err;
-      });
-    })).then(() => {
-
-      // JSONFlie
-      return new Promise((resolve, reject) => {
-        require('jsonfile').writeFile(`${__dirname}/brokenAssets.json`, {
-          brokenAssets: BROKEN_ASSETS 
-        }, function(err) {
-          if (err) return reject(err);
-          resolve();
-        });
-      });
-
-    });
-  });
+  await resolveLinksAcrossStack(environment, stack, webhookTypes);
+  await resolveGridItems(environment, stack, webhookTypes);
+  console.log("~~~~> FINISHED. You're now riding on contentful. Try a `wh serve` and see the magic.");
 }

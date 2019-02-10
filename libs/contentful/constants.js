@@ -70,6 +70,60 @@ const WebhookFieldMappings = {
   'grid': {},
 }
 
+const WebhookSiteSettingsType = {
+  controls: [{
+    "controlType": "textfield",
+    "hidden": false,
+    "label": "Site Description",
+    "locked": true,
+    "name": "site_description",
+    "required": false,
+    "showInCms": true 
+  }, {
+    "controlType": "textfield",
+    "hidden": false,
+    "label": "Site Facebook",
+    "locked": true,
+    "name": "site_facebook",
+    "required": false,
+    "showInCms": true 
+  }, {
+    "controlType": "textfield",
+    "hidden": false,
+    "label": "Site Keywords",
+    "locked": true,
+    "name": "site_keywords",
+    "required": false,
+    "showInCms": true 
+  }, {
+    "controlType": "textfield",
+    "hidden": false,
+    "label": "Site Name",
+    "locked": true,
+    "name": "site_name",
+    "required": false,
+    "showInCms": true 
+  }, {
+    "controlType": "textfield",
+    "hidden": false,
+    "label": "Site Twitter",
+    "locked": true,
+    "name": "site_twitter",
+    "required": false,
+    "showInCms": true 
+  }, {
+    "controlType": "textfield",
+    "hidden": false,
+    "label": "Site URL",
+    "locked": true,
+    "name": "site_url",
+    "required": false,
+    "showInCms": true 
+  }],
+  name: "Site Settings",
+  oneOff: true
+};
+
 module.exports = {
-  Types, Widgets, WebhookFieldMappings 
+  Types, Widgets, WebhookFieldMappings, WebhookSiteSettingsType
 };

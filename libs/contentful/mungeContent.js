@@ -46,14 +46,8 @@ const deserializeSingularValue = (value, control, result) => {
 }
 
 const deserialize = (entry, mungedTypes, result) => {
-  //publish_date: '2018-12-11T13:41:00-05:00',
-  //console.log(entry)
-  //throw "na";
-  // TODO: this 
-  // Plus ignore entires if they're in draft mode
-  // plus slugs?
   const deserialized = {
-    publish_date: '2018-12-11T13:41:00-05:00'
+    publish_date: entry.sys.publishedAt 
   };
 
   const contentTypeKey = entry.sys.contentType.sys.id;

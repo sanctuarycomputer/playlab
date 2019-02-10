@@ -1,9 +1,5 @@
 'use strict';
 
-const contentfulExport = require('contentful-export');
-const mungeContent = require('./contentful/mungeContent');
-const mungeTypes = require('./contentful/mungeTypes');
-
 // Requires
 var firebase = require('firebase');
 var request = require('request');
@@ -233,6 +229,7 @@ var isCyclic = function(obj) {
 
       getDnsChild().once('value', function(snap) {
         var siteDns = snap.val() || config.get('webhook').siteName + '.webhook.org';
+        console.log(snap.val());
         self.cachedData.siteDns = siteDns;
         swigFilters.setSiteDns(siteDns);
         swigFilters.setFirebaseConf(config.get('webhook'));
@@ -256,94 +253,16 @@ var isCyclic = function(obj) {
 
   var searchEntryStream = null;
 
-  var oldGetData = getData;
-  getData = (cb) => {
-    const fallback = oldGetData;
-    //require(`${__dirname}/contentful/munge`)(oldGetData, callback, self);
-
-    require('jsonfile').readFile(`${__dirname}/contentful/config.json`, function (err, contentfulConfig) {
-      if (err) {
-        console.error(err);
-        if(cb) cb({}, {});
-        return;
-      }
-
-      contentfulExport({
-        spaceId: contentfulConfig.contentfulSpaceId,
-        managementToken: contentfulConfig.contentfulPersonalAccessToken,
-        skipRoles: true,
-        skipWebhooks: true,
-        saveFile: false,
-      }).then((result) => {
-        if (!result.contentTypes.length) {
-          console.log("webhook2contentful ~~~> You've setup webhook2contentful properly, but it appears you haven't run `grunt migrateToContentful` yet, because your contentful space has no content types! For now, we're falling back to the old firebase DB.");
-          oldGetData(cb);
-        } else {
-          //return oldGetData(cb);
-
-          //return fallback((webhookContent, webhookTypes) => {
-          //  const has = Object.values(webhookTypes).find(type => type.controls.find(c => c.controlType === "boolean") );
-          //  console.log(has.controls.find(c => c.controlType === "boolean"));
-          //  cb(webhookContent, webhookTypes); 
-          //});
-
-          console.log("webhook2contentful ~~~> Your Contentful Space isn't empty. Using that instead of firebase!");
-
-          const mungedTypes = mungeTypes(result, contentfulConfig);
-          const mungedContent = mungeContent(result, contentfulConfig, mungedTypes);
-          Object.keys(mungedTypes).forEach(typeKey => {
-            if (typeKey.endsWith("_subitem")) delete mungedTypes[typeKey];
-          });
-          Object.keys(mungedContent).forEach(typeKey => {
-            if (typeKey.endsWith("_subitem")) delete mungedContent[typeKey];
-          });
-
-          const data = mungedContent;
-          const typeInfo = mungedTypes;
-
-          const settings = { 
-            general: { 
-              site_description:
-                'PlayLab is a New York based creative practice founded in 2009. With no particular focus, we explore themes using art, architecture, and graphic design to initiate ideas.',
-              site_facebook: 'theofficeofplaylabinc',
-              site_keywords: 'Design, NYC, Architecture, Plus Pool',
-              site_name: 'PLAYLAB, INC.',
-              site_twitter: 'playlabinc',
-              site_url: 'http://playlab.org' 
-            } 
-          };
-
-          self.cachedData = {
-            data: mungedContent,
-            typeInfo: mungedTypes,
-            settings: settings
-          };
-
-          swigFunctions.setData(mungedContent);
-          swigFunctions.setTypeInfo(mungedTypes);
-          swigFunctions.setSettings(settings);
-          swigFilters.setTypeInfo(mungedTypes);
-
-          getDnsChild().once('value', function(snap) {
-            var siteDns = snap.val() || config.get('webhook').siteName + '.webhook.org';
-            self.cachedData.siteDns = siteDns;
-            swigFilters.setSiteDns(siteDns);
-            swigFilters.setFirebaseConf(config.get('webhook'));
-
-            cb(data, typeInfo);
-          });
-        };
-      }).catch((err) => {
-        console.log('Oh no! Some errors occurred!', err)
-      });
-    });
-
-
-  };
-
+  let oldGetBucket;
+  [getBucket, oldGetBucket] = 
+    require(`${__dirname}/contentful/decorators/getBucket`)(getBucket);
   this.migrateToContentful = function(done, cb) {
-    getData(function(webhookData, webhookTypes) {
-      require(`${__dirname}/contentful`)(webhookData, webhookTypes, done, cb);
+    oldGetBucket().once('value', function(data) {
+      data = data.val() || {};
+      let typeInfo = data['contentType'] || {};
+      let settings = data['settings'] || {};
+      data = data['data'] || {};
+      require(`${__dirname}/contentful`)(data, typeInfo, settings, done, cb);
     });
   }
 
