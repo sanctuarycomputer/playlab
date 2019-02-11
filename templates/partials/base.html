@@ -17,7 +17,7 @@
     <meta name="description" content="{% block description %}{{ site_description|default('Built with Webhook.') }}{% endblock %}">
     <meta name="viewport" content="width=device-width, user-scalable=no" />
 
-    <meta content="{{ site_url }}{{ playlab.share_image.url }}" property="og:image">
+    <meta content="https:{{ playlab.share_image.url }}" property="og:image">
     <meta content="{{ playlab.name }}" property="og:title">
     <meta content="{{ playlab.share_content }}" property="og:description">
 
@@ -25,7 +25,7 @@
     <meta name="twitter:creator" content="@playlabinc">
     <meta name="twitter:title" content="{{ playlab.name }}">
     <meta name="twitter:description" content="{{ playlab.share_content }}">
-    <meta name="twitter:image" content="{{ site_url }}{{ playlab.share_image.url }}">
+    <meta name="twitter:image" content="https:{{ playlab.share_image.url }}">
 
     <link rel="shortcut icon" href="/static/images/j-fav.png">
     <link rel="apple-touch-icon" href="/static/images/touch-icon.png">
