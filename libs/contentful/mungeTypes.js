@@ -1,7 +1,7 @@
 const Constants = require('./constants');
 const { Types, Widgets, WebhookFieldMappings } = Constants;
 
-const controlTypeForField = (field, editor) => {
+const controlTypeForField = (field, editor, originalControls) => {
   if (field.type === Types.ARRAY) {
     if (field.items.linkType === Types.ASSET) {
       const linkValidation = 
@@ -31,11 +31,12 @@ const controlTypeForField = (field, editor) => {
     if (field.linkType === Types.ASSET) {
       const linkValidation = 
         field.validations.find(v => Object.keys(v).includes("linkMimetypeGroup"));
-      if (!linkValidation) throw "Link.Asset.noValidation";
+      if (!linkValidation) {
+        return { controlType: "file" };
+      }
       if (linkValidation.linkMimetypeGroup[0] === "image") {
         return { controlType: "image" };
       }
-      console.log(field);
       throw "Link.Asset.unknownValidation"
     } 
 
@@ -75,6 +76,10 @@ const controlTypeForField = (field, editor) => {
     return { controlType: "textarea" };
   }
 
+  if (field.type === Types.NUMBER) {
+    return { controlType: "number" };
+  }
+
   if (field.type === Types.BOOLEAN) {
     const contentfulControl = editor.controls.find(c => c.fieldId === field.id);
     return {
@@ -90,6 +95,21 @@ const controlTypeForField = (field, editor) => {
   if (field.type === Types.DATE) {
     console.log(field, editor);
     throw "TODO: Date.notImplemented";
+  }
+
+  if (field.type === Types.OBJECT) {
+    // Check the original control
+    const originalControl = (originalControls || []).find(c => c.name === field.id);
+
+    if (originalControl) {
+      return {
+        controlType: originalControl.controlType
+      }
+    }
+
+    return {
+      controlType: "address",
+    };
   }
 
   console.log(field, editor);
@@ -130,7 +150,7 @@ module.exports = (result, config) => {
   const mungedTypes = {};
   result.contentTypes.forEach(entry => {
     mungedTypes[entry.sys.id] = {
-      controls: makeControls(entry, result.editorInterfaces),
+      controls: makeControls(entry, result.editorInterfaces, config.originalControls[entry.sys.id]),
       name: entry.name,
     }
     if (config.singletons.includes(entry.sys.id)) {

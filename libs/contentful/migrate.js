@@ -1,4 +1,6 @@
 const Constants = require('./constants');
+const ignoreWebhookControl = require('./ignoreWebhookControl');
+
 const { Types, Widgets, WebhookFieldMappings, WebhookSiteSettingsType } = Constants;
 
 const applyDisplayField = (ContentType, fieldNames) => {
@@ -8,54 +10,63 @@ const applyDisplayField = (ContentType, fieldNames) => {
   return;
 }
 
-const TAKEN_GRIDITEM_SUBTYPES = [];
+function underscore(text) {
+  return text.toString().toLowerCase()
+    .replace(/\s+/g, '_')           // Replace spaces with _
+    .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
+    .replace(/\-\-+/g, '_')         // Replace multiple - with single _
+    .replace(/^-+/, '')             // Trim - from start of text
+    .replace(/-+$/, '');            // Trim - from end of text
+}
+
+const TAKEN_SUBTYPES = [];
+const makeUniqueSubitemName = (control) => {
+  let count = 0;
+  let originalLabel = `${control.label} Subitem`;
+  let attemptedLabel = `${control.label} Subitem`;
+  let originalName = `${control.name}_subitem`;
+  let attemptedName = `${control.name}_subitem`;
+
+  while (TAKEN_SUBTYPES.includes(attemptedName)) {
+    count++;
+    attemptedName = `${originalName}_v${count}`
+    attemptedLabel = `${originalLabel} (v${count})`
+  }
+
+  TAKEN_SUBTYPES.push(attemptedName);
+  return { name: attemptedName, label: attemptedLabel }
+}
 
 const buildWebhookControlForContentType = (migration, ContentType, control, detectedInverseRelationships) => {
-  if (detectedInverseRelationships.includes(control.name)) {
-    console.warn(`W2C ~~~> Ignoring relationship ${control.name} as it appears to be inverse`);
-    return; 
-  }
-
-  /* Ignore Timestamps & Extra Junk - plus slugs are generated at build time by webhook */
-  if (["slug", "create_date", "last_updated", "publish_date", "preview_url"].includes(control.name)) return;
-
-  /* Ignore "instruction" blocks */
-  if (control.controlType === "instruction") {
-    console.warn(`webhook2contentful ~~~> Ignoring instruction ${control.name} as contentful instructions belong on the field rather than seperate.`, control.help);
-    return;
-  }
+  if (ignoreWebhookControl(control, detectedInverseRelationships)) return false;
 
   if (control.controlType === "embedly") {
     console.warn(`webhook2contentful ~~~> Treating ${control.name} as a string, as Contentful doesn't support embedly.`);
-    return;
   }
 
   const controlMapping = WebhookFieldMappings[control.controlType];
   if (!controlMapping) {
-    console.log(control, control.meta);
+    console.log(ContentType, control, control.meta);
     throw new Error(`webhook2contentful ~~~> No mapping for webhook control: ${control.controlType}`);
   }
 
   let defaultValidations = [];
 
   /* Pull out Grid Types into subtypes */
+  let gridSubtype = null; 
   if (control.controlType === 'grid') {
-    const subItemType = `${control.name}_subitem`;
-    if (TAKEN_GRIDITEM_SUBTYPES.includes(subItemType)) {
-      throw new Error("webhook2contentful ~~~> Dang. You've got a couple of different grids (list item types) in your webhook model that have the same key name. Right now, this isn't a scenario we handle, please reach out to @_HHFF on twitter for some ideas");
-    }
-    const GridSubItemContentType = buildWebhookType(migration, `${control.name}_subitem`, `${control.label} Subitem`);
+    const { name, label } = makeUniqueSubitemName(control);
+    gridSubtype = name;
+    const GridSubItemContentType = buildWebhookType(migration, name, label);
     control.controls.forEach(control => {
       buildWebhookControlForContentType(migration, GridSubItemContentType, control, []);
     });
     applyDisplayField(GridSubItemContentType, control.controls.map(c => c.name));
-    TAKEN_GRIDITEM_SUBTYPES.push(subItemType);
   }
 
   /* Init the field */
   const Field = ContentType.createField(control.name)
-    .name(control.label)
-    .required(control.required);
+    .name(control.label);
 
   let type = controlMapping.contentfulType;
 
@@ -84,7 +95,7 @@ const buildWebhookControlForContentType = (migration, ContentType, control, dete
       type: Types.LINK,
       linkType: Types.ENTRY,
       validations: [{
-        linkContentType: [`${control.name}_subitem`]
+        linkContentType: [gridSubtype]
       }]
     });
     ContentType.changeEditorInterface(control.name, Widgets.ENTRY_LINKS_EDITOR, {
@@ -114,6 +125,11 @@ const buildWebhookControlForContentType = (migration, ContentType, control, dete
 
   // Editors & Extra Validations
   switch(control.controlType) {
+    case 'wysiwyg': {
+      ContentType.changeEditorInterface(control.name, Widgets.MULTIPLE_LINE);
+      break;
+    }
+
     case 'url': {
       ContentType.changeEditorInterface(control.name, Widgets.URL_EDITOR);
       break;
@@ -121,6 +137,15 @@ const buildWebhookControlForContentType = (migration, ContentType, control, dete
 
     case 'select': {
       ContentType.changeEditorInterface(control.name, Widgets.DROPDOWN);
+      const { options } = control.meta;
+      defaultValidations = [...defaultValidations, {
+        in: options.map(o => o.value)
+      }];
+      break;
+    }
+
+    case 'radio': {
+      ContentType.changeEditorInterface(control.name, Widgets.RADIO);
       const { options } = control.meta;
       defaultValidations = [...defaultValidations, {
         in: options.map(o => o.value)
@@ -173,6 +198,7 @@ module.exports = function (migration, context) {
   }
 
   global.webhook2contentful.oneOff = [];
+  global.webhook2contentful.originalControls = {};
 
   /* Build our Main content types */
   const ContentTypeTuples = Object.keys(webhookTypes).map(webhookKey => {
@@ -188,6 +214,9 @@ module.exports = function (migration, context) {
     if (webhookTypes[webhookKey].oneOff) {
       global.webhook2contentful.oneOff.push(webhookKey);
     }
+
+    global.webhook2contentful.originalControls[webhookKey] = webhookTypes[webhookKey].controls;
+
     webhookTypes[webhookKey].controls.forEach(control => {
       buildWebhookControlForContentType(
         migration, 

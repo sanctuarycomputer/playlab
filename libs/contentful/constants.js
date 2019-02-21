@@ -17,16 +17,33 @@ const Types = {
 const Widgets = {
   DROPDOWN: 'dropdown',
   CHECKBOX: 'checkbox',
+  RADIO: 'radio',
   URL_EDITOR: 'urlEditor',
   SLUG_EDITOR: 'slugEditor',
   BOOLEAN: 'boolean',
   ENTRY_LINK_EDITOR: 'entryLinkEditor',
   ENTRY_LINKS_EDITOR: 'entryLinksEditor',
   ENTRY_CARDS_EDITOR: 'entryCardsEditor',
-  ASSET_GALLERY_EDITOR: 'assetGalleryEditor'
+  ASSET_GALLERY_EDITOR: 'assetGalleryEditor',
+  MULTIPLE_LINE: 'multipleLine'
 };
 
 const WebhookFieldMappings = {
+  'number': {
+    contentfulType: Types.NUMBER
+  },
+  'radio': {
+    contentfulType: Types.SYMBOL
+  },
+  'wysiwyg': {
+    contentfulType: Types.TEXT
+  },
+  'address': {
+    contentfulType: Types.OBJECT
+  },
+  'tabular': {
+    contentfulType: Types.OBJECT
+  },
   'textfield': {
     contentfulType: Types.SYMBOL
   },
@@ -43,7 +60,7 @@ const WebhookFieldMappings = {
     contentfulType: Types.SYMBOL,
   },
   'embedly': {
-    contentfulType: Types.SYMBOL,
+    contentfulType: Types.TEXT,
   },
   'email': {
     contentfulType: Types.SYMBOL
@@ -72,7 +89,7 @@ const WebhookFieldMappings = {
 
 const WebhookSiteSettingsType = {
   controls: [{
-    "controlType": "textfield",
+    "controlType": "textarea",
     "hidden": false,
     "label": "Site Description",
     "locked": true,
