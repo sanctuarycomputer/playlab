@@ -215,7 +215,7 @@ module.exports = function (migration, context) {
       global.webhook2contentful.oneOff.push(webhookKey);
     }
 
-    global.webhook2contentful.originalControls[webhookKey] = webhookTypes[webhookKey].controls;
+    global.webhook2contentful.originalControls[webhookKey] = webhookTypes[webhookKey].controls || {};
 
     webhookTypes[webhookKey].controls.forEach(control => {
       buildWebhookControlForContentType(
